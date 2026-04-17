@@ -1,0 +1,2554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex — 1ª Geração Kanto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #13162a;
+      --bg3: #1a1f38;
+      --surface: #1e2440;
+      --surface2: #252c4a;
+      --border: #2e3660;
+      --accent: #e63946;
+      --accent2: #ff6b6b;
+      --gold: #ffd166;
+      --text: #e8eaf6;
+      --text-muted: #8892b0;
+      --text-dim: #4a5278;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+      --glow: 0 0 20px rgba(230,57,70,0.3);
+      --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+
+      /* Type colors */
+      --Normal: #a8a878; --Fire: #f08030; --Water: #6890f0;
+      --Electric: #f8d030; --Grass: #78c850; --Ice: #98d8d8;
+      --Fighting: #c03028; --Poison: #a040a0; --Ground: #e0c068;
+      --Flying: #a890f0; --Psychic: #f85888; --Bug: #a8b820;
+      --Rock: #b8a038; --Ghost: #705898; --Dragon: #7038f8;
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== ANIMATED BACKGROUND ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(230,57,70,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 90%, rgba(104,144,240,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 50% 50%, rgba(30,36,64,0.8) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 48px 24px 36px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(13,15,26,0.9) 0%, transparent 100%);
+    }
+    .header-pokeball {
+      width: 60px; height: 60px;
+      margin: 0 auto 20px;
+      position: relative;
+      animation: spin 8s linear infinite;
+    }
+    .header-pokeball svg { width: 100%; height: 100%; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    header h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(14px, 3vw, 22px);
+      color: var(--accent);
+      text-shadow: 0 0 30px rgba(230,57,70,0.6), 2px 2px 0 rgba(0,0,0,0.8);
+      letter-spacing: 2px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .pokemon-count {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 800;
+      margin-top: 10px;
+    }
+
+    /* ===== SEARCH ===== */
+    .search-bar {
+      position: relative;
+      z-index: 10;
+      max-width: 500px;
+      margin: 28px auto 0;
+      padding: 0 24px;
+    }
+    .search-bar input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 14px 24px 14px 48px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.15);
+    }
+    .search-bar input::placeholder { color: var(--text-dim); }
+    .search-icon {
+      position: absolute;
+      left: 42px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    main {
+      position: relative;
+      z-index: 5;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    /* ===== TYPE FILTERS ===== */
+    .filter-section { margin-bottom: 36px; }
+    .filter-section h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-btn {
+      padding: 7px 16px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    .filter-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .filter-btn:hover::before { opacity: 1; }
+    .filter-btn.active {
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3), var(--shadow);
+      transform: translateY(-2px);
+    }
+    .filter-btn-all {
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .filter-btn-all.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding: 12px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .stats-bar span { font-size: 13px; color: var(--text-muted); font-weight: 700; }
+    .stats-bar strong { color: var(--gold); }
+
+    /* ===== VIEW TOGGLE ===== */
+    .view-toggle { display: flex; gap: 6px; }
+    .view-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all var(--transition);
+    }
+    .view-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    /* ===== GRID / TABLE CONTAINER ===== */
+    #pokemon-container {
+      transition: opacity 0.25s ease;
+    }
+    #pokemon-container.loading { opacity: 0.4; }
+
+    /* ===== CARDS GRID ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    /* ===== POKEMON CARD ===== */
+    .pokemon-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      animation: cardIn 0.4s ease both;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+    .pokemon-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.03) 100%);
+      pointer-events: none;
+    }
+    .pokemon-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--type-color, var(--accent));
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--type-color, var(--accent));
+    }
+    .card-number {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .card-sprite {
+      width: 96px; height: 96px;
+      margin: 0 auto 12px;
+      display: block;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+      transition: transform 0.3s ease;
+    }
+    .pokemon-card:hover .card-sprite { transform: scale(1.12) translateY(-4px); }
+    .card-name {
+      font-weight: 900;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .type-badges {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .type-badge {
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+    .card-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+    .card-info-label {
+      color: var(--text-dim);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 60px;
+    }
+    .card-info-value {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-align: right;
+      font-size: 11px;
+    }
+    .weakness-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      justify-content: flex-end;
+    }
+    .weakness-chip {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .weakness-4x { outline: 2px solid rgba(255,255,255,0.5); }
+
+    /* ===== TABLE VIEW ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead tr {
+      background: var(--surface2);
+      border-bottom: 2px solid var(--border);
+    }
+    th {
+      padding: 14px 16px;
+      text-align: left;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    th.sortable { cursor: pointer; user-select: none; }
+    th.sortable:hover { color: var(--text); }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    tbody tr:hover { background: var(--surface2); cursor: pointer; }
+    td { padding: 12px 16px; vertical-align: middle; }
+    .td-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }
+    .td-sprite {
+      width: 48px; height: 48px;
+      image-rendering: pixelated;
+      display: block;
+    }
+    .td-name { font-weight: 800; font-size: 14px; }
+    .td-ability { color: var(--text-muted); font-size: 12px; }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,7,15,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+    .modal-header {
+      padding: 32px 32px 24px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition);
+    }
+    .modal-close:hover { background: var(--accent); border-color: var(--accent); color: white; }
+    .modal-number {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .modal-title {
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .modal-sprite {
+      width: 120px; height: 120px;
+      image-rendering: pixelated;
+      float: right;
+      margin: -60px 0 0 20px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    }
+    .modal-body { padding: 24px 32px 32px; }
+    .modal-section { margin-bottom: 24px; }
+    .modal-section-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .ability-list { display: flex; flex-direction: column; gap: 6px; }
+    .ability-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .ability-tag {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      background: var(--bg3);
+      color: var(--text-dim);
+    }
+    .ability-tag.hidden {
+      background: rgba(248,88,136,0.15);
+      color: var(--accent2);
+    }
+    .evo-chain {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .evo-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: transform var(--transition);
+    }
+    .evo-step:hover { transform: scale(1.08); }
+    .evo-step img {
+      width: 56px; height: 56px;
+      image-rendering: pixelated;
+    }
+    .evo-step-name { font-size: 11px; font-weight: 800; color: var(--text); }
+    .evo-step-num { font-size: 9px; color: var(--text-dim); font-family: 'Press Start 2P', monospace; }
+    .evo-arrow { color: var(--text-dim); font-size: 20px; }
+    .evo-method {
+      font-size: 9px;
+      color: var(--gold);
+      font-weight: 800;
+      background: rgba(255,209,102,0.1);
+      border: 1px solid rgba(255,209,102,0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+    .evo-arrow-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+
+    .weakness-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .weakness-item {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mult-label {
+      background: rgba(0,0,0,0.3);
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: 9px;
+    }
+
+    .moves-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 6px;
+    }
+    .move-item {
+      padding: 6px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .move-level {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-dim);
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-dim);
+    }
+    .empty-state p { font-size: 20px; margin-bottom: 8px; }
+    .empty-state span { font-size: 13px; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+      header h1 { font-size: 11px; }
+      .modal-body { padding: 20px; }
+      .modal-header { padding: 24px 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-pokeball">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="#2e3660" stroke-width="4"/>
+      <path d="M2,50 Q2,2 50,2 Q98,2 98,50 Z" fill="#e63946" opacity="0.9"/>
+      <path d="M2,50 Q2,98 50,98 Q98,98 98,50 Z" fill="#13162a" opacity="0.9"/>
+      <line x1="2" y1="50" x2="98" y2="50" stroke="#2e3660" stroke-width="4"/>
+      <circle cx="50" cy="50" r="14" fill="#1e2440" stroke="#2e3660" stroke-width="4"/>
+      <circle cx="50" cy="50" r="7" fill="#e63946"/>
+    </svg>
+  </div>
+  <h1>POKÉDEX<br/>1ª GERAÇÃO</h1>
+  <p>Região de Kanto — 151 Pokémon</p>
+  <div class="pokemon-count">⭐ Todos os 151 Pokémon</div>
+
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Buscar por nome ou número..." autocomplete="off" />
+  </div>
+</header>
+
+<main>
+  <div class="filter-section">
+    <h2>Filtrar por Tipo</h2>
+    <div class="filter-buttons" id="filter-buttons"></div>
+  </div>
+
+  <div class="stats-bar">
+    <span>Exibindo <strong id="count-display">0</strong> Pokémon</span>
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <span id="active-filter-label" style="color:var(--accent); font-size:12px; font-weight:800;"></span>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btn-card" title="Cards">⊞</button>
+        <button class="view-btn" id="btn-table" title="Tabela">☰</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pokemon-container"></div>
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header" id="modal-header">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div class="modal-number" id="modal-number"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="type-badges" id="modal-types"></div>
+      <img class="modal-sprite" id="modal-sprite" src="" alt="" />
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Abilities</div>
+        <div class="ability-list" id="modal-abilities"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Evolução</div>
+        <div class="evo-chain" id="modal-evo"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Fraquezas</div>
+        <div class="weakness-grid" id="modal-weaknesses"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Resistências & Imunidades</div>
+        <div class="weakness-grid" id="modal-resistances"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Moves por Level (Gen 1)</div>
+        <div class="moves-grid" id="modal-level-moves"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">TMs (Gen 1)</div>
+        <div class="moves-grid" id="modal-tm-moves"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// JSON COMPLETO — 151 POKÉMON DA 1ª GERAÇÃO
+// =====================================================
+const POKEMON_DATA = [
+  {
+    id: 1, name: "Bulbasaur",
+    types: ["Grass","Poison"],
+    abilities: ["Overgrow"], hiddenAbility: "Chlorophyll",
+    evolution: { chain: [1,2,3], methods: ["Lv.16","Lv.32"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Water","Electric"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Growl"},{lv:7,move:"Leech Seed"},{lv:13,move:"Vine Whip"},{lv:20,move:"Poison Powder"},{lv:27,move:"Razor Leaf"},{lv:34,move:"Growth"},{lv:41,move:"Sleep Powder"},{lv:48,move:"Solar Beam"}],
+    tmMoves: ["Swords Dance","Toxic","Body Slam","Take Down","Double Edge","Mega Drain","Solar Beam","Razor Wind","Mimic","Double Team","Reflect","Bide","Rest","Substitute"]
+  },
+  {
+    id: 2, name: "Ivysaur",
+    types: ["Grass","Poison"],
+    abilities: ["Overgrow"], hiddenAbility: "Chlorophyll",
+    evolution: { chain: [1,2,3], methods: ["Lv.16","Lv.32"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Water","Electric"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Growl"},{lv:7,move:"Leech Seed"},{lv:13,move:"Vine Whip"},{lv:22,move:"Poison Powder"},{lv:30,move:"Razor Leaf"},{lv:38,move:"Growth"},{lv:46,move:"Sleep Powder"},{lv:54,move:"Solar Beam"}],
+    tmMoves: ["Swords Dance","Toxic","Body Slam","Take Down","Double Edge","Mega Drain","Solar Beam","Razor Wind","Mimic","Double Team","Reflect","Bide","Rest","Substitute"]
+  },
+  {
+    id: 3, name: "Venusaur",
+    types: ["Grass","Poison"],
+    abilities: ["Overgrow"], hiddenAbility: "Chlorophyll",
+    evolution: { chain: [1,2,3], methods: ["Lv.16","Lv.32"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Water","Electric"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Growl"},{lv:7,move:"Leech Seed"},{lv:13,move:"Vine Whip"},{lv:22,move:"Poison Powder"},{lv:30,move:"Razor Leaf"},{lv:43,move:"Growth"},{lv:55,move:"Sleep Powder"},{lv:65,move:"Solar Beam"}],
+    tmMoves: ["Swords Dance","Toxic","Body Slam","Take Down","Double Edge","Mega Drain","Solar Beam","Razor Wind","Mimic","Double Team","Reflect","Bide","Rest","Substitute"]
+  },
+  {
+    id: 4, name: "Charmander",
+    types: ["Fire"],
+    abilities: ["Blaze"], hiddenAbility: "Solar Power",
+    evolution: { chain: [4,5,6], methods: ["Lv.16","Lv.36"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Growl"},{lv:9,move:"Ember"},{lv:15,move:"Leer"},{lv:22,move:"Rage"},{lv:30,move:"Slash"},{lv:38,move:"Flamethrower"},{lv:46,move:"Fire Spin"}],
+    tmMoves: ["Mega Punch","Swords Dance","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Rage","Flamethrower","Fire Blast","Slash","Mimic","Double Team","Bide","Fire Blast","Swift","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 5, name: "Charmeleon",
+    types: ["Fire"],
+    abilities: ["Blaze"], hiddenAbility: "Solar Power",
+    evolution: { chain: [4,5,6], methods: ["Lv.16","Lv.36"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Growl"},{lv:9,move:"Ember"},{lv:15,move:"Leer"},{lv:24,move:"Rage"},{lv:33,move:"Slash"},{lv:42,move:"Flamethrower"},{lv:56,move:"Fire Spin"}],
+    tmMoves: ["Mega Punch","Swords Dance","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Rage","Flamethrower","Fire Blast","Slash","Mimic","Double Team","Bide","Swift","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 6, name: "Charizard",
+    types: ["Fire","Flying"],
+    abilities: ["Blaze"], hiddenAbility: "Solar Power",
+    evolution: { chain: [4,5,6], methods: ["Lv.16","Lv.36"] },
+    weaknesses: { "2x":["Water","Electric","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Bug","Steel","Fairy","Fighting"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Growl"},{lv:9,move:"Ember"},{lv:15,move:"Leer"},{lv:24,move:"Rage"},{lv:36,move:"Slash"},{lv:46,move:"Flamethrower"},{lv:55,move:"Fire Spin"}],
+    tmMoves: ["Mega Punch","Swords Dance","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Rage","Flamethrower","Fire Blast","Wing Attack","Slash","Mimic","Double Team","Bide","Swift","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 7, name: "Squirtle",
+    types: ["Water"],
+    abilities: ["Torrent"], hiddenAbility: "Rain Dish",
+    evolution: { chain: [7,8,9], methods: ["Lv.16","Lv.36"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:8,move:"Bubble"},{lv:15,move:"Withdraw"},{lv:22,move:"Water Gun"},{lv:28,move:"Bite"},{lv:35,move:"Rapid Spin"},{lv:42,move:"Protect"},{lv:52,move:"Rain Dance"},{lv:59,move:"Skull Bash"},{lv:66,move:"Hydro Pump"}],
+    tmMoves: ["Mega Punch","Toxic","Body Slam","Take Down","Double Edge","Bubble Beam","Water Gun","Ice Beam","Blizzard","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Surf"]
+  },
+  {
+    id: 8, name: "Wartortle",
+    types: ["Water"],
+    abilities: ["Torrent"], hiddenAbility: "Rain Dish",
+    evolution: { chain: [7,8,9], methods: ["Lv.16","Lv.36"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:8,move:"Bubble"},{lv:15,move:"Withdraw"},{lv:24,move:"Water Gun"},{lv:31,move:"Bite"},{lv:39,move:"Rapid Spin"},{lv:47,move:"Protect"},{lv:54,move:"Rain Dance"},{lv:62,move:"Hydro Pump"}],
+    tmMoves: ["Mega Punch","Toxic","Body Slam","Take Down","Double Edge","Bubble Beam","Water Gun","Ice Beam","Blizzard","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Surf"]
+  },
+  {
+    id: 9, name: "Blastoise",
+    types: ["Water"],
+    abilities: ["Torrent"], hiddenAbility: "Rain Dish",
+    evolution: { chain: [7,8,9], methods: ["Lv.16","Lv.36"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:8,move:"Bubble"},{lv:15,move:"Withdraw"},{lv:24,move:"Water Gun"},{lv:31,move:"Bite"},{lv:42,move:"Rapid Spin"},{lv:52,move:"Protect"},{lv:59,move:"Rain Dance"},{lv:68,move:"Hydro Pump"}],
+    tmMoves: ["Mega Punch","Toxic","Body Slam","Take Down","Double Edge","Bubble Beam","Water Gun","Ice Beam","Blizzard","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Surf"]
+  },
+  {
+    id: 10, name: "Caterpie",
+    types: ["Bug"],
+    abilities: ["Shield Dust"], hiddenAbility: "Run Away",
+    evolution: { chain: [10,11,12], methods: ["Lv.7","Lv.10"] },
+    weaknesses: { "2x":["Fire","Flying","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Ground"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"String Shot"}],
+    tmMoves: []
+  },
+  {
+    id: 11, name: "Metapod",
+    types: ["Bug"],
+    abilities: ["Shed Skin"], hiddenAbility: null,
+    evolution: { chain: [10,11,12], methods: ["Lv.7","Lv.10"] },
+    weaknesses: { "2x":["Fire","Flying","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Ground"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Harden"}],
+    tmMoves: []
+  },
+  {
+    id: 12, name: "Butterfree",
+    types: ["Bug","Flying"],
+    abilities: ["Compound Eyes"], hiddenAbility: "Tinted Lens",
+    evolution: { chain: [10,11,12], methods: ["Lv.7","Lv.10"] },
+    weaknesses: { "2x":["Fire","Electric","Ice","Flying","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Bug"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Confusion"},{lv:12,move:"Confusion"},{lv:15,move:"Poison Powder"},{lv:16,move:"Stun Spore"},{lv:17,move:"Sleep Powder"},{lv:21,move:"Supersonic"},{lv:26,move:"Whirlwind"},{lv:32,move:"Psybeam"},{lv:36,move:"Silver Wind"},{lv:38,move:"Safeguard"},{lv:43,move:"Gust"},{lv:50,move:"Attract"}],
+    tmMoves: ["Toxic","Psybeam","Mimic","Double Team","Reflect","Bide","Rest","Psychic"]
+  },
+  {
+    id: 13, name: "Weedle",
+    types: ["Bug","Poison"],
+    abilities: ["Shield Dust"], hiddenAbility: "Run Away",
+    evolution: { chain: [13,14,15], methods: ["Lv.7","Lv.10"] },
+    weaknesses: { "2x":["Fire","Flying","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Poison Sting"},{lv:1,move:"String Shot"}],
+    tmMoves: []
+  },
+  {
+    id: 14, name: "Kakuna",
+    types: ["Bug","Poison"],
+    abilities: ["Shed Skin"], hiddenAbility: null,
+    evolution: { chain: [13,14,15], methods: ["Lv.7","Lv.10"] },
+    weaknesses: { "2x":["Fire","Flying","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Harden"}],
+    tmMoves: []
+  },
+  {
+    id: 15, name: "Beedrill",
+    types: ["Bug","Poison"],
+    abilities: ["Swarm"], hiddenAbility: "Sniper",
+    evolution: { chain: [13,14,15], methods: ["Lv.7","Lv.10"] },
+    weaknesses: { "2x":["Fire","Flying","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Fury Attack"},{lv:12,move:"Fury Attack"},{lv:16,move:"Focus Energy"},{lv:20,move:"Twineedle"},{lv:25,move:"Rage"},{lv:30,move:"Pin Missile"},{lv:35,move:"Agility"}],
+    tmMoves: ["Toxic","Twin Needle","Mega Drain","Mimic","Double Team","Rest","Swift","Substitute"]
+  },
+  {
+    id: 16, name: "Pidgey",
+    types: ["Normal","Flying"],
+    abilities: ["Keen Eye","Tangled Feet"], hiddenAbility: "Big Pecks",
+    evolution: { chain: [16,17,18], methods: ["Lv.18","Lv.36"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Sand Attack"},{lv:9,move:"Gust"},{lv:15,move:"Quick Attack"},{lv:22,move:"Whirlwind"},{lv:29,move:"Wing Attack"},{lv:36,move:"Agility"},{lv:44,move:"Mirror Move"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Sky Attack","Swift","Rest","Substitute"]
+  },
+  {
+    id: 17, name: "Pidgeotto",
+    types: ["Normal","Flying"],
+    abilities: ["Keen Eye","Tangled Feet"], hiddenAbility: "Big Pecks",
+    evolution: { chain: [16,17,18], methods: ["Lv.18","Lv.36"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Sand Attack"},{lv:9,move:"Gust"},{lv:15,move:"Quick Attack"},{lv:23,move:"Whirlwind"},{lv:31,move:"Wing Attack"},{lv:39,move:"Agility"},{lv:47,move:"Mirror Move"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Sky Attack","Swift","Rest","Substitute"]
+  },
+  {
+    id: 18, name: "Pidgeot",
+    types: ["Normal","Flying"],
+    abilities: ["Keen Eye","Tangled Feet"], hiddenAbility: "Big Pecks",
+    evolution: { chain: [16,17,18], methods: ["Lv.18","Lv.36"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Sand Attack"},{lv:9,move:"Gust"},{lv:15,move:"Quick Attack"},{lv:23,move:"Whirlwind"},{lv:31,move:"Wing Attack"},{lv:44,move:"Agility"},{lv:54,move:"Mirror Move"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Sky Attack","Swift","Rest","Substitute"]
+  },
+  {
+    id: 19, name: "Rattata",
+    types: ["Normal"],
+    abilities: ["Run Away","Guts"], hiddenAbility: "Hustle",
+    evolution: { chain: [19,20], methods: ["Lv.20"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:9,move:"Quick Attack"},{lv:14,move:"Hyper Fang"},{lv:23,move:"Focus Energy"},{lv:34,move:"Super Fang"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Rest","Substitute"]
+  },
+  {
+    id: 20, name: "Raticate",
+    types: ["Normal"],
+    abilities: ["Run Away","Guts"], hiddenAbility: "Hustle",
+    evolution: { chain: [19,20], methods: ["Lv.20"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:9,move:"Quick Attack"},{lv:14,move:"Hyper Fang"},{lv:27,move:"Focus Energy"},{lv:41,move:"Super Fang"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Rest","Substitute","Blizzard","Ice Beam"]
+  },
+  {
+    id: 21, name: "Spearow",
+    types: ["Normal","Flying"],
+    abilities: ["Keen Eye"], hiddenAbility: "Sniper",
+    evolution: { chain: [21,22], methods: ["Lv.20"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:1,move:"Growl"},{lv:9,move:"Leer"},{lv:15,move:"Fury Attack"},{lv:22,move:"Mirror Move"},{lv:29,move:"Drill Peck"},{lv:36,move:"Agility"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Sky Attack","Swift","Rest","Substitute"]
+  },
+  {
+    id: 22, name: "Fearow",
+    types: ["Normal","Flying"],
+    abilities: ["Keen Eye"], hiddenAbility: "Sniper",
+    evolution: { chain: [21,22], methods: ["Lv.20"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:1,move:"Growl"},{lv:9,move:"Leer"},{lv:15,move:"Fury Attack"},{lv:25,move:"Mirror Move"},{lv:34,move:"Drill Peck"},{lv:43,move:"Agility"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Sky Attack","Swift","Rest","Substitute"]
+  },
+  {
+    id: 23, name: "Ekans",
+    types: ["Poison"],
+    abilities: ["Intimidate","Shed Skin"], hiddenAbility: "Unnerve",
+    evolution: { chain: [23,24], methods: ["Lv.22"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Wrap"},{lv:1,move:"Leer"},{lv:9,move:"Poison Sting"},{lv:15,move:"Bite"},{lv:23,move:"Glare"},{lv:30,move:"Screech"},{lv:38,move:"Acid"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Rest","Substitute","Earthquake","Dig","Rock Slide"]
+  },
+  {
+    id: 24, name: "Arbok",
+    types: ["Poison"],
+    abilities: ["Intimidate","Shed Skin"], hiddenAbility: "Unnerve",
+    evolution: { chain: [23,24], methods: ["Lv.22"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Wrap"},{lv:1,move:"Leer"},{lv:9,move:"Poison Sting"},{lv:15,move:"Bite"},{lv:25,move:"Glare"},{lv:33,move:"Screech"},{lv:41,move:"Acid"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Rest","Substitute","Earthquake","Dig","Rock Slide"]
+  },
+  {
+    id: 25, name: "Pikachu",
+    types: ["Electric"],
+    abilities: ["Static"], hiddenAbility: "Lightning Rod",
+    evolution: { chain: [25,26], methods: ["Thunder Stone"] },
+    weaknesses: { "2x":["Ground"], "4x":[] },
+    resistances: { "0.5x":["Electric","Flying","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Thunder Shock"},{lv:1,move:"Growl"},{lv:9,move:"Tail Whip"},{lv:16,move:"Thunder Wave"},{lv:26,move:"Quick Attack"},{lv:33,move:"Double Team"},{lv:41,move:"Slam"},{lv:50,move:"Thunderbolt"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Flash","Rest","Substitute","Thunder Wave"]
+  },
+  {
+    id: 26, name: "Raichu",
+    types: ["Electric"],
+    abilities: ["Static"], hiddenAbility: "Lightning Rod",
+    evolution: { chain: [25,26], methods: ["Thunder Stone"] },
+    weaknesses: { "2x":["Ground"], "4x":[] },
+    resistances: { "0.5x":["Electric","Flying","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Thunder Shock"},{lv:1,move:"Tail Whip"},{lv:1,move:"Quick Attack"},{lv:1,move:"Thunderbolt"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Flash","Rest","Substitute","Surf"]
+  },
+  {
+    id: 27, name: "Sandshrew",
+    types: ["Ground"],
+    abilities: ["Sand Veil"], hiddenAbility: "Sand Rush",
+    evolution: { chain: [27,28], methods: ["Lv.22"] },
+    weaknesses: { "2x":["Water","Grass","Ice"], "4x":[] },
+    resistances: { "0.5x":["Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:10,move:"Sand Attack"},{lv:17,move:"Slash"},{lv:24,move:"Poison Sting"},{lv:31,move:"Swift"},{lv:38,move:"Fury Swipes"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Earthquake","Dig","Rock Slide","Rest","Substitute","Swift"]
+  },
+  {
+    id: 28, name: "Sandslash",
+    types: ["Ground"],
+    abilities: ["Sand Veil"], hiddenAbility: "Sand Rush",
+    evolution: { chain: [27,28], methods: ["Lv.22"] },
+    weaknesses: { "2x":["Water","Grass","Ice"], "4x":[] },
+    resistances: { "0.5x":["Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:10,move:"Sand Attack"},{lv:17,move:"Slash"},{lv:27,move:"Poison Sting"},{lv:36,move:"Swift"},{lv:47,move:"Fury Swipes"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Earthquake","Dig","Rock Slide","Rest","Substitute","Swift"]
+  },
+  {
+    id: 29, name: "Nidoran♀",
+    types: ["Poison"],
+    abilities: ["Poison Point","Rivalry"], hiddenAbility: "Hustle",
+    evolution: { chain: [29,30,31], methods: ["Lv.16","Moon Stone"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Growl"},{lv:1,move:"Scratch"},{lv:8,move:"Tail Whip"},{lv:14,move:"Bite"},{lv:23,move:"Fury Swipes"},{lv:32,move:"Double Kick"},{lv:41,move:"Poison Sting"},{lv:50,move:"Scratch"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Blizzard","Ice Beam","Thunderbolt","Thunder","Rest","Substitute","Bubblebeam"]
+  },
+  {
+    id: 30, name: "Nidorina",
+    types: ["Poison"],
+    abilities: ["Poison Point","Rivalry"], hiddenAbility: "Hustle",
+    evolution: { chain: [29,30,31], methods: ["Lv.16","Moon Stone"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Growl"},{lv:1,move:"Scratch"},{lv:8,move:"Tail Whip"},{lv:14,move:"Bite"},{lv:23,move:"Fury Swipes"},{lv:32,move:"Double Kick"},{lv:41,move:"Poison Sting"},{lv:50,move:"Scratch"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Blizzard","Ice Beam","Thunderbolt","Thunder","Rest","Substitute","Bubblebeam"]
+  },
+  {
+    id: 31, name: "Nidoqueen",
+    types: ["Poison","Ground"],
+    abilities: ["Poison Point","Rivalry"], hiddenAbility: "Sheer Force",
+    evolution: { chain: [29,30,31], methods: ["Lv.16","Moon Stone"] },
+    weaknesses: { "2x":["Water","Ice","Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Scratch"},{lv:8,move:"Tail Whip"},{lv:14,move:"Bite"},{lv:23,move:"Fury Swipes"},{lv:32,move:"Double Kick"},{lv:41,move:"Poison Sting"},{lv:50,move:"Body Slam"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Blizzard","Ice Beam","Thunderbolt","Thunder","Rest","Substitute","Surf","Rock Slide"]
+  },
+  {
+    id: 32, name: "Nidoran♂",
+    types: ["Poison"],
+    abilities: ["Poison Point","Rivalry"], hiddenAbility: "Hustle",
+    evolution: { chain: [32,33,34], methods: ["Lv.16","Moon Stone"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Leer"},{lv:1,move:"Peck"},{lv:8,move:"Focus Energy"},{lv:14,move:"Double Kick"},{lv:23,move:"Poison Sting"},{lv:32,move:"Horn Attack"},{lv:41,move:"Fury Attack"},{lv:50,move:"Horn Drill"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Blizzard","Ice Beam","Thunderbolt","Thunder","Rest","Substitute"]
+  },
+  {
+    id: 33, name: "Nidorino",
+    types: ["Poison"],
+    abilities: ["Poison Point","Rivalry"], hiddenAbility: "Hustle",
+    evolution: { chain: [32,33,34], methods: ["Lv.16","Moon Stone"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Leer"},{lv:1,move:"Peck"},{lv:8,move:"Focus Energy"},{lv:14,move:"Double Kick"},{lv:23,move:"Poison Sting"},{lv:32,move:"Horn Attack"},{lv:41,move:"Fury Attack"},{lv:50,move:"Horn Drill"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Blizzard","Ice Beam","Thunderbolt","Thunder","Rest","Substitute"]
+  },
+  {
+    id: 34, name: "Nidoking",
+    types: ["Poison","Ground"],
+    abilities: ["Poison Point","Rivalry"], hiddenAbility: "Sheer Force",
+    evolution: { chain: [32,33,34], methods: ["Lv.16","Moon Stone"] },
+    weaknesses: { "2x":["Water","Ice","Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Horn Attack"},{lv:8,move:"Focus Energy"},{lv:14,move:"Double Kick"},{lv:23,move:"Poison Sting"},{lv:32,move:"Horn Drill"},{lv:41,move:"Thrash"},{lv:50,move:"Megahorn"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Blizzard","Ice Beam","Thunderbolt","Thunder","Rest","Substitute","Surf","Rock Slide","Megahorn"]
+  },
+  {
+    id: 35, name: "Clefairy",
+    types: ["Normal"],
+    abilities: ["Cute Charm","Magic Guard"], hiddenAbility: "Friend Guard",
+    evolution: { chain: [35,36], methods: ["Moon Stone"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Growl"},{lv:9,move:"Sing"},{lv:14,move:"Double Slap"},{lv:19,move:"Minimize"},{lv:26,move:"Metronome"},{lv:34,move:"Defense Curl"},{lv:41,move:"Light Screen"},{lv:48,move:"Double Edge"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Rage","Thunderbolt","Thunder","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Metronome","Fire Blast","Swift","Skull Bash","Soft Boiled","Rest","Substitute","Bubblebeam","Ice Beam","Blizzard","Solar Beam","Flamethrower","Thunder Wave"]
+  },
+  {
+    id: 36, name: "Clefable",
+    types: ["Normal"],
+    abilities: ["Cute Charm","Magic Guard"], hiddenAbility: "Unaware",
+    evolution: { chain: [35,36], methods: ["Moon Stone"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Sing"},{lv:1,move:"Double Slap"},{lv:1,move:"Minimize"},{lv:1,move:"Metronome"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Rage","Thunderbolt","Thunder","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Metronome","Fire Blast","Swift","Skull Bash","Soft Boiled","Rest","Substitute","Bubblebeam","Ice Beam","Blizzard","Solar Beam","Flamethrower"]
+  },
+  {
+    id: 37, name: "Vulpix",
+    types: ["Fire"],
+    abilities: ["Flash Fire"], hiddenAbility: "Drought",
+    evolution: { chain: [37,38], methods: ["Fire Stone"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Ember"},{lv:8,move:"Tail Whip"},{lv:15,move:"Roar"},{lv:21,move:"Quick Attack"},{lv:28,move:"Fire Spin"},{lv:35,move:"Confuse Ray"},{lv:42,move:"Flamethrower"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Fire Blast","Swift","Rest","Substitute","Flamethrower"]
+  },
+  {
+    id: 38, name: "Ninetales",
+    types: ["Fire"],
+    abilities: ["Flash Fire"], hiddenAbility: "Drought",
+    evolution: { chain: [37,38], methods: ["Fire Stone"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Ember"},{lv:1,move:"Quick Attack"},{lv:1,move:"Confuse Ray"},{lv:1,move:"Fire Spin"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Fire Blast","Swift","Rest","Substitute","Flamethrower"]
+  },
+  {
+    id: 39, name: "Jigglypuff",
+    types: ["Normal"],
+    abilities: ["Cute Charm"], hiddenAbility: "Friend Guard",
+    evolution: { chain: [39,40], methods: ["Moon Stone"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Sing"},{lv:9,move:"Pound"},{lv:14,move:"Disable"},{lv:19,move:"Defense Curl"},{lv:24,move:"Double Slap"},{lv:29,move:"Rest"},{lv:39,move:"Body Slam"},{lv:44,move:"Double Edge"},{lv:49,move:"Mimic"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Psychic","Mimic","Double Team","Reflect","Bide","Metronome","Fire Blast","Swift","Skull Bash","Softboiled","Rest","Substitute","Ice Beam","Blizzard","Flamethrower","Thunder Wave"]
+  },
+  {
+    id: 40, name: "Wigglytuff",
+    types: ["Normal"],
+    abilities: ["Cute Charm"], hiddenAbility: "Frisk",
+    evolution: { chain: [39,40], methods: ["Moon Stone"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Sing"},{lv:1,move:"Disable"},{lv:1,move:"Defense Curl"},{lv:1,move:"Double Slap"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Psychic","Mimic","Double Team","Reflect","Bide","Metronome","Fire Blast","Swift","Skull Bash","Softboiled","Rest","Substitute","Ice Beam","Blizzard","Flamethrower"]
+  },
+  {
+    id: 41, name: "Zubat",
+    types: ["Poison","Flying"],
+    abilities: ["Inner Focus"], hiddenAbility: "Infiltrator",
+    evolution: { chain: [41,42], methods: ["Lv.22"] },
+    weaknesses: { "2x":["Electric","Ice","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Leech Life"},{lv:10,move:"Supersonic"},{lv:15,move:"Bite"},{lv:21,move:"Confuse Ray"},{lv:28,move:"Wing Attack"},{lv:36,move:"Haze"}],
+    tmMoves: ["Toxic","Mimic","Double Team","Bide","Swift","Rest","Substitute"]
+  },
+  {
+    id: 42, name: "Golbat",
+    types: ["Poison","Flying"],
+    abilities: ["Inner Focus"], hiddenAbility: "Infiltrator",
+    evolution: { chain: [41,42], methods: ["Lv.22"] },
+    weaknesses: { "2x":["Electric","Ice","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Leech Life"},{lv:10,move:"Supersonic"},{lv:15,move:"Bite"},{lv:21,move:"Confuse Ray"},{lv:32,move:"Wing Attack"},{lv:43,move:"Haze"}],
+    tmMoves: ["Toxic","Mimic","Double Team","Bide","Swift","Rest","Substitute"]
+  },
+  {
+    id: 43, name: "Oddish",
+    types: ["Grass","Poison"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Run Away",
+    evolution: { chain: [43,44,45], methods: ["Lv.21","Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Absorb"},{lv:15,move:"Poison Powder"},{lv:17,move:"Stun Spore"},{lv:19,move:"Sleep Powder"},{lv:24,move:"Acid"},{lv:33,move:"Petal Dance"},{lv:46,move:"Solar Beam"}],
+    tmMoves: ["Toxic","Mega Drain","Solar Beam","Mimic","Double Team","Reflect","Bide","Rest","Substitute"]
+  },
+  {
+    id: 44, name: "Gloom",
+    types: ["Grass","Poison"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Stench",
+    evolution: { chain: [43,44,45], methods: ["Lv.21","Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Absorb"},{lv:15,move:"Poison Powder"},{lv:17,move:"Stun Spore"},{lv:19,move:"Sleep Powder"},{lv:28,move:"Acid"},{lv:38,move:"Petal Dance"},{lv:52,move:"Solar Beam"}],
+    tmMoves: ["Toxic","Mega Drain","Solar Beam","Mimic","Double Team","Reflect","Bide","Rest","Substitute"]
+  },
+  {
+    id: 45, name: "Vileplume",
+    types: ["Grass","Poison"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Effect Spore",
+    evolution: { chain: [43,44,45], methods: ["Lv.21","Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Absorb"},{lv:15,move:"Stun Spore"},{lv:17,move:"Sleep Powder"},{lv:19,move:"Petal Dance"},{lv:28,move:"Acid"},{lv:38,move:"Solar Beam"}],
+    tmMoves: ["Toxic","Mega Drain","Solar Beam","Mimic","Double Team","Reflect","Bide","Rest","Substitute"]
+  },
+  {
+    id: 46, name: "Paras",
+    types: ["Bug","Grass"],
+    abilities: ["Effect Spore","Dry Skin"], hiddenAbility: "Damp",
+    evolution: { chain: [46,47], methods: ["Lv.24"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Bug","Poison"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Ground","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:13,move:"Stun Spore"},{lv:20,move:"Leech Life"},{lv:27,move:"Spore"},{lv:34,move:"Slash"},{lv:41,move:"Growth"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mega Drain","Solar Beam","Mimic","Double Team","Bide","Rest","Substitute","Rock Slide","Swords Dance"]
+  },
+  {
+    id: 47, name: "Parasect",
+    types: ["Bug","Grass"],
+    abilities: ["Effect Spore","Dry Skin"], hiddenAbility: "Damp",
+    evolution: { chain: [46,47], methods: ["Lv.24"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Bug","Poison"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Ground","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:13,move:"Stun Spore"},{lv:20,move:"Leech Life"},{lv:30,move:"Spore"},{lv:39,move:"Slash"},{lv:48,move:"Growth"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mega Drain","Solar Beam","Mimic","Double Team","Bide","Rest","Substitute","Rock Slide","Swords Dance"]
+  },
+  {
+    id: 48, name: "Venonat",
+    types: ["Bug","Poison"],
+    abilities: ["Compound Eyes","Tinted Lens"], hiddenAbility: "Run Away",
+    evolution: { chain: [48,49], methods: ["Lv.31"] },
+    weaknesses: { "2x":["Fire","Flying","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Disable"},{lv:24,move:"Poison Powder"},{lv:27,move:"Leech Life"},{lv:30,move:"Stun Spore"},{lv:35,move:"Psybeam"},{lv:38,move:"Sleep Powder"},{lv:43,move:"Psychic"}],
+    tmMoves: ["Toxic","Mimic","Double Team","Bide","Rest","Substitute","Psychic","Mega Drain"]
+  },
+  {
+    id: 49, name: "Venomoth",
+    types: ["Bug","Poison"],
+    abilities: ["Shield Dust","Tinted Lens"], hiddenAbility: "Wonder Skin",
+    evolution: { chain: [48,49], methods: ["Lv.31"] },
+    weaknesses: { "2x":["Fire","Flying","Psychic","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Disable"},{lv:24,move:"Poison Powder"},{lv:27,move:"Leech Life"},{lv:30,move:"Stun Spore"},{lv:38,move:"Psybeam"},{lv:43,move:"Sleep Powder"},{lv:50,move:"Psychic"}],
+    tmMoves: ["Toxic","Mimic","Double Team","Bide","Rest","Substitute","Psychic","Mega Drain"]
+  },
+  {
+    id: 50, name: "Diglett",
+    types: ["Ground"],
+    abilities: ["Sand Veil","Arena Trap"], hiddenAbility: "Sand Force",
+    evolution: { chain: [50,51], methods: ["Lv.26"] },
+    weaknesses: { "2x":["Water","Grass","Ice"], "4x":[] },
+    resistances: { "0.5x":["Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:15,move:"Growl"},{lv:19,move:"Dig"},{lv:24,move:"Sand Attack"},{lv:31,move:"Slash"},{lv:40,move:"Earthquake"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Rest","Substitute","Rock Slide"]
+  },
+  {
+    id: 51, name: "Dugtrio",
+    types: ["Ground"],
+    abilities: ["Sand Veil","Arena Trap"], hiddenAbility: "Sand Force",
+    evolution: { chain: [50,51], methods: ["Lv.26"] },
+    weaknesses: { "2x":["Water","Grass","Ice"], "4x":[] },
+    resistances: { "0.5x":["Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:15,move:"Growl"},{lv:19,move:"Dig"},{lv:24,move:"Sand Attack"},{lv:35,move:"Slash"},{lv:47,move:"Earthquake"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Rest","Substitute","Rock Slide"]
+  },
+  {
+    id: 52, name: "Meowth",
+    types: ["Normal"],
+    abilities: ["Pickup","Technician"], hiddenAbility: "Unnerve",
+    evolution: { chain: [52,53], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Growl"},{lv:12,move:"Bite"},{lv:17,move:"Pay Day"},{lv:24,move:"Screech"},{lv:33,move:"Fury Swipes"},{lv:44,move:"Slash"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 53, name: "Persian",
+    types: ["Normal"],
+    abilities: ["Limber","Technician"], hiddenAbility: "Unnerve",
+    evolution: { chain: [52,53], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Growl"},{lv:12,move:"Bite"},{lv:17,move:"Pay Day"},{lv:24,move:"Screech"},{lv:37,move:"Fury Swipes"},{lv:51,move:"Slash"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Skull Bash","Rest","Substitute","Bubblebeam","Blizzard","Ice Beam"]
+  },
+  {
+    id: 54, name: "Psyduck",
+    types: ["Water"],
+    abilities: ["Damp","Cloud Nine"], hiddenAbility: "Swift Swim",
+    evolution: { chain: [54,55], methods: ["Lv.33"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:28,move:"Tail Whip"},{lv:31,move:"Disable"},{lv:36,move:"Confusion"},{lv:43,move:"Fury Swipes"},{lv:52,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Water Gun","Ice Beam","Blizzard","Amnesia","Psychic","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Surf","Flash"]
+  },
+  {
+    id: 55, name: "Golduck",
+    types: ["Water"],
+    abilities: ["Damp","Cloud Nine"], hiddenAbility: "Swift Swim",
+    evolution: { chain: [54,55], methods: ["Lv.33"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:28,move:"Tail Whip"},{lv:31,move:"Disable"},{lv:39,move:"Confusion"},{lv:48,move:"Fury Swipes"},{lv:59,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Water Gun","Ice Beam","Blizzard","Amnesia","Psychic","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Surf","Flash"]
+  },
+  {
+    id: 56, name: "Mankey",
+    types: ["Fighting"],
+    abilities: ["Vital Spirit","Anger Point"], hiddenAbility: "Defiant",
+    evolution: { chain: [56,57], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Leer"},{lv:15,move:"Karate Chop"},{lv:21,move:"Fury Swipes"},{lv:27,move:"Focus Energy"},{lv:33,move:"Seismic Toss"},{lv:39,move:"Thrash"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide"]
+  },
+  {
+    id: 57, name: "Primeape",
+    types: ["Fighting"],
+    abilities: ["Vital Spirit","Anger Point"], hiddenAbility: "Defiant",
+    evolution: { chain: [56,57], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Leer"},{lv:15,move:"Karate Chop"},{lv:21,move:"Fury Swipes"},{lv:27,move:"Focus Energy"},{lv:37,move:"Seismic Toss"},{lv:46,move:"Thrash"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide"]
+  },
+  {
+    id: 58, name: "Growlithe",
+    types: ["Fire"],
+    abilities: ["Intimidate","Flash Fire"], hiddenAbility: "Justified",
+    evolution: { chain: [58,59], methods: ["Fire Stone"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bite"},{lv:1,move:"Roar"},{lv:18,move:"Ember"},{lv:23,move:"Leer"},{lv:30,move:"Take Down"},{lv:39,move:"Agility"},{lv:50,move:"Flamethrower"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Swift","Rest","Substitute"]
+  },
+  {
+    id: 59, name: "Arcanine",
+    types: ["Fire"],
+    abilities: ["Intimidate","Flash Fire"], hiddenAbility: "Justified",
+    evolution: { chain: [58,59], methods: ["Fire Stone"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Roar"},{lv:1,move:"Ember"},{lv:1,move:"Leer"},{lv:1,move:"Take Down"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Swift","Rest","Substitute"]
+  },
+  {
+    id: 60, name: "Poliwag",
+    types: ["Water"],
+    abilities: ["Water Absorb","Damp"], hiddenAbility: "Swift Swim",
+    evolution: { chain: [60,61,62], methods: ["Lv.25","Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:16,move:"Hypnosis"},{lv:19,move:"Water Gun"},{lv:25,move:"Double Slap"},{lv:31,move:"Body Slam"},{lv:38,move:"Amnesia"},{lv:45,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Body Slam","Earthquake"]
+  },
+  {
+    id: 61, name: "Poliwhirl",
+    types: ["Water"],
+    abilities: ["Water Absorb","Damp"], hiddenAbility: "Swift Swim",
+    evolution: { chain: [60,61,62], methods: ["Lv.25","Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:16,move:"Hypnosis"},{lv:19,move:"Water Gun"},{lv:26,move:"Double Slap"},{lv:33,move:"Body Slam"},{lv:41,move:"Amnesia"},{lv:49,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Mega Punch","Mega Kick","Submission","Counter","Seismic Toss","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Earthquake","Body Slam"]
+  },
+  {
+    id: 62, name: "Poliwrath",
+    types: ["Water","Fighting"],
+    abilities: ["Water Absorb","Damp"], hiddenAbility: "Swift Swim",
+    evolution: { chain: [60,61,62], methods: ["Lv.25","Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel","Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:16,move:"Hypnosis"},{lv:19,move:"Water Gun"},{lv:26,move:"Double Slap"},{lv:33,move:"Body Slam"},{lv:41,move:"Amnesia"},{lv:49,move:"Submission"}],
+    tmMoves: ["Toxic","Mega Punch","Mega Kick","Submission","Counter","Seismic Toss","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Earthquake","Body Slam","Rock Slide"]
+  },
+  {
+    id: 63, name: "Abra",
+    types: ["Psychic"],
+    abilities: ["Synchronize","Inner Focus"], hiddenAbility: "Magic Guard",
+    evolution: { chain: [63,64,65], methods: ["Lv.16","Trade"] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Teleport"}],
+    tmMoves: ["Toxic","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Flash","Rest","Substitute","Thunder Wave"]
+  },
+  {
+    id: 64, name: "Kadabra",
+    types: ["Psychic"],
+    abilities: ["Synchronize","Inner Focus"], hiddenAbility: "Magic Guard",
+    evolution: { chain: [63,64,65], methods: ["Lv.16","Trade"] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Teleport"},{lv:16,move:"Confusion"},{lv:20,move:"Disable"},{lv:27,move:"Psybeam"},{lv:31,move:"Recover"},{lv:38,move:"Psychic"},{lv:42,move:"Reflect"}],
+    tmMoves: ["Toxic","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Flash","Rest","Substitute","Thunder Wave","Seismic Toss"]
+  },
+  {
+    id: 65, name: "Alakazam",
+    types: ["Psychic"],
+    abilities: ["Synchronize","Inner Focus"], hiddenAbility: "Magic Guard",
+    evolution: { chain: [63,64,65], methods: ["Lv.16","Trade"] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Teleport"},{lv:16,move:"Confusion"},{lv:20,move:"Disable"},{lv:27,move:"Psybeam"},{lv:31,move:"Recover"},{lv:38,move:"Psychic"},{lv:42,move:"Reflect"}],
+    tmMoves: ["Toxic","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Flash","Rest","Substitute","Thunder Wave","Seismic Toss","Counter","Mega Punch","Mega Kick"]
+  },
+  {
+    id: 66, name: "Machop",
+    types: ["Fighting"],
+    abilities: ["Guts","No Guard"], hiddenAbility: "Steadfast",
+    evolution: { chain: [66,67,68], methods: ["Lv.28","Trade"] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Karate Chop"},{lv:20,move:"Low Kick"},{lv:25,move:"Leer"},{lv:32,move:"Focus Energy"},{lv:39,move:"Seismic Toss"},{lv:46,move:"Submission"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Earthquake","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide","Fissure"]
+  },
+  {
+    id: 67, name: "Machoke",
+    types: ["Fighting"],
+    abilities: ["Guts","No Guard"], hiddenAbility: "Steadfast",
+    evolution: { chain: [66,67,68], methods: ["Lv.28","Trade"] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Karate Chop"},{lv:20,move:"Low Kick"},{lv:25,move:"Leer"},{lv:36,move:"Focus Energy"},{lv:44,move:"Seismic Toss"},{lv:52,move:"Submission"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Earthquake","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide","Fissure"]
+  },
+  {
+    id: 68, name: "Machamp",
+    types: ["Fighting"],
+    abilities: ["Guts","No Guard"], hiddenAbility: "Steadfast",
+    evolution: { chain: [66,67,68], methods: ["Lv.28","Trade"] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Karate Chop"},{lv:20,move:"Low Kick"},{lv:25,move:"Leer"},{lv:36,move:"Focus Energy"},{lv:44,move:"Seismic Toss"},{lv:52,move:"Submission"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Earthquake","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide","Fissure"]
+  },
+  {
+    id: 69, name: "Bellsprout",
+    types: ["Grass","Poison"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Gluttony",
+    evolution: { chain: [69,70,71], methods: ["Lv.21","Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Vine Whip"},{lv:1,move:"Growth"},{lv:13,move:"Wrap"},{lv:15,move:"Poison Powder"},{lv:18,move:"Sleep Powder"},{lv:26,move:"Stun Spore"},{lv:29,move:"Acid"},{lv:38,move:"Razor Leaf"},{lv:47,move:"Slam"}],
+    tmMoves: ["Toxic","Mega Drain","Mimic","Double Team","Bide","Rest","Substitute","Solar Beam","Razor Wind"]
+  },
+  {
+    id: 70, name: "Weepinbell",
+    types: ["Grass","Poison"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Gluttony",
+    evolution: { chain: [69,70,71], methods: ["Lv.21","Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Vine Whip"},{lv:1,move:"Growth"},{lv:13,move:"Wrap"},{lv:15,move:"Poison Powder"},{lv:18,move:"Sleep Powder"},{lv:29,move:"Stun Spore"},{lv:33,move:"Acid"},{lv:44,move:"Razor Leaf"},{lv:55,move:"Slam"}],
+    tmMoves: ["Toxic","Mega Drain","Mimic","Double Team","Bide","Rest","Substitute","Solar Beam","Razor Wind"]
+  },
+  {
+    id: 71, name: "Victreebel",
+    types: ["Grass","Poison"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Gluttony",
+    evolution: { chain: [69,70,71], methods: ["Lv.21","Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Vine Whip"},{lv:1,move:"Growth"},{lv:13,move:"Wrap"},{lv:15,move:"Poison Powder"},{lv:18,move:"Sleep Powder"},{lv:29,move:"Stun Spore"},{lv:33,move:"Acid"},{lv:44,move:"Razor Leaf"},{lv:55,move:"Slam"}],
+    tmMoves: ["Toxic","Mega Drain","Mimic","Double Team","Bide","Rest","Substitute","Solar Beam","Razor Wind"]
+  },
+  {
+    id: 72, name: "Tentacool",
+    types: ["Water","Poison"],
+    abilities: ["Clear Body","Liquid Ooze"], hiddenAbility: "Rain Dish",
+    evolution: { chain: [72,73], methods: ["Lv.30"] },
+    weaknesses: { "2x":["Electric","Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Poison Sting"},{lv:7,move:"Supersonic"},{lv:13,move:"Constrict"},{lv:18,move:"Acid"},{lv:22,move:"Bubblebeam"},{lv:27,move:"Wrap"},{lv:33,move:"Barrier"},{lv:40,move:"Water Gun"},{lv:48,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Mega Drain"]
+  },
+  {
+    id: 73, name: "Tentacruel",
+    types: ["Water","Poison"],
+    abilities: ["Clear Body","Liquid Ooze"], hiddenAbility: "Rain Dish",
+    evolution: { chain: [72,73], methods: ["Lv.30"] },
+    weaknesses: { "2x":["Electric","Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Poison Sting"},{lv:7,move:"Supersonic"},{lv:13,move:"Constrict"},{lv:18,move:"Acid"},{lv:22,move:"Bubblebeam"},{lv:27,move:"Wrap"},{lv:35,move:"Barrier"},{lv:43,move:"Water Gun"},{lv:50,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Mega Drain"]
+  },
+  {
+    id: 74, name: "Geodude",
+    types: ["Rock","Ground"],
+    abilities: ["Rock Head","Sturdy"], hiddenAbility: "Sand Veil",
+    evolution: { chain: [74,75,76], methods: ["Lv.25","Trade"] },
+    weaknesses: { "2x":["Water","Grass","Ice","Fighting","Ground","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:11,move:"Defense Curl"},{lv:16,move:"Rock Throw"},{lv:21,move:"Self Destruct"},{lv:26,move:"Harden"},{lv:31,move:"Earthquake"},{lv:36,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Submission","Earthquake","Dig","Mimic","Double Team","Bide","Rock Slide","Rest","Substitute","Explosion","Self Destruct"]
+  },
+  {
+    id: 75, name: "Graveler",
+    types: ["Rock","Ground"],
+    abilities: ["Rock Head","Sturdy"], hiddenAbility: "Sand Veil",
+    evolution: { chain: [74,75,76], methods: ["Lv.25","Trade"] },
+    weaknesses: { "2x":["Water","Grass","Ice","Fighting","Ground","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:11,move:"Defense Curl"},{lv:16,move:"Rock Throw"},{lv:21,move:"Self Destruct"},{lv:29,move:"Harden"},{lv:36,move:"Earthquake"},{lv:43,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Submission","Earthquake","Dig","Mimic","Double Team","Bide","Rock Slide","Rest","Substitute","Explosion","Self Destruct"]
+  },
+  {
+    id: 76, name: "Golem",
+    types: ["Rock","Ground"],
+    abilities: ["Rock Head","Sturdy"], hiddenAbility: "Sand Veil",
+    evolution: { chain: [74,75,76], methods: ["Lv.25","Trade"] },
+    weaknesses: { "2x":["Water","Grass","Ice","Fighting","Ground","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:11,move:"Defense Curl"},{lv:16,move:"Rock Throw"},{lv:21,move:"Self Destruct"},{lv:29,move:"Harden"},{lv:36,move:"Earthquake"},{lv:43,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Submission","Earthquake","Dig","Mimic","Double Team","Bide","Rock Slide","Rest","Substitute","Explosion","Self Destruct","Fissure"]
+  },
+  {
+    id: 77, name: "Ponyta",
+    types: ["Fire"],
+    abilities: ["Run Away","Flash Fire"], hiddenAbility: "Flame Body",
+    evolution: { chain: [77,78], methods: ["Lv.40"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:30,move:"Growl"},{lv:32,move:"Tail Whip"},{lv:35,move:"Ember"},{lv:39,move:"Stomp"},{lv:43,move:"Fire Spin"},{lv:48,move:"Take Down"},{lv:55,move:"Agility"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Swift","Rest","Substitute","Agility"]
+  },
+  {
+    id: 78, name: "Rapidash",
+    types: ["Fire"],
+    abilities: ["Run Away","Flash Fire"], hiddenAbility: "Flame Body",
+    evolution: { chain: [77,78], methods: ["Lv.40"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:30,move:"Growl"},{lv:32,move:"Tail Whip"},{lv:35,move:"Ember"},{lv:39,move:"Stomp"},{lv:40,move:"Fire Spin"},{lv:47,move:"Agility"},{lv:55,move:"Fury Attack"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Swift","Rest","Substitute","Horn Drill","Agility"]
+  },
+  {
+    id: 79, name: "Slowpoke",
+    types: ["Water","Psychic"],
+    abilities: ["Oblivious","Own Tempo"], hiddenAbility: "Regenerator",
+    evolution: { chain: [79,80], methods: ["Lv.37"] },
+    weaknesses: { "2x":["Electric","Grass","Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel","Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Confusion"},{lv:18,move:"Disable"},{lv:22,move:"Headbutt"},{lv:27,move:"Growl"},{lv:33,move:"Water Gun"},{lv:40,move:"Amnesia"},{lv:48,move:"Psychic"}],
+    tmMoves: ["Toxic","Psychic","Bubblebeam","Surf","Blizzard","Ice Beam","Amnesia","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Flash","Thunder Wave","Earthquake","Earthquake","Dig"]
+  },
+  {
+    id: 80, name: "Slowbro",
+    types: ["Water","Psychic"],
+    abilities: ["Oblivious","Own Tempo"], hiddenAbility: "Regenerator",
+    evolution: { chain: [79,80], methods: ["Lv.37"] },
+    weaknesses: { "2x":["Electric","Grass","Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel","Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Confusion"},{lv:18,move:"Disable"},{lv:22,move:"Headbutt"},{lv:27,move:"Growl"},{lv:33,move:"Water Gun"},{lv:37,move:"Withdraw"},{lv:44,move:"Amnesia"},{lv:55,move:"Psychic"}],
+    tmMoves: ["Toxic","Psychic","Bubblebeam","Surf","Blizzard","Ice Beam","Amnesia","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Flash","Thunder Wave","Earthquake","Flamethrower","Fire Blast"]
+  },
+  {
+    id: 81, name: "Magnemite",
+    types: ["Electric","Steel"],
+    abilities: ["Magnet Pull","Sturdy"], hiddenAbility: "Analytic",
+    evolution: { chain: [81,82], methods: ["Lv.30"] },
+    weaknesses: { "2x":["Fire","Fighting","Ground"], "4x":[] },
+    resistances: { "0.5x":["Normal","Electric","Flying","Steel","Grass","Ice","Psychic","Bug","Rock","Dragon","Fairy"], "0.25x":[], "immune":["Poison"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Thunder Shock"},{lv:21,move:"Sonic Boom"},{lv:25,move:"Thunder Wave"},{lv:29,move:"Supersonic"},{lv:35,move:"Swift"},{lv:41,move:"Screech"},{lv:47,move:"Thunder"}],
+    tmMoves: ["Toxic","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Rest","Substitute","Flash","Thunder Wave","Reflect"]
+  },
+  {
+    id: 82, name: "Magneton",
+    types: ["Electric","Steel"],
+    abilities: ["Magnet Pull","Sturdy"], hiddenAbility: "Analytic",
+    evolution: { chain: [81,82], methods: ["Lv.30"] },
+    weaknesses: { "2x":["Fire","Fighting","Ground"], "4x":[] },
+    resistances: { "0.5x":["Normal","Electric","Flying","Steel","Grass","Ice","Psychic","Bug","Rock","Dragon","Fairy"], "0.25x":[], "immune":["Poison"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Thunder Shock"},{lv:21,move:"Sonic Boom"},{lv:25,move:"Thunder Wave"},{lv:29,move:"Supersonic"},{lv:38,move:"Swift"},{lv:46,move:"Screech"},{lv:54,move:"Thunder"}],
+    tmMoves: ["Toxic","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Rest","Substitute","Flash","Thunder Wave","Reflect"]
+  },
+  {
+    id: 83, name: "Farfetch'd",
+    types: ["Normal","Flying"],
+    abilities: ["Keen Eye","Inner Focus"], hiddenAbility: "Defiant",
+    evolution: { chain: [83], methods: [] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:1,move:"Sand Attack"},{lv:9,move:"Leer"},{lv:17,move:"Fury Attack"},{lv:25,move:"Swords Dance"},{lv:33,move:"Agility"},{lv:41,move:"Slash"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Swift","Swords Dance","Sky Attack","Rest","Substitute"]
+  },
+  {
+    id: 84, name: "Doduo",
+    types: ["Normal","Flying"],
+    abilities: ["Run Away","Early Bird"], hiddenAbility: "Tangled Feet",
+    evolution: { chain: [84,85], methods: ["Lv.31"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:20,move:"Growl"},{lv:24,move:"Fury Attack"},{lv:30,move:"Drill Peck"},{lv:36,move:"Rage"},{lv:40,move:"Tri Attack"},{lv:44,move:"Agility"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Swift","Rest","Substitute","Agility"]
+  },
+  {
+    id: 85, name: "Dodrio",
+    types: ["Normal","Flying"],
+    abilities: ["Run Away","Early Bird"], hiddenAbility: "Tangled Feet",
+    evolution: { chain: [84,85], methods: ["Lv.31"] },
+    weaknesses: { "2x":["Electric","Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground","Ghost"] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:20,move:"Growl"},{lv:24,move:"Fury Attack"},{lv:30,move:"Drill Peck"},{lv:39,move:"Rage"},{lv:45,move:"Tri Attack"},{lv:51,move:"Agility"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Swift","Rest","Substitute","Agility","Drill Peck"]
+  },
+  {
+    id: 86, name: "Seel",
+    types: ["Water"],
+    abilities: ["Thick Fat","Hydration"], hiddenAbility: "Ice Body",
+    evolution: { chain: [86,87], methods: ["Lv.34"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Headbutt"},{lv:30,move:"Growl"},{lv:35,move:"Aurora Beam"},{lv:40,move:"Rest"},{lv:45,move:"Take Down"},{lv:50,move:"Ice Beam"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Body Slam","Take Down"]
+  },
+  {
+    id: 87, name: "Dewgong",
+    types: ["Water","Ice"],
+    abilities: ["Thick Fat","Hydration"], hiddenAbility: "Ice Body",
+    evolution: { chain: [86,87], methods: ["Lv.34"] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Rock"], "4x":[] },
+    resistances: { "0.5x":["Water","Ice"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Headbutt"},{lv:30,move:"Growl"},{lv:35,move:"Aurora Beam"},{lv:44,move:"Rest"},{lv:50,move:"Take Down"},{lv:56,move:"Ice Beam"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Body Slam","Take Down","Sheer Cold"]
+  },
+  {
+    id: 88, name: "Grimer",
+    types: ["Poison"],
+    abilities: ["Stench","Sticky Hold"], hiddenAbility: "Poison Touch",
+    evolution: { chain: [88,89], methods: ["Lv.38"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Disable"},{lv:30,move:"Poison Gas"},{lv:33,move:"Minimize"},{lv:37,move:"Sludge"},{lv:42,move:"Harden"},{lv:48,move:"Self Destruct"},{lv:55,move:"Acid Armor"},{lv:63,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Mega Drain","Mimic","Double Team","Bide","Rest","Substitute","Sludge","Earthquake","Explosion","Self Destruct"]
+  },
+  {
+    id: 89, name: "Muk",
+    types: ["Poison"],
+    abilities: ["Stench","Sticky Hold"], hiddenAbility: "Poison Touch",
+    evolution: { chain: [88,89], methods: ["Lv.38"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Disable"},{lv:30,move:"Poison Gas"},{lv:33,move:"Minimize"},{lv:37,move:"Sludge"},{lv:45,move:"Harden"},{lv:53,move:"Self Destruct"},{lv:60,move:"Acid Armor"},{lv:68,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Mega Drain","Mimic","Double Team","Bide","Rest","Substitute","Sludge","Earthquake","Explosion","Self Destruct","Fire Blast","Flamethrower"]
+  },
+  {
+    id: 90, name: "Shellder",
+    types: ["Water"],
+    abilities: ["Shell Armor","Skill Link"], hiddenAbility: "Overcoat",
+    evolution: { chain: [90,91], methods: ["Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Withdraw"},{lv:18,move:"Supersonic"},{lv:23,move:"Clamp"},{lv:30,move:"Aurora Beam"},{lv:39,move:"Leer"},{lv:50,move:"Ice Beam"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Tri Attack","Aurora Beam"]
+  },
+  {
+    id: 91, name: "Cloyster",
+    types: ["Water","Ice"],
+    abilities: ["Shell Armor","Skill Link"], hiddenAbility: "Overcoat",
+    evolution: { chain: [90,91], methods: ["Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Rock"], "4x":[] },
+    resistances: { "0.5x":["Water","Ice"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Withdraw"},{lv:1,move:"Supersonic"},{lv:1,move:"Clamp"},{lv:1,move:"Aurora Beam"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Self Destruct","Explosion"]
+  },
+  {
+    id: 92, name: "Gastly",
+    types: ["Ghost","Poison"],
+    abilities: ["Levitate"], hiddenAbility: null,
+    evolution: { chain: [92,93,94], methods: ["Lv.25","Trade"] },
+    weaknesses: { "2x":["Ghost","Psychic","Ground","Dark"], "4x":[] },
+    resistances: { "0.5x":["Grass","Poison","Bug","Fairy"], "0.25x":[], "immune":["Normal","Fighting"] },
+    levelMoves: [{lv:1,move:"Lick"},{lv:1,move:"Confuse Ray"},{lv:27,move:"Night Shade"},{lv:35,move:"Hypnosis"},{lv:43,move:"Dream Eater"}],
+    tmMoves: ["Toxic","Psychic","Mimic","Double Team","Reflect","Bide","Rest","Substitute","Thunderbolt","Thunder","Mega Drain","Night Shade"]
+  },
+  {
+    id: 93, name: "Haunter",
+    types: ["Ghost","Poison"],
+    abilities: ["Levitate"], hiddenAbility: null,
+    evolution: { chain: [92,93,94], methods: ["Lv.25","Trade"] },
+    weaknesses: { "2x":["Ghost","Psychic","Ground","Dark"], "4x":[] },
+    resistances: { "0.5x":["Grass","Poison","Bug","Fairy"], "0.25x":[], "immune":["Normal","Fighting"] },
+    levelMoves: [{lv:1,move:"Lick"},{lv:1,move:"Confuse Ray"},{lv:29,move:"Night Shade"},{lv:38,move:"Hypnosis"},{lv:47,move:"Dream Eater"}],
+    tmMoves: ["Toxic","Psychic","Mimic","Double Team","Reflect","Bide","Rest","Substitute","Thunderbolt","Thunder","Mega Drain","Night Shade"]
+  },
+  {
+    id: 94, name: "Gengar",
+    types: ["Ghost","Poison"],
+    abilities: ["Cursed Body"], hiddenAbility: null,
+    evolution: { chain: [92,93,94], methods: ["Lv.25","Trade"] },
+    weaknesses: { "2x":["Ghost","Psychic","Ground","Dark"], "4x":[] },
+    resistances: { "0.5x":["Grass","Poison","Bug","Fairy"], "0.25x":[], "immune":["Normal","Fighting"] },
+    levelMoves: [{lv:1,move:"Lick"},{lv:1,move:"Confuse Ray"},{lv:29,move:"Night Shade"},{lv:38,move:"Hypnosis"},{lv:47,move:"Dream Eater"}],
+    tmMoves: ["Toxic","Psychic","Mimic","Double Team","Reflect","Bide","Rest","Substitute","Thunderbolt","Thunder","Mega Drain","Night Shade","Mega Punch","Mega Kick","Body Slam","Self Destruct"]
+  },
+  {
+    id: 95, name: "Onix",
+    types: ["Rock","Ground"],
+    abilities: ["Rock Head","Sturdy"], hiddenAbility: "Weak Armor",
+    evolution: { chain: [95], methods: [] },
+    weaknesses: { "2x":["Water","Grass","Ice","Fighting","Ground","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Screech"},{lv:15,move:"Bind"},{lv:19,move:"Rock Throw"},{lv:25,move:"Rage"},{lv:33,move:"Slam"},{lv:43,move:"Harden"}],
+    tmMoves: ["Toxic","Earthquake","Dig","Mimic","Double Team","Bide","Rock Slide","Rest","Substitute","Body Slam","Explosion","Self Destruct","Strength"]
+  },
+  {
+    id: 96, name: "Drowzee",
+    types: ["Psychic"],
+    abilities: ["Insomnia","Forewarn"], hiddenAbility: "Inner Focus",
+    evolution: { chain: [96,97], methods: ["Lv.26"] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Hypnosis"},{lv:12,move:"Disable"},{lv:17,move:"Confusion"},{lv:24,move:"Headbutt"},{lv:29,move:"Poison Gas"},{lv:32,move:"Psychic"},{lv:37,move:"Meditate"},{lv:44,move:"Dream Eater"}],
+    tmMoves: ["Toxic","Psychic","Mimic","Double Team","Reflect","Bide","Flash","Rest","Substitute","Thunder Wave","Mega Punch","Mega Kick","Body Slam","Submission","Counter","Seismic Toss"]
+  },
+  {
+    id: 97, name: "Hypno",
+    types: ["Psychic"],
+    abilities: ["Insomnia","Forewarn"], hiddenAbility: "Inner Focus",
+    evolution: { chain: [96,97], methods: ["Lv.26"] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Hypnosis"},{lv:12,move:"Disable"},{lv:17,move:"Confusion"},{lv:24,move:"Headbutt"},{lv:33,move:"Poison Gas"},{lv:37,move:"Psychic"},{lv:43,move:"Meditate"},{lv:54,move:"Dream Eater"}],
+    tmMoves: ["Toxic","Psychic","Mimic","Double Team","Reflect","Bide","Flash","Rest","Substitute","Thunder Wave","Mega Punch","Mega Kick","Body Slam","Submission","Counter","Seismic Toss"]
+  },
+  {
+    id: 98, name: "Krabby",
+    types: ["Water"],
+    abilities: ["Hyper Cutter","Shell Armor"], hiddenAbility: "Sheer Force",
+    evolution: { chain: [98,99], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:1,move:"Leer"},{lv:20,move:"Vice Grip"},{lv:25,move:"Guillotine"},{lv:30,move:"Stomp"},{lv:35,move:"Crabhammer"},{lv:40,move:"Harden"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Body Slam"]
+  },
+  {
+    id: 99, name: "Kingler",
+    types: ["Water"],
+    abilities: ["Hyper Cutter","Shell Armor"], hiddenAbility: "Sheer Force",
+    evolution: { chain: [98,99], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:1,move:"Leer"},{lv:20,move:"Vice Grip"},{lv:25,move:"Guillotine"},{lv:34,move:"Stomp"},{lv:42,move:"Crabhammer"},{lv:49,move:"Harden"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Body Slam","Swords Dance"]
+  },
+  {
+    id: 100, name: "Voltorb",
+    types: ["Electric"],
+    abilities: ["Soundproof","Static"], hiddenAbility: "Aftermath",
+    evolution: { chain: [100,101], methods: ["Lv.30"] },
+    weaknesses: { "2x":["Ground"], "4x":[] },
+    resistances: { "0.5x":["Electric","Flying","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:17,move:"Screech"},{lv:22,move:"Sonic Boom"},{lv:29,move:"Self Destruct"},{lv:36,move:"Light Screen"},{lv:43,move:"Swift"},{lv:50,move:"Explosion"}],
+    tmMoves: ["Toxic","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Flash","Rest","Substitute","Self Destruct","Explosion"]
+  },
+  {
+    id: 101, name: "Electrode",
+    types: ["Electric"],
+    abilities: ["Soundproof","Static"], hiddenAbility: "Aftermath",
+    evolution: { chain: [100,101], methods: ["Lv.30"] },
+    weaknesses: { "2x":["Ground"], "4x":[] },
+    resistances: { "0.5x":["Electric","Flying","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:17,move:"Screech"},{lv:22,move:"Sonic Boom"},{lv:29,move:"Self Destruct"},{lv:40,move:"Light Screen"},{lv:50,move:"Swift"},{lv:60,move:"Explosion"}],
+    tmMoves: ["Toxic","Thunderbolt","Thunder","Mimic","Double Team","Bide","Swift","Flash","Rest","Substitute","Self Destruct","Explosion","Hyper Beam"]
+  },
+  {
+    id: 102, name: "Exeggcute",
+    types: ["Grass","Psychic"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Harvest",
+    evolution: { chain: [102,103], methods: ["Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Poison","Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting","Psychic","Ground"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Barrage"},{lv:1,move:"Hypnosis"},{lv:25,move:"Reflect"},{lv:28,move:"Leech Seed"},{lv:32,move:"Stun Spore"},{lv:37,move:"Poison Powder"},{lv:42,move:"Solar Beam"},{lv:48,move:"Sleep Powder"}],
+    tmMoves: ["Toxic","Mega Drain","Solar Beam","Psychic","Mimic","Double Team","Reflect","Bide","Rest","Substitute","Stun Spore","Sleep Powder"]
+  },
+  {
+    id: 103, name: "Exeggutor",
+    types: ["Grass","Psychic"],
+    abilities: ["Chlorophyll"], hiddenAbility: "Harvest",
+    evolution: { chain: [102,103], methods: ["Leaf Stone"] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Poison","Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Fighting","Psychic","Ground"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Barrage"},{lv:1,move:"Hypnosis"},{lv:28,move:"Stomp"}],
+    tmMoves: ["Toxic","Mega Drain","Solar Beam","Psychic","Mimic","Double Team","Reflect","Bide","Rest","Substitute","Body Slam","Amnesia"]
+  },
+  {
+    id: 104, name: "Cubone",
+    types: ["Ground"],
+    abilities: ["Rock Head","Lightning Rod"], hiddenAbility: "Battle Armor",
+    evolution: { chain: [104,105], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Water","Grass","Ice"], "4x":[] },
+    resistances: { "0.5x":["Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Growl"},{lv:25,move:"Bone Club"},{lv:31,move:"Headbutt"},{lv:38,move:"Leer"},{lv:43,move:"Focus Energy"},{lv:46,move:"Thrash"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide","Swords Dance","Skull Bash"]
+  },
+  {
+    id: 105, name: "Marowak",
+    types: ["Ground"],
+    abilities: ["Rock Head","Lightning Rod"], hiddenAbility: "Battle Armor",
+    evolution: { chain: [104,105], methods: ["Lv.28"] },
+    weaknesses: { "2x":["Water","Grass","Ice"], "4x":[] },
+    resistances: { "0.5x":["Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Growl"},{lv:25,move:"Bone Club"},{lv:33,move:"Headbutt"},{lv:41,move:"Leer"},{lv:48,move:"Focus Energy"},{lv:55,move:"Thrash"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Swift","Rest","Substitute","Rock Slide","Swords Dance","Skull Bash","Bone Rush"]
+  },
+  {
+    id: 106, name: "Hitmonlee",
+    types: ["Fighting"],
+    abilities: ["Limber","Reckless"], hiddenAbility: "Unburden",
+    evolution: { chain: [106], methods: [] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Double Kick"},{lv:1,move:"Meditate"},{lv:33,move:"Rolling Kick"},{lv:38,move:"Jump Kick"},{lv:43,move:"Focus Energy"},{lv:48,move:"Hi Jump Kick"},{lv:53,move:"Mega Kick"}],
+    tmMoves: ["Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Mimic","Double Team","Bide","Swift","Rest","Substitute"]
+  },
+  {
+    id: 107, name: "Hitmonchan",
+    types: ["Fighting"],
+    abilities: ["Keen Eye","Iron Fist"], hiddenAbility: "Inner Focus",
+    evolution: { chain: [107], methods: [] },
+    weaknesses: { "2x":["Flying","Psychic","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Rock","Bug","Dark"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Comet Punch"},{lv:33,move:"Fire Punch"},{lv:38,move:"Ice Punch"},{lv:43,move:"Thunder Punch"},{lv:48,move:"Agility"},{lv:53,move:"Counter"}],
+    tmMoves: ["Mega Punch","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Mimic","Double Team","Bide","Swift","Rest","Substitute"]
+  },
+  {
+    id: 108, name: "Lickitung",
+    types: ["Normal"],
+    abilities: ["Own Tempo","Oblivious"], hiddenAbility: "Cloud Nine",
+    evolution: { chain: [108], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Wrap"},{lv:7,move:"Supersonic"},{lv:15,move:"Stomp"},{lv:23,move:"Disable"},{lv:31,move:"Defense Curl"},{lv:39,move:"Slam"},{lv:47,move:"Screech"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Psychic","Mimic","Double Team","Reflect","Bide","Skull Bash","Fire Blast","Flamethrower","Solar Beam","Swift","Rest","Substitute"]
+  },
+  {
+    id: 109, name: "Koffing",
+    types: ["Poison"],
+    abilities: ["Levitate"], hiddenAbility: "Neutralizing Gas",
+    evolution: { chain: [109,110], methods: ["Lv.35"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Smog"},{lv:32,move:"Self Destruct"},{lv:37,move:"Sludge"},{lv:40,move:"Smokescreen"},{lv:45,move:"Haze"},{lv:48,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Rest","Substitute","Self Destruct","Explosion","Sludge","Smokescreen"]
+  },
+  {
+    id: 110, name: "Weezing",
+    types: ["Poison"],
+    abilities: ["Levitate"], hiddenAbility: "Neutralizing Gas",
+    evolution: { chain: [109,110], methods: ["Lv.35"] },
+    weaknesses: { "2x":["Ground","Psychic"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Poison","Bug","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Smog"},{lv:32,move:"Self Destruct"},{lv:39,move:"Sludge"},{lv:43,move:"Smokescreen"},{lv:49,move:"Haze"},{lv:53,move:"Explosion"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Rest","Substitute","Self Destruct","Explosion","Sludge","Smokescreen"]
+  },
+  {
+    id: 111, name: "Rhyhorn",
+    types: ["Ground","Rock"],
+    abilities: ["Lightning Rod","Rock Head"], hiddenAbility: "Reckless",
+    evolution: { chain: [111,112], methods: ["Lv.42"] },
+    weaknesses: { "2x":["Water","Grass","Ice","Fighting","Ground","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Horn Attack"},{lv:30,move:"Tail Whip"},{lv:35,move:"Stomp"},{lv:40,move:"Fury Attack"},{lv:45,move:"Horn Drill"},{lv:50,move:"Leer"},{lv:55,move:"Take Down"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Rock Slide","Rest","Substitute","Horn Drill"]
+  },
+  {
+    id: 112, name: "Rhydon",
+    types: ["Ground","Rock"],
+    abilities: ["Lightning Rod","Rock Head"], hiddenAbility: "Reckless",
+    evolution: { chain: [111,112], methods: ["Lv.42"] },
+    weaknesses: { "2x":["Water","Grass","Ice","Fighting","Ground","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Rock"], "0.25x":[], "immune":["Electric"] },
+    levelMoves: [{lv:1,move:"Horn Attack"},{lv:30,move:"Tail Whip"},{lv:35,move:"Stomp"},{lv:40,move:"Fury Attack"},{lv:48,move:"Horn Drill"},{lv:55,move:"Leer"},{lv:64,move:"Take Down"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Earthquake","Dig","Mimic","Double Team","Bide","Rock Slide","Rest","Substitute","Horn Drill","Strength","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Fissure"]
+  },
+  {
+    id: 113, name: "Chansey",
+    types: ["Normal"],
+    abilities: ["Natural Cure","Serene Grace"], hiddenAbility: "Healer",
+    evolution: { chain: [113], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Growl"},{lv:24,move:"Tail Whip"},{lv:30,move:"Refresh"},{lv:38,move:"Softboiled"},{lv:44,move:"Doubleslap"},{lv:48,move:"Minimize"},{lv:54,move:"Sing"},{lv:60,move:"Egg Bomb"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Counter","Seismic Toss","Bubblebeam","Ice Beam","Blizzard","Thunderbolt","Thunder","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Metronome","Softboiled","Fire Blast","Swift","Skull Bash","Rest","Substitute","Flamethrower","Solar Beam","Egg Bomb","Thunder Wave"]
+  },
+  {
+    id: 114, name: "Tangela",
+    types: ["Grass"],
+    abilities: ["Chlorophyll","Leaf Guard"], hiddenAbility: "Regenerator",
+    evolution: { chain: [114], methods: [] },
+    weaknesses: { "2x":["Fire","Ice","Flying","Poison","Bug"], "4x":[] },
+    resistances: { "0.5x":["Grass","Water","Electric","Ground"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Constrict"},{lv:29,move:"Bind"},{lv:32,move:"Absorb"},{lv:36,move:"Poison Powder"},{lv:39,move:"Stun Spore"},{lv:45,move:"Sleep Powder"},{lv:49,move:"Slam"},{lv:54,move:"Growth"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mega Drain","Solar Beam","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Bind"]
+  },
+  {
+    id: 115, name: "Kangaskhan",
+    types: ["Normal"],
+    abilities: ["Early Bird","Scrappy"], hiddenAbility: "Inner Focus",
+    evolution: { chain: [115], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Comet Punch"},{lv:1,move:"Leer"},{lv:26,move:"Bite"},{lv:31,move:"Tail Whip"},{lv:36,move:"Mega Punch"},{lv:41,move:"Leer"},{lv:46,move:"Dizzy Punch"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Bubblebeam","Ice Beam","Blizzard","Thunderbolt","Thunder","Mimic","Double Team","Bide","Skull Bash","Fire Blast","Swift","Rest","Substitute","Flamethrower","Earthquake","Rock Slide"]
+  },
+  {
+    id: 116, name: "Horsea",
+    types: ["Water"],
+    abilities: ["Swift Swim","Sniper"], hiddenAbility: "Damp",
+    evolution: { chain: [116,117], methods: ["Lv.32"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:19,move:"Smokescreen"},{lv:24,move:"Leer"},{lv:30,move:"Water Gun"},{lv:37,move:"Agility"},{lv:45,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 117, name: "Seadra",
+    types: ["Water"],
+    abilities: ["Poison Point","Sniper"], hiddenAbility: "Damp",
+    evolution: { chain: [116,117], methods: ["Lv.32"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Bubble"},{lv:19,move:"Smokescreen"},{lv:24,move:"Leer"},{lv:30,move:"Water Gun"},{lv:41,move:"Agility"},{lv:52,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 118, name: "Goldeen",
+    types: ["Water"],
+    abilities: ["Swift Swim","Water Veil"], hiddenAbility: "Lightning Rod",
+    evolution: { chain: [118,119], methods: ["Lv.33"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:1,move:"Tail Whip"},{lv:19,move:"Supersonic"},{lv:24,move:"Horn Attack"},{lv:30,move:"Fury Attack"},{lv:37,move:"Waterfall"},{lv:45,move:"Horn Drill"},{lv:54,move:"Agility"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 119, name: "Seaking",
+    types: ["Water"],
+    abilities: ["Swift Swim","Water Veil"], hiddenAbility: "Lightning Rod",
+    evolution: { chain: [118,119], methods: ["Lv.33"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:1,move:"Tail Whip"},{lv:19,move:"Supersonic"},{lv:24,move:"Horn Attack"},{lv:30,move:"Fury Attack"},{lv:33,move:"Waterfall"},{lv:44,move:"Horn Drill"},{lv:56,move:"Agility"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Swords Dance"]
+  },
+  {
+    id: 120, name: "Staryu",
+    types: ["Water"],
+    abilities: ["Illuminate","Natural Cure"], hiddenAbility: "Analytic",
+    evolution: { chain: [120,121], methods: ["Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:17,move:"Water Gun"},{lv:22,move:"Harden"},{lv:27,move:"Minimize"},{lv:32,move:"Swift"},{lv:37,move:"Bubblebeam"},{lv:42,move:"Recover"},{lv:47,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Psychic","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Thunderbolt","Thunder","Flash","Thunder Wave"]
+  },
+  {
+    id: 121, name: "Starmie",
+    types: ["Water","Psychic"],
+    abilities: ["Illuminate","Natural Cure"], hiddenAbility: "Analytic",
+    evolution: { chain: [120,121], methods: ["Water Stone"] },
+    weaknesses: { "2x":["Electric","Grass","Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel","Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Water Gun"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Psychic","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Thunderbolt","Thunder","Flash","Amnesia","Recover"]
+  },
+  {
+    id: 122, name: "Mr. Mime",
+    types: ["Psychic"],
+    abilities: ["Soundproof","Filter"], hiddenAbility: "Technician",
+    evolution: { chain: [122], methods: [] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Confusion"},{lv:23,move:"Barrier"},{lv:27,move:"Confusion"},{lv:33,move:"Light Screen"},{lv:39,move:"Meditate"},{lv:45,move:"Substitute"},{lv:51,move:"Psybeam"},{lv:58,move:"Psychic"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Counter","Seismic Toss","Thunderbolt","Thunder","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Metronome","Fire Blast","Swift","Skull Bash","Rest","Substitute","Thunder Wave"]
+  },
+  {
+    id: 123, name: "Scyther",
+    types: ["Bug","Flying"],
+    abilities: ["Swarm","Technician"], hiddenAbility: "Steadfast",
+    evolution: { chain: [123], methods: [] },
+    weaknesses: { "2x":["Fire","Electric","Ice","Flying","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Bug"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Quick Attack"},{lv:17,move:"Leer"},{lv:20,move:"Focus Energy"},{lv:24,move:"Double Team"},{lv:29,move:"Slash"},{lv:35,move:"Swords Dance"},{lv:42,move:"Agility"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Razor Wind","Mimic","Double Team","Bide","Swift","Rest","Substitute","Swords Dance","Slash"]
+  },
+  {
+    id: 124, name: "Jynx",
+    types: ["Ice","Psychic"],
+    abilities: ["Oblivious","Forewarn"], hiddenAbility: "Dry Skin",
+    evolution: { chain: [124], methods: [] },
+    weaknesses: { "2x":["Fire","Rock","Bug","Ghost","Dark","Steel"], "4x":[] },
+    resistances: { "0.5x":["Ice","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:1,move:"Lick"},{lv:18,move:"Lovely Kiss"},{lv:23,move:"Powder Snow"},{lv:31,move:"Double Slap"},{lv:39,move:"Ice Punch"},{lv:47,move:"Body Slam"},{lv:58,move:"Perish Song"},{lv:62,move:"Blizzard"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Ice Beam","Blizzard","Psychic","Mimic","Double Team","Reflect","Bide","Metronome","Swift","Rest","Substitute","Thunder Wave","Bubblebeam"]
+  },
+  {
+    id: 125, name: "Electabuzz",
+    types: ["Electric"],
+    abilities: ["Static"], hiddenAbility: "Vital Spirit",
+    evolution: { chain: [125], methods: [] },
+    weaknesses: { "2x":["Ground"], "4x":[] },
+    resistances: { "0.5x":["Electric","Flying","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Quick Attack"},{lv:34,move:"Leer"},{lv:37,move:"Thunder Shock"},{lv:42,move:"Thunder Punch"},{lv:49,move:"Thunder Wave"},{lv:54,move:"Screech"},{lv:59,move:"Thunder"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Thunderbolt","Thunder","Mimic","Double Team","Reflect","Bide","Swift","Skull Bash","Rest","Substitute","Thunder Wave","Flash"]
+  },
+  {
+    id: 126, name: "Magmar",
+    types: ["Fire"],
+    abilities: ["Flame Body"], hiddenAbility: "Vital Spirit",
+    evolution: { chain: [126], methods: [] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Ember"},{lv:36,move:"Leer"},{lv:39,move:"Smog"},{lv:43,move:"Fire Punch"},{lv:48,move:"Smokescreen"},{lv:52,move:"Flamethrower"},{lv:56,move:"Confuse Ray"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Flamethrower","Fire Blast","Mimic","Double Team","Reflect","Bide","Swift","Skull Bash","Rest","Substitute"]
+  },
+  {
+    id: 127, name: "Pinsir",
+    types: ["Bug"],
+    abilities: ["Hyper Cutter","Mold Breaker"], hiddenAbility: "Moxie",
+    evolution: { chain: [127], methods: [] },
+    weaknesses: { "2x":["Fire","Flying","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Fighting","Ground"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Vice Grip"},{lv:25,move:"Seismic Toss"},{lv:30,move:"Guillotine"},{lv:36,move:"Focus Energy"},{lv:43,move:"Harden"},{lv:49,move:"Slash"},{lv:54,move:"Swords Dance"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Mimic","Double Team","Bide","Swift","Rest","Substitute","Swords Dance","Rock Slide"]
+  },
+  {
+    id: 128, name: "Tauros",
+    types: ["Normal"],
+    abilities: ["Intimidate","Anger Point"], hiddenAbility: "Sheer Force",
+    evolution: { chain: [128], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:21,move:"Stomp"},{lv:28,move:"Tail Whip"},{lv:35,move:"Leer"},{lv:44,move:"Rage"},{lv:51,move:"Take Down"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Bubblebeam","Ice Beam","Blizzard","Thunderbolt","Thunder","Mimic","Double Team","Bide","Fire Blast","Swift","Skull Bash","Rest","Substitute","Flamethrower","Earthquake","Earthquake","Rock Slide","Hyper Beam"]
+  },
+  {
+    id: 129, name: "Magikarp",
+    types: ["Water"],
+    abilities: ["Swift Swim"], hiddenAbility: "Rattled",
+    evolution: { chain: [129,130], methods: ["Lv.20"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Splash"},{lv:15,move:"Tackle"},{lv:25,move:"Flail"}],
+    tmMoves: []
+  },
+  {
+    id: 130, name: "Gyarados",
+    types: ["Water","Flying"],
+    abilities: ["Intimidate"], hiddenAbility: "Moxie",
+    evolution: { chain: [129,130], methods: ["Lv.20"] },
+    weaknesses: { "2x":["Electric","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Grass","Bug","Fighting","Ground"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Bite"},{lv:20,move:"Dragon Rage"},{lv:25,move:"Leer"},{lv:32,move:"Hydro Pump"},{lv:41,move:"Hyperbeam"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Skull Bash","Rest","Substitute","Thunderbolt","Thunder","Body Slam","Dragon Rage","Hyper Beam","Earthquake","Rock Slide"]
+  },
+  {
+    id: 131, name: "Lapras",
+    types: ["Water","Ice"],
+    abilities: ["Water Absorb","Shell Armor"], hiddenAbility: "Hydration",
+    evolution: { chain: [131], methods: [] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Rock"], "4x":[] },
+    resistances: { "0.5x":["Water","Ice"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Water Gun"},{lv:1,move:"Growl"},{lv:20,move:"Sing"},{lv:25,move:"Mist"},{lv:31,move:"Body Slam"},{lv:38,move:"Confuse Ray"},{lv:46,move:"Ice Beam"},{lv:55,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Psychic","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Thunderbolt","Thunder","Body Slam","Hyper Beam"]
+  },
+  {
+    id: 132, name: "Ditto",
+    types: ["Normal"],
+    abilities: ["Limber"], hiddenAbility: "Imposter",
+    evolution: { chain: [132], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Transform"}],
+    tmMoves: []
+  },
+  {
+    id: 133, name: "Eevee",
+    types: ["Normal"],
+    abilities: ["Run Away","Adaptability"], hiddenAbility: "Anticipation",
+    evolution: { chain: [133,134,135,136], methods: ["Water Stone","Thunder Stone","Fire Stone"] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:29,move:"Sand Attack"},{lv:33,move:"Growl"},{lv:37,move:"Quick Attack"},{lv:41,move:"Bite"},{lv:45,move:"Baton Pass"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Swift","Rest","Substitute","Skull Bash"]
+  },
+  {
+    id: 134, name: "Vaporeon",
+    types: ["Water"],
+    abilities: ["Water Absorb"], hiddenAbility: "Hydration",
+    evolution: { chain: [133,134,135,136], methods: ["Water Stone","Thunder Stone","Fire Stone"] },
+    weaknesses: { "2x":["Electric","Grass"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Ice","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:29,move:"Sand Attack"},{lv:33,move:"Growl"},{lv:36,move:"Water Gun"},{lv:42,move:"Quick Attack"},{lv:44,move:"Bite"},{lv:48,move:"Acid Armor"},{lv:54,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Bubblebeam","Surf","Blizzard","Ice Beam","Swift","Rest","Substitute","Skull Bash","Bite","Aurora Beam"]
+  },
+  {
+    id: 135, name: "Jolteon",
+    types: ["Electric"],
+    abilities: ["Volt Absorb"], hiddenAbility: "Quick Feet",
+    evolution: { chain: [133,134,135,136], methods: ["Water Stone","Thunder Stone","Fire Stone"] },
+    weaknesses: { "2x":["Ground"], "4x":[] },
+    resistances: { "0.5x":["Electric","Flying","Steel"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:29,move:"Sand Attack"},{lv:33,move:"Growl"},{lv:36,move:"Thunder Shock"},{lv:42,move:"Quick Attack"},{lv:44,move:"Double Kick"},{lv:48,move:"Pin Missile"},{lv:54,move:"Thunder"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Thunderbolt","Thunder","Swift","Rest","Substitute","Skull Bash","Thunder Wave","Flash"]
+  },
+  {
+    id: 136, name: "Flareon",
+    types: ["Fire"],
+    abilities: ["Flash Fire"], hiddenAbility: "Guts",
+    evolution: { chain: [133,134,135,136], methods: ["Water Stone","Thunder Stone","Fire Stone"] },
+    weaknesses: { "2x":["Water","Ground","Rock"], "4x":[] },
+    resistances: { "0.5x":["Fire","Grass","Ice","Bug","Steel","Fairy"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Tackle"},{lv:1,move:"Tail Whip"},{lv:29,move:"Sand Attack"},{lv:33,move:"Growl"},{lv:36,move:"Ember"},{lv:42,move:"Quick Attack"},{lv:44,move:"Bite"},{lv:48,move:"Fire Spin"},{lv:54,move:"Flamethrower"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Flamethrower","Fire Blast","Swift","Rest","Substitute","Skull Bash"]
+  },
+  {
+    id: 137, name: "Porygon",
+    types: ["Normal"],
+    abilities: ["Trace","Download"], hiddenAbility: "Analytic",
+    evolution: { chain: [137], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Conversion"},{lv:1,move:"Tackle"},{lv:9,move:"Sharpen"},{lv:12,move:"Psybeam"},{lv:19,move:"Recover"},{lv:24,move:"Agility"},{lv:30,move:"Tri Attack"},{lv:35,move:"Conversion 2"}],
+    tmMoves: ["Toxic","Thunderbolt","Thunder","Ice Beam","Blizzard","Psychic","Mimic","Double Team","Reflect","Bide","Swift","Rest","Substitute","Flash","Thunder Wave"]
+  },
+  {
+    id: 138, name: "Omanyte",
+    types: ["Rock","Water"],
+    abilities: ["Swift Swim","Shell Armor"], hiddenAbility: "Weak Armor",
+    evolution: { chain: [138,139], methods: ["Lv.40"] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Ground"], "4x":[] },
+    resistances: { "0.5x":["Normal","Fire","Water","Ice","Flying","Poison"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Water Gun"},{lv:1,move:"Withdraw"},{lv:31,move:"Horn Attack"},{lv:36,move:"Leer"},{lv:43,move:"Spike Cannon"},{lv:49,move:"Clamp"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Body Slam","Rock Slide","Aurora Beam"]
+  },
+  {
+    id: 139, name: "Omastar",
+    types: ["Rock","Water"],
+    abilities: ["Swift Swim","Shell Armor"], hiddenAbility: "Weak Armor",
+    evolution: { chain: [138,139], methods: ["Lv.40"] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Ground"], "4x":[] },
+    resistances: { "0.5x":["Normal","Fire","Water","Ice","Flying","Poison"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Water Gun"},{lv:1,move:"Withdraw"},{lv:31,move:"Horn Attack"},{lv:36,move:"Leer"},{lv:46,move:"Spike Cannon"},{lv:53,move:"Clamp"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Body Slam","Rock Slide","Aurora Beam","Hydro Pump"]
+  },
+  {
+    id: 140, name: "Kabuto",
+    types: ["Rock","Water"],
+    abilities: ["Swift Swim","Battle Armor"], hiddenAbility: "Weak Armor",
+    evolution: { chain: [140,141], methods: ["Lv.40"] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Ground"], "4x":[] },
+    resistances: { "0.5x":["Normal","Fire","Water","Ice","Flying","Poison"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Harden"},{lv:34,move:"Absorb"},{lv:39,move:"Slash"},{lv:44,move:"Leer"},{lv:49,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Body Slam","Rock Slide","Mega Drain","Slash"]
+  },
+  {
+    id: 141, name: "Kabutops",
+    types: ["Rock","Water"],
+    abilities: ["Swift Swim","Battle Armor"], hiddenAbility: "Weak Armor",
+    evolution: { chain: [140,141], methods: ["Lv.40"] },
+    weaknesses: { "2x":["Electric","Grass","Fighting","Ground"], "4x":[] },
+    resistances: { "0.5x":["Normal","Fire","Water","Ice","Flying","Poison"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Scratch"},{lv:1,move:"Harden"},{lv:34,move:"Absorb"},{lv:39,move:"Slash"},{lv:46,move:"Leer"},{lv:53,move:"Hydro Pump"}],
+    tmMoves: ["Toxic","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Bide","Rest","Substitute","Body Slam","Rock Slide","Mega Drain","Slash","Swords Dance"]
+  },
+  {
+    id: 142, name: "Aerodactyl",
+    types: ["Rock","Flying"],
+    abilities: ["Rock Head","Pressure"], hiddenAbility: "Unnerve",
+    evolution: { chain: [142], methods: [] },
+    weaknesses: { "2x":["Water","Electric","Ice","Rock","Steel"], "4x":[] },
+    resistances: { "0.5x":["Normal","Flying","Fire","Poison","Bug"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Wing Attack"},{lv:33,move:"Agility"},{lv:38,move:"Bite"},{lv:45,move:"Supersonic"},{lv:54,move:"Hyper Beam"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Bide","Sky Attack","Swift","Rest","Substitute","Agility","Rock Slide","Fire Blast","Flamethrower","Earthquake","Dragon Rage"]
+  },
+  {
+    id: 143, name: "Snorlax",
+    types: ["Normal"],
+    abilities: ["Immunity","Thick Fat"], hiddenAbility: "Gluttony",
+    evolution: { chain: [143], methods: [] },
+    weaknesses: { "2x":["Fighting"], "4x":[] },
+    resistances: { "0.5x":[], "0.25x":[], "immune":["Ghost"] },
+    levelMoves: [{lv:1,move:"Headbutt"},{lv:1,move:"Amnesia"},{lv:1,move:"Rest"},{lv:35,move:"Body Slam"},{lv:41,move:"Harden"},{lv:48,move:"Double Edge"},{lv:56,move:"Hyper Beam"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Psychic","Mimic","Double Team","Reflect","Bide","Skull Bash","Fire Blast","Swift","Rest","Substitute","Flamethrower","Earthquake","Rock Slide","Hyper Beam","Self Destruct","Ice Punch","Fire Punch","Thunder Punch","Headbutt"]
+  },
+  {
+    id: 144, name: "Articuno",
+    types: ["Ice","Flying"],
+    abilities: ["Pressure"], hiddenAbility: "Snow Cloak",
+    evolution: { chain: [144], methods: [] },
+    weaknesses: { "2x":["Fire","Electric","Rock","Steel"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Ground","Ice"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Gust"},{lv:51,move:"Powder Snow"},{lv:55,move:"Mist"},{lv:60,move:"Agility"},{lv:65,move:"Ice Beam"},{lv:70,move:"Blizzard"},{lv:75,move:"Sheer Cold"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Surf","Blizzard","Ice Beam","Mimic","Double Team","Reflect","Bide","Sky Attack","Swift","Rest","Substitute","Agility","Thunder Wave","Hyper Beam"]
+  },
+  {
+    id: 145, name: "Zapdos",
+    types: ["Electric","Flying"],
+    abilities: ["Pressure"], hiddenAbility: "Static",
+    evolution: { chain: [145], methods: [] },
+    weaknesses: { "2x":["Ice","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Flying","Steel","Fighting","Electric"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Peck"},{lv:51,move:"Thunder Shock"},{lv:55,move:"Thunder Wave"},{lv:60,move:"Agility"},{lv:65,move:"Thunderbolt"},{lv:70,move:"Light Screen"},{lv:75,move:"Thunder"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Mimic","Double Team","Reflect","Bide","Sky Attack","Swift","Rest","Substitute","Agility","Thunder Wave","Thunderbolt","Thunder","Hyper Beam","Drill Peck"]
+  },
+  {
+    id: 146, name: "Moltres",
+    types: ["Fire","Flying"],
+    abilities: ["Pressure"], hiddenAbility: "Flame Body",
+    evolution: { chain: [146], methods: [] },
+    weaknesses: { "2x":["Water","Electric","Rock"], "4x":[] },
+    resistances: { "0.5x":["Grass","Bug","Fighting","Fire","Steel","Fairy"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Wing Attack"},{lv:51,move:"Ember"},{lv:55,move:"Fire Spin"},{lv:60,move:"Agility"},{lv:65,move:"Flamethrower"},{lv:70,move:"Safeguard"},{lv:75,move:"Fire Blast"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Mimic","Double Team","Reflect","Bide","Sky Attack","Swift","Rest","Substitute","Agility","Thunder Wave","Flamethrower","Fire Blast","Hyper Beam","Wing Attack"]
+  },
+  {
+    id: 147, name: "Dratini",
+    types: ["Dragon"],
+    abilities: ["Shed Skin"], hiddenAbility: "Marvel Scale",
+    evolution: { chain: [147,148,149], methods: ["Lv.30","Lv.55"] },
+    weaknesses: { "2x":["Ice","Dragon","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Electric","Grass"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Wrap"},{lv:10,move:"Leer"},{lv:20,move:"Thunder Wave"},{lv:30,move:"Agility"},{lv:40,move:"Slam"},{lv:50,move:"Dragon Rage"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Agility","Slam"]
+  },
+  {
+    id: 148, name: "Dragonair",
+    types: ["Dragon"],
+    abilities: ["Shed Skin"], hiddenAbility: "Marvel Scale",
+    evolution: { chain: [147,148,149], methods: ["Lv.30","Lv.55"] },
+    weaknesses: { "2x":["Ice","Dragon","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Electric","Grass"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Wrap"},{lv:10,move:"Leer"},{lv:20,move:"Thunder Wave"},{lv:30,move:"Agility"},{lv:38,move:"Slam"},{lv:48,move:"Dragon Rage"},{lv:61,move:"Hyper Beam"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Agility","Slam","Hyper Beam"]
+  },
+  {
+    id: 149, name: "Dragonite",
+    types: ["Dragon","Flying"],
+    abilities: ["Inner Focus"], hiddenAbility: "Multiscale",
+    evolution: { chain: [147,148,149], methods: ["Lv.30","Lv.55"] },
+    weaknesses: { "2x":["Ice","Rock","Dragon","Fairy"], "4x":[] },
+    resistances: { "0.5x":["Fire","Water","Electric","Grass","Bug","Fighting"], "0.25x":[], "immune":["Ground"] },
+    levelMoves: [{lv:1,move:"Wrap"},{lv:10,move:"Leer"},{lv:20,move:"Thunder Wave"},{lv:30,move:"Agility"},{lv:38,move:"Slam"},{lv:48,move:"Dragon Rage"},{lv:55,move:"Hyper Beam"}],
+    tmMoves: ["Toxic","Body Slam","Take Down","Double Edge","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Mimic","Double Team","Reflect","Bide","Skull Bash","Rest","Substitute","Agility","Slam","Hyper Beam","Dragon Rage","Fire Blast","Flamethrower","Wing Attack"]
+  },
+  {
+    id: 150, name: "Mewtwo",
+    types: ["Psychic"],
+    abilities: ["Pressure"], hiddenAbility: "Unnerve",
+    evolution: { chain: [150], methods: [] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Confusion"},{lv:1,move:"Disable"},{lv:63,move:"Psywave"},{lv:66,move:"Barrier"},{lv:70,move:"Swift"},{lv:75,move:"Psychic"},{lv:81,move:"Recover"},{lv:88,move:"Mist"},{lv:90,move:"Amnesia"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Metronome","Fire Blast","Swift","Skull Bash","Rest","Substitute","Flamethrower","Earthquake","Rock Slide","Hyper Beam","Shadow Ball","Thunder Wave","Flash","Amnesia","Barrier"]
+  },
+  {
+    id: 151, name: "Mew",
+    types: ["Psychic"],
+    abilities: ["Synchronize"], hiddenAbility: null,
+    evolution: { chain: [151], methods: [] },
+    weaknesses: { "2x":["Bug","Ghost","Dark"], "4x":[] },
+    resistances: { "0.5x":["Fighting","Psychic"], "0.25x":[], "immune":[] },
+    levelMoves: [{lv:1,move:"Pound"},{lv:10,move:"Transform"},{lv:20,move:"Mega Punch"},{lv:30,move:"Metronome"},{lv:40,move:"Psychic"}],
+    tmMoves: ["Mega Punch","Mega Kick","Toxic","Body Slam","Take Down","Double Edge","Submission","Counter","Seismic Toss","Rage","Bubblebeam","Surf","Blizzard","Ice Beam","Thunderbolt","Thunder","Psychic","Teleport","Mimic","Double Team","Reflect","Bide","Metronome","Solar Beam","Razor Wind","Fire Blast","Swift","Skull Bash","Rest","Substitute","Flamethrower","Earthquake","Rock Slide","Hyper Beam","Self Destruct","Explosion","Amnesia","Barrier","Swords Dance","Dig","Fly","Cut","Strength","Flash","Thunder Wave"]
+  }
+];
+
+// =====================================================
+// SPRITE URL HELPER (PokeAPI sprites)
+// =====================================================
+function spriteUrl(id) {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+}
+
+// =====================================================
+// TYPE COLORS
+// =====================================================
+const TYPE_COLORS = {
+  Normal:"#a8a878", Fire:"#f08030", Water:"#6890f0", Electric:"#f8d030",
+  Grass:"#78c850", Ice:"#98d8d8", Fighting:"#c03028", Poison:"#a040a0",
+  Ground:"#e0c068", Flying:"#a890f0", Psychic:"#f85888", Bug:"#a8b820",
+  Rock:"#b8a038", Ghost:"#705898", Dragon:"#7038f8"
+};
+
+// =====================================================
+// APP STATE
+// =====================================================
+let activeType = "All";
+let viewMode = "card"; // "card" | "table"
+let searchQuery = "";
+let sortCol = "id";
+let sortDir = 1;
+
+// =====================================================
+// ALL TYPES (from data)
+// =====================================================
+const ALL_TYPES = [...new Set(POKEMON_DATA.flatMap(p => p.types))].sort();
+
+// =====================================================
+// FILTER LOGIC
+// =====================================================
+function getFiltered() {
+  return POKEMON_DATA.filter(p => {
+    const matchType = activeType === "All" || p.types.includes(activeType);
+    const matchSearch = !searchQuery ||
+      p.name.toLowerCase().includes(searchQuery) ||
+      String(p.id).includes(searchQuery);
+    return matchType && matchSearch;
+  }).sort((a, b) => {
+    if (sortCol === "id") return (a.id - b.id) * sortDir;
+    if (sortCol === "name") return a.name.localeCompare(b.name) * sortDir;
+    return 0;
+  });
+}
+
+// =====================================================
+// RENDER FILTER BUTTONS
+// =====================================================
+function renderFilters() {
+  const container = document.getElementById("filter-buttons");
+  const allBtn = document.createElement("button");
+  allBtn.className = `filter-btn filter-btn-all ${activeType === "All" ? "active" : ""}`;
+  allBtn.textContent = "⭐ Todos";
+  allBtn.onclick = () => { activeType = "All"; render(); };
+  container.appendChild(allBtn);
+
+  ALL_TYPES.forEach(type => {
+    const btn = document.createElement("button");
+    btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
+    btn.textContent = type;
+    btn.style.background = TYPE_COLORS[type] || "#888";
+    btn.style.color = "white";
+    btn.onclick = () => { activeType = type; render(); };
+    container.appendChild(btn);
+  });
+}
+
+// =====================================================
+// RENDER CARDS
+// =====================================================
+function renderCards(pokemon) {
+  const grid = document.createElement("div");
+  grid.className = "cards-grid";
+
+  pokemon.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "pokemon-card";
+    const color = TYPE_COLORS[p.types[0]] || "#888";
+    card.style.setProperty("--type-color", color);
+    card.style.animationDelay = `${Math.min(i * 0.04, 0.6)}s`;
+
+    const abilities = [
+      ...p.abilities,
+      ...(p.hiddenAbility ? [p.hiddenAbility + " (H)"] : [])
+    ].join(", ");
+
+    const evoNames = p.evolution.chain.map(id => {
+      const evo = POKEMON_DATA.find(x => x.id === id);
+      return evo ? evo.name : "?";
+    });
+    const evoText = evoNames.length > 1 ? evoNames.join(" → ") : "Sem evolução";
+
+    const weaknesses = [
+      ...(p.weaknesses["4x"] || []).map(t => `<span class="weakness-chip weakness-4x" style="background:${TYPE_COLORS[t]||"#888"}">${t} 4×</span>`),
+      ...(p.weaknesses["2x"] || []).map(t => `<span class="weakness-chip" style="background:${TYPE_COLORS[t]||"#888"}">${t} 2×</span>`)
+    ].join("") || "<span style='color:var(--text-dim);font-size:11px'>Nenhuma</span>";
+
+    card.innerHTML = `
+      <div class="card-number">#${String(p.id).padStart(3,"0")}</div>
+      <img class="card-sprite" src="${spriteUrl(p.id)}" alt="${p.name}" loading="lazy" />
+      <div class="card-name">${p.name}</div>
+      <div class="type-badges">${p.types.map(t => `<span class="type-badge" style="background:${TYPE_COLORS[t]||"#888"}">${t}</span>`).join("")}</div>
+      <div class="card-divider"></div>
+      <div class="card-info-row">
+        <span class="card-info-label">Ability</span>
+        <span class="card-info-value">${p.abilities.join(", ")}</span>
+      </div>
+      <div class="card-info-row">
+        <span class="card-info-label">Evolução</span>
+        <span class="card-info-value" style="font-size:10px">${evoText}</span>
+      </div>
+      <div class="card-info-row">
+        <span class="card-info-label">Fraquezas</span>
+        <span class="card-info-value"><div class="weakness-chips">${weaknesses}</div></span>
+      </div>
+    `;
+    card.onclick = () => openModal(p);
+    grid.appendChild(card);
+  });
+
+  return grid;
+}
+
+// =====================================================
+// RENDER TABLE
+// =====================================================
+function renderTable(pokemon) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "table-wrapper";
+
+  const makeHeader = (label, col) => `<th class="sortable" data-col="${col}">${label} ${sortCol === col ? (sortDir > 0 ? "↑" : "↓") : ""}</th>`;
+
+  const rows = pokemon.map(p => {
+    const evoText = p.evolution.chain.length > 1
+      ? p.evolution.chain.map(id => POKEMON_DATA.find(x => x.id === id)?.name || "?").join(" → ")
+      : "—";
+    const weakList = [
+      ...(p.weaknesses["4x"] || []).map(t => `<span class="weakness-chip weakness-4x" style="background:${TYPE_COLORS[t]||"#888"};font-size:9px">${t}×4</span>`),
+      ...(p.weaknesses["2x"] || []).map(t => `<span class="weakness-chip" style="background:${TYPE_COLORS[t]||"#888"};font-size:9px">${t}</span>`)
+    ].join(" ");
+
+    return `<tr onclick="openModalById(${p.id})">
+      <td><img class="td-sprite" src="${spriteUrl(p.id)}" alt="${p.name}" loading="lazy"/></td>
+      <td class="td-num">#${String(p.id).padStart(3,"0")}</td>
+      <td class="td-name">${p.name}</td>
+      <td><div class="type-badges" style="justify-content:flex-start">${p.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||"#888"}">${t}</span>`).join("")}</div></td>
+      <td class="td-ability">${[...p.abilities, ...(p.hiddenAbility?[p.hiddenAbility+" (H)"]:[])] .join(", ")}</td>
+      <td style="font-size:11px;color:var(--text-muted)">${evoText}</td>
+      <td><div style="display:flex;flex-wrap:wrap;gap:3px">${weakList}</div></td>
+    </tr>`;
+  }).join("");
+
+  wrapper.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Sprite</th>
+          ${makeHeader("Nº","id")}
+          ${makeHeader("Nome","name")}
+          <th>Tipo(s)</th>
+          <th>Abilities</th>
+          <th>Evolução</th>
+          <th>Fraquezas</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+
+  wrapper.querySelectorAll("th.sortable").forEach(th => {
+    th.onclick = () => {
+      const col = th.dataset.col;
+      if (sortCol === col) sortDir *= -1;
+      else { sortCol = col; sortDir = 1; }
+      render();
+    };
+  });
+
+  return wrapper;
+}
+
+// =====================================================
+// MAIN RENDER
+// =====================================================
+function render() {
+  // Update filter buttons
+  document.getElementById("filter-buttons").innerHTML = "";
+  renderFilters();
+
+  const filtered = getFiltered();
+  const container = document.getElementById("pokemon-container");
+  container.innerHTML = "";
+
+  document.getElementById("count-display").textContent = filtered.length;
+  document.getElementById("active-filter-label").textContent =
+    activeType !== "All" ? `Tipo: ${activeType}` : "";
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state"><p>🔍</p><p>Nenhum Pokémon encontrado</p><span>Tente outro filtro ou nome</span></div>`;
+    return;
+  }
+
+  if (viewMode === "card") {
+    container.appendChild(renderCards(filtered));
+  } else {
+    container.appendChild(renderTable(filtered));
+  }
+}
+
+// =====================================================
+// MODAL
+// =====================================================
+function openModal(p) {
+  const overlay = document.getElementById("modal-overlay");
+
+  document.getElementById("modal-number").textContent = `#${String(p.id).padStart(3,"0")}`;
+  document.getElementById("modal-title").textContent = p.name;
+  document.getElementById("modal-sprite").src = spriteUrl(p.id);
+  document.getElementById("modal-sprite").alt = p.name;
+
+  // Types
+  const typesEl = document.getElementById("modal-types");
+  typesEl.innerHTML = p.types.map(t =>
+    `<span class="type-badge" style="background:${TYPE_COLORS[t]||"#888"}">${t}</span>`
+  ).join("");
+
+  // Header gradient
+  const headerEl = document.getElementById("modal-header");
+  const color = TYPE_COLORS[p.types[0]] || "#888";
+  headerEl.style.background = `linear-gradient(135deg, ${color}18 0%, transparent 70%)`;
+  headerEl.style.borderBottom = `1px solid ${color}33`;
+
+  // Abilities
+  const abEl = document.getElementById("modal-abilities");
+  abEl.innerHTML = [
+    ...p.abilities.map(a => `<div class="ability-item"><span class="ability-tag">Normal</span> ${a}</div>`),
+    ...(p.hiddenAbility ? [`<div class="ability-item"><span class="ability-tag hidden">Oculta</span> ${p.hiddenAbility}</div>`] : [])
+  ].join("");
+
+  // Evolution chain
+  const evoEl = document.getElementById("modal-evo");
+  if (p.evolution.chain.length <= 1) {
+    evoEl.innerHTML = `<span style="color:var(--text-dim);font-size:13px">Este Pokémon não evolui.</span>`;
+  } else {
+    evoEl.innerHTML = p.evolution.chain.map((id, i) => {
+      const evo = POKEMON_DATA.find(x => x.id === id);
+      if (!evo) return "";
+      const method = p.evolution.methods[i - 1] || "";
+      const arrow = i > 0 ? `<div class="evo-arrow-col"><span class="evo-arrow">→</span><span class="evo-method">${method}</span></div>` : "";
+      return `${arrow}<div class="evo-step" onclick="openModalById(${id})">
+        <img src="${spriteUrl(id)}" alt="${evo.name}"/>
+        <span class="evo-step-name">${evo.name}</span>
+        <span class="evo-step-num">#${String(id).padStart(3,"0")}</span>
+      </div>`;
+    }).join("");
+  }
+
+  // Weaknesses
+  const wkEl = document.getElementById("modal-weaknesses");
+  const all4x = (p.weaknesses["4x"] || []).map(t =>
+    `<div class="weakness-item" style="background:${TYPE_COLORS[t]||"#888"}">${t} <span class="mult-label">4×</span></div>`);
+  const all2x = (p.weaknesses["2x"] || []).map(t =>
+    `<div class="weakness-item" style="background:${TYPE_COLORS[t]||"#888"}">${t} <span class="mult-label">2×</span></div>`);
+  wkEl.innerHTML = [...all4x, ...all2x].join("") || `<span style="color:var(--text-dim);font-size:13px">Nenhuma</span>`;
+
+  // Resistances
+  const rsEl = document.getElementById("modal-resistances");
+  const immune = (p.resistances.immune || []).map(t =>
+    `<div class="weakness-item" style="background:#333;border:1px solid #555">${t} <span class="mult-label">0×</span></div>`);
+  const quart = (p.resistances["0.25x"] || []).map(t =>
+    `<div class="weakness-item" style="background:${TYPE_COLORS[t]||"#888"};opacity:0.7">${t} <span class="mult-label">¼×</span></div>`);
+  const half = (p.resistances["0.5x"] || []).map(t =>
+    `<div class="weakness-item" style="background:${TYPE_COLORS[t]||"#888"};opacity:0.6">${t} <span class="mult-label">½×</span></div>`);
+  rsEl.innerHTML = [...immune, ...quart, ...half].join("") || `<span style="color:var(--text-dim);font-size:13px">Nenhuma</span>`;
+
+  // Level Moves
+  const lvEl = document.getElementById("modal-level-moves");
+  lvEl.innerHTML = (p.levelMoves || []).map(m =>
+    `<div class="move-item">${m.move}<span class="move-level">Lv.${m.lv}</span></div>`
+  ).join("") || `<span style="color:var(--text-dim);font-size:12px">Nenhum</span>`;
+
+  // TM Moves
+  const tmEl = document.getElementById("modal-tm-moves");
+  tmEl.innerHTML = (p.tmMoves || []).map(m =>
+    `<div class="move-item">${m}</div>`
+  ).join("") || `<span style="color:var(--text-dim);font-size:12px">Nenhum</span>`;
+
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  // Scroll modal to top
+  document.getElementById("modal").scrollTop = 0;
+}
+
+function openModalById(id) {
+  const p = POKEMON_DATA.find(x => x.id === id);
+  if (p) openModal(p);
+}
+
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// =====================================================
+// EVENT LISTENERS
+// =====================================================
+document.getElementById("modal-close").onclick = closeModal;
+document.getElementById("modal-overlay").onclick = (e) => {
+  if (e.target === e.currentTarget) closeModal();
+};
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+document.getElementById("search-input").oninput = (e) => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  render();
+};
+
+document.getElementById("btn-card").onclick = () => {
+  viewMode = "card";
+  document.getElementById("btn-card").classList.add("active");
+  document.getElementById("btn-table").classList.remove("active");
+  render();
+};
+
+document.getElementById("btn-table").onclick = () => {
+  viewMode = "table";
+  document.getElementById("btn-table").classList.add("active");
+  document.getElementById("btn-card").classList.remove("active");
+  render();
+};
+
+// =====================================================
+// INIT
+// =====================================================
+renderFilters();
+render();
+</script>
+</body>
+</html>
