@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="shortcut icon" href="https://play-lh.googleusercontent.com/LDbas6D6fLVBOfwMhe8KS37WcXyhanxshxQO3LHXqmjUgoW2a-RQ5C9GPXoxVaAzKj8l" type="image/x-icon">
+  <button class="back-to-top" id="back-to-top" title="Voltar ao topo">▲</button>
+
   <style>
     /* ===== CSS VARIABLES ===== */
     :root {
@@ -876,6 +878,88 @@
       max-height: 120px;
       padding: 10px 12px;
       border-top: 1px solid var(--border);
+    }
+
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      box-shadow: 0 4px 20px rgba(230, 57, 70, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      background: var(--accent2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(230, 57, 70, 0.6);
+    }
+
+    /* ===== MOVE TOOLTIP ===== */
+    .move-item {
+      position: relative;
+    }
+
+    .move-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      white-space: nowrap;
+      max-width: 220px;
+      width: 150px;
+      white-space: normal;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-50%) translateY(4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .move-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--border);
+    }
+
+    .move-item:hover .move-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -2859,9 +2943,349 @@
       <div class="ability-desc">${desc}</div>
     </div>`;
     }
+
+    const MOVE_DESCRIPTIONS = {
+
+      "Absorb": "Drena HP do alvo. Recupera metade do dano causado.",
+      "Acid": "Joga ácido no alvo. 10% de chance de reduzir Defesa Especial.",
+      "Acid Armor": "Dissolve o corpo em ácido, elevando a Defesa em 2 estágios.",
+      "Agility": "Move-se rapidamente, elevando a Velocidade em 2 estágios.",
+      "Amnesia": "Esvazia a mente, elevando o Ataque Especial em 2 estágios.",
+      "Aurora Beam": "Dispara um raio de luz colorida. 10% de chance de reduzir o Ataque.",
+      "Barrage": "Arremessa objetos redondos 2–5 vezes seguidas.",
+      "Barrier": "Cria uma barreira invisível, elevando a Defesa em 2 estágios.",
+      "Baton Pass": "Troca de Pokémon mantendo todos os boosts e debuffs acumulados.",
+      "Bide": "Aguenta golpes por 2 turnos e depois devolve o dobro do dano recebido.",
+      "Bind": "Prende o alvo por 4–5 turnos causando dano a cada turno.",
+      "Bite": "Morde com força. 30% de chance de fazer o alvo recuar.",
+      "Blizzard": "Solta uma ventania gelada. 10% de chance de congelar. Alta potência.",
+      "Body Slam": "Joga o corpo sobre o alvo. 30% de chance de paralisar.",
+      "Bone Club": "Bate com um osso. 10% de chance de fazer o alvo recuar.",
+      "Bone Rush": "Bate com um osso 2–5 vezes seguidas.",
+      "Bubble": "Ataca com bolhas d'água. 10% de chance de reduzir Velocidade.",
+      "Bubblebeam": "Dispara jato de bolhas. 10% de chance de reduzir Velocidade.",
+      "Clamp": "Prende o alvo com conchas por 4–5 turnos causando dano.",
+      "Comet Punch": "Soca repetidamente 2–5 vezes seguidas.",
+      "Confuse Ray": "Emite raio misterioso que deixa o alvo confuso.",
+      "Confusion": "Golpe psíquico básico. 10% de chance de deixar o alvo confuso.",
+      "Constrict": "Aperta o alvo com tentáculos. 10% de chance de reduzir Velocidade.",
+      "Conversion": "Altera o tipo do usuário para o tipo do primeiro golpe da lista.",
+      "Conversion 2": "Muda o tipo do usuário para resistir ao último golpe recebido.",
+      "Counter": "Devolve o dobro do dano recebido por golpes físicos naquele turno.",
+      "Crabhammer": "Golpe poderoso de pinça com alta chance de acerto crítico.",
+      "Dig": "Mergulha no subsolo no 1º turno, ataca no 2º. Evita certos golpes.",
+      "Disable": "Desativa o último golpe usado pelo alvo por alguns turnos.",
+      "Double Kick": "Chuta o alvo duas vezes consecutivas.",
+      "Double Slap": "Esbofeteia o alvo 2–5 vezes seguidas.",
+      "Double Team": "Move-se rapidamente para criar cópias, elevando a evasão em 1 estágio.",
+      "Double Edge": "Golpe de impacto total com alto dano, mas causa 1/3 do dano como recuo.",
+      "Dragon Rage": "Dispara rajada de energia dracônica que sempre causa 40 de dano fixo.",
+      "Dream Eater": "Consome os sonhos do alvo adormecido. Recupera metade do dano.",
+      "Drill Peck": "Bica giratória de alta rotação. Golpe poderoso do tipo Flying.",
+      "Egg Bomb": "Arremessa um ovo enorme com força bruta.",
+      "Ember": "Lança pequenas chamas. 10% de chance de queimar o alvo.",
+      "Explosion": "Explode causando dano enorme, mas o usuário desmaia. O mais poderoso da Gen 1.",
+      "Fire Blast": "Dispara um jato de fogo em forma de estrela. 10% de chance de queimar.",
+      "Fire Punch": "Soca com punho flamejante. 10% de chance de queimar.",
+      "Fire Spin": "Prende o alvo em redemoinhos de fogo por 4–5 turnos.",
+      "Fissure": "Abre uma fenda no chão. Derrota o alvo instantaneamente se acertar.",
+      "Flamethrower": "Lança chamas poderosas. 10% de chance de queimar o alvo.",
+      "Flail": "Agita o corpo com desespero. Mais forte quanto menor o HP.",
+      "Flash": "Emite luz ofuscante que reduz a precisão do alvo em 1 estágio.",
+      "Fly": "Voa alto no 1º turno, mergulha e ataca no 2º.",
+      "Focus Energy": "Concentra-se para elevar a taxa de golpes críticos.",
+      "Fury Attack": "Perfura com chifres ou bicos 2–5 vezes seguidas.",
+      "Fury Swipes": "Arranha o alvo 2–5 vezes com garras afiadas.",
+      "Glare": "Fita o alvo com olhos aterrorizantes, causando paralisia.",
+      "Growl": "Emite som fofo que reduz o Ataque do alvo em 1 estágio.",
+      "Growth": "Estimula o crescimento do corpo, elevando Ataque e Ataque Especial em 1 estágio.",
+      "Guillotine": "Corta o alvo com uma pinça gigante. Derrota instantaneamente se acertar.",
+      "Gust": "Cria uma ventania que causa dano do tipo Flying.",
+      "Harden": "Endurece o corpo, elevando a Defesa em 1 estágio.",
+      "Haze": "Cria névoa que zera todos os boosts e debuffs de ambos os lados.",
+      "Headbutt": "Arremete com a cabeça. 30% de chance de fazer o alvo recuar.",
+      "Hi Jump Kick": "Salta alto e desce com joelhada. Perde HP se errar.",
+      "Horn Attack": "Perfura o alvo com chifres afiados. Golpe físico simples.",
+      "Horn Drill": "Gira o chifre como broca. Derrota o alvo instantaneamente se acertar.",
+      "Hydro Pump": "Dispara jato d'água de altíssima pressão. Muito poderoso.",
+      "Hyper Beam": "Raio de energia devastador. O usuário precisa recarregar no próximo turno.",
+      "Hyper Fang": "Morde furiosamente com dentes enormes. 10% de chance de fazer recuar.",
+      "Hypnosis": "Usa técnica hipnótica para adormecer o alvo.",
+      "Ice Beam": "Dispara raio de gelo. 10% de chance de congelar o alvo.",
+      "Ice Punch": "Soca com punho congelante. 10% de chance de congelar.",
+      "Jump Kick": "Salta e desce com chute poderoso. Perde HP se errar.",
+      "Karate Chop": "Golpe de caratê com alta taxa de acerto crítico.",
+      "Leech Life": "Suga o sangue do alvo, recuperando metade do dano causado.",
+      "Leech Seed": "Planta uma semente que drena HP do alvo a cada turno.",
+      "Leer": "Fita o alvo com olhar feroz, reduzindo sua Defesa em 1 estágio.",
+      "Lick": "Lambe o alvo. 30% de chance de paralisia.",
+      "Light Screen": "Cria uma barreira que reduz o dano de golpes especiais à metade por 5 turnos.",
+      "Low Kick": "Derruba o alvo com rasteira. Mais forte quanto mais pesado o alvo.",
+      "Lovely Kiss": "Força um beijo que adormece o alvo.",
+      "Meditate": "Medita para elevar o Ataque em 1 estágio.",
+      "Mega Drain": "Drena energia do alvo, recuperando metade do dano causado.",
+      "Mega Kick": "Chute devastador de altíssima potência.",
+      "Mega Punch": "Soco poderoso de alta potência.",
+      "Megahorn": "Investida com chifre gigantesco de altíssima potência.",
+      "Metronome": "Usa um golpe aleatório dentre todos os golpes existentes.",
+      "Minimize": "Encolhe o corpo para elevar a evasão em 2 estágios.",
+      "Mirror Move": "Copia e usa imediatamente o último golpe que o alvo usou.",
+      "Mist": "Cria névoa que protege os stats do usuário de serem reduzidos por 5 turnos.",
+      "Night Shade": "Causa dano igual ao nível do usuário, independente dos stats.",
+      "Pay Day": "Arremessa moedas no alvo. Ganha dinheiro extra após a batalha.",
+      "Peck": "Bicada simples. Golpe físico básico do tipo Flying.",
+      "Petal Dance": "Ataca furiosamente por 2–3 turnos, depois fica confuso.",
+      "Pin Missile": "Dispara pinos afiados 2–5 vezes seguidas.",
+      "Poison Gas": "Libera gás venenoso que envenena o alvo.",
+      "Poison Powder": "Polvilha pó venenoso que envenena o alvo.",
+      "Poison Sting": "Pica com ferrão venenoso. 30% de chance de envenenar.",
+      "Pound": "Golpe simples com as patas ou cauda.",
+      "Powder Snow": "Sopra névoa gelada. 10% de chance de congelar o alvo.",
+      "Psybeam": "Dispara raio psíquico estranho. 10% de chance de confundir.",
+      "Psychic": "Ataque psíquico poderoso. 10% de chance de reduzir Defesa Especial.",
+      "Psywave": "Emite onda de energia aleatória que causa dano variável.",
+      "Quick Attack": "Ataca com velocidade extrema. Tem prioridade aumentada.",
+      "Rage": "Fica furioso. Cada vez que sofre dano, o Ataque sobe 1 estágio.",
+      "Rain Dance": "Invoca chuva intensa por 5 turnos, fortalecendo golpes Water.",
+      "Rapid Spin": "Gira rapidamente para causar dano e remover armadilhas de campo.",
+      "Razor Leaf": "Dispara folhas afiadas com alta taxa de acerto crítico.",
+      "Razor Wind": "Carrega energia no 1º turno, ataca no 2º com alta chance de crítico.",
+      "Recover": "Recupera metade do HP máximo do usuário.",
+      "Reflect": "Cria barreira que reduz o dano de golpes físicos à metade por 5 turnos.",
+      "Rest": "O usuário dorme por 2 turnos e recupera todo o HP e status.",
+      "Roar": "Intimida o alvo, forçando-o a recuar. Em batalha selvagem, encerra o combate.",
+      "Rock Slide": "Derruba pedras sobre o alvo. 30% de chance de fazer recuar.",
+      "Rock Throw": "Arremessa uma pedra grande no alvo.",
+      "Rolling Kick": "Chuta giratório. 30% de chance de fazer o alvo recuar.",
+      "Sand Attack": "Arremessa areia nos olhos, reduzindo a precisão do alvo em 1 estágio.",
+      "Scratch": "Arranha com garras afiadas. Golpe físico básico.",
+      "Screech": "Emite som estridente que reduz a Defesa do alvo em 2 estágios.",
+      "Seismic Toss": "Arremessa o alvo usando gravidade. Dano igual ao nível do usuário.",
+      "Self Destruct": "Explode causando grande dano, mas o usuário desmaia.",
+      "Sharpen": "Aguça o corpo em ângulos retos, elevando o Ataque em 1 estágio.",
+      "Sing": "Entoa uma melodia que adormece o alvo. Baixa precisão.",
+      "Sky Attack": "Carrega energia no 1º turno, ataca no 2º com enorme potência. 30% de recuo.",
+      "Slam": "Golpeia com cauda ou tentáculo longo.",
+      "Slash": "Corta com garras ou lâmina. Alta taxa de acerto crítico.",
+      "Sleep Powder": "Polvilha pó que adormece o alvo.",
+      "Smog": "Libera fumaça tóxica. 40% de chance de envenenar.",
+      "Smokescreen": "Lança fumaça que reduz a precisão do alvo em 1 estágio.",
+      "Softboiled": "Recupera metade do HP máximo do usuário.",
+      "Solar Beam": "Absorve luz no 1º turno, dispara raio poderoso no 2º.",
+      "Sonic Boom": "Dispara onda sonora que sempre causa 20 de dano fixo.",
+      "Spike Cannon": "Dispara espinhos afiados 2–5 vezes seguidas.",
+      "Splash": "Salta no lugar. Absolutamente nenhum efeito.",
+      "Spore": "Polvilha esporos que adormecem o alvo. Precisão perfeita.",
+      "Stomp": "Pisa com força no alvo. 30% de chance de fazer recuar.",
+      "String Shot": "Dispara fio de seda que reduz a Velocidade do alvo em 1 estágio.",
+      "Submission": "Agarra e joga o alvo. Causa 1/4 do dano como recuo ao usuário.",
+      "Super Fang": "Morde reduzindo o HP do alvo exatamente à metade.",
+      "Supersonic": "Emite ondas sonoras que confundem o alvo. Baixa precisão.",
+      "Surf": "Cria enorme onda que atinge todos em campo. Muito confiável.",
+      "Swift": "Dispara estrelas que nunca erram o alvo.",
+      "Swords Dance": "Dança marcial que eleva o Ataque em 2 estágios.",
+      "Tackle": "Golpe de corpo simples. O mais básico dos ataques.",
+      "Tail Whip": "Abana a cauda de forma fofa, reduzindo a Defesa do alvo em 1 estágio.",
+      "Take Down": "Investida poderosa. Causa 1/4 do dano como recuo ao usuário.",
+      "Teleport": "Teletransporta o usuário para fugir de batalhas selvagens imediatamente.",
+      "Thunder": "Raio elétrico poderoso. 30% de chance de paralisar. Nunca erra na chuva.",
+      "Thunder Punch": "Soco elétrico. 10% de chance de paralisar o alvo.",
+      "Thunder Shock": "Descarga elétrica básica. 10% de chance de paralisar.",
+      "Thunder Wave": "Descarga elétrica que paralisa o alvo. Precisão perfeita.",
+      "Thunderbolt": "Raio elétrico confiável. 10% de chance de paralisar. Excelente golpe.",
+      "Thrash": "Ataca freneticamente por 2–3 turnos, depois fica confuso.",
+      "Transform": "Transforma-se completamente no alvo, copiando stats, golpes e tipo.",
+      "Tri Attack": "Dispara raios de fogo, gelo e relâmpago. 20% de paralisar, queimar ou congelar.",
+      "Twineedle": "Pica com dois ferrões venenosos. 20% de chance de envenenar.",
+      "Vice Grip": "Aperta o alvo com garras ou pinças poderosas.",
+      "Vine Whip": "Açoita o alvo com cipós flexíveis.",
+      "Water Gun": "Dispara jato d'água. Golpe Water básico e confiável.",
+      "Waterfall": "Sobe cachoeira e atinge o alvo. 20% de chance de fazer recuar.",
+      "Whirlwind": "Sopra vento forte que força o alvo a recuar. Encerra batalhas selvagens.",
+      "Wing Attack": "Golpeia com asas abertas. Golpe Flying confiável.",
+      "Withdraw": "Recolhe-se na concha, elevando a Defesa em 1 estágio.",
+      "Wrap": "Enrola o alvo por 4–5 turnos causando dano a cada turno.",
+      "Cut": "Corta o alvo com garras ou uma lâmina afiada. Pode ser usado fora de batalha para cortar arbustos.",
+      "Strength": "Empurra o alvo com força bruta máxima. Pode mover pedras fora de batalha.",
+      "Flash": "Emite luz ofuscante que reduz a precisão do alvo em 1 estágio.",
+      "Fly": "Voa alto no 1º turno ficando fora de alcance, mergulha e ataca no 2º.",
+      "Surf": "Cria uma enorme onda que atinge todos em campo. Pode ser usado para nadar fora de batalha.",
+      "Skull Bash": "Abaixa a cabeça no 1º turno elevando a Defesa, depois ataca com força no 2º.",
+      "Hyper Beam": "Raio de energia devastador de altíssima potência. O usuário precisa recarregar no turno seguinte.",
+      "Sludge": "Joga lama tóxica no alvo. 30% de chance de envenenar.",
+      "Fissure": "Abre uma fenda no chão sob o alvo. Derrota instantaneamente se acertar. Não funciona em alvos mais rápidos.",
+      "Sheer Cold": "Dispara um vento ártico devastador. Derrota o alvo instantaneamente se acertar.",
+      "Protect": "Protege o usuário de qualquer golpe naquele turno. Falha se usado consecutivamente.",
+      "Dragon Rage": "Dispara rajada de energia dracônica que sempre causa exatamente 40 de dano fixo.",
+      "Comet Punch": "Soca o alvo repetidamente 2–5 vezes em sequência.",
+      "Mega Drain": "Drena a energia vital do alvo, recuperando metade do dano causado.",
+      "Razor Wind": "Carrega uma rajada cortante no 1º turno, libera no 2º com alta chance de acerto crítico.",
+      "Whirlwind": "Sopra vento forte que força o alvo a recuar. Em batalha selvagem, encerra o combate imediatamente.",
+      "Aurora Beam": "Dispara um raio de luz multicolorida. 10% de chance de reduzir o Ataque do alvo.",
+      "Bubble": "Ataca com uma rajada de bolhas d'água. 10% de chance de reduzir a Velocidade do alvo.",
+      "Clamp": "Prende o alvo entre conchas gigantes por 4–5 turnos, causando dano a cada turno.",
+      "Constrict": "Aperta o alvo com tentáculos ou cipós. 10% de chance de reduzir a Velocidade.",
+      "Minimize": "Encolhe o corpo ao extremo, elevando a evasão em 2 estágios.",
+      "Smokescreen": "Lança fumaça densa que reduz a precisão do alvo em 1 estágio.",
+      "String Shot": "Dispara fio de seda pegajoso que reduz a Velocidade do alvo em 1 estágio.",
+      "Tail Whip": "Abana a cauda de forma adorável, reduzindo a Defesa do alvo em 1 estágio.",
+      "Withdraw": "Recolhe-se na concha protetora, elevando a Defesa em 1 estágio.",
+      "Barrage": "Arremessa objetos redondos no alvo 2–5 vezes em sequência.",
+      "Bind": "Prende e aperta o alvo por 4–5 turnos, causando dano a cada turno.",
+      "Bone Club": "Golpeia o alvo com um osso. 10% de chance de fazer o alvo recuar.",
+      "Bone Rush": "Golpeia o alvo com um osso 2–5 vezes seguidas.",
+      "Conversion": "Altera o tipo do usuário para o mesmo tipo do seu primeiro golpe.",
+      "Conversion 2": "Altera o tipo do usuário para um que resista ao último golpe recebido.",
+      "Crabhammer": "Golpe devastador de pinça com alta taxa de acerto crítico.",
+      "Defense Curl": "Enrola o corpo defensivamente, elevando a Defesa em 1 estágio.",
+      "Disable": "Desativa o último golpe usado pelo alvo por 1–8 turnos.",
+      "Double Kick": "Chuta o alvo duas vezes consecutivas no mesmo turno.",
+      "Double Slap": "Esbofeteia o alvo 2–5 vezes em sequência.",
+      "Drill Peck": "Gira como broca e atinge o alvo com bico perfurante.",
+      "Egg Bomb": "Arremessa um ovo enorme com força total. Sem efeito adicional.",
+      "Fire Spin": "Envolve o alvo em redemoinhos de fogo por 4–5 turnos causando dano.",
+      "Flail": "Debate-se com desespero. Quanto menor o HP, maior o dano.",
+      "Focus Energy": "Respira fundo e concentra energia para aumentar a taxa de golpes críticos.",
+      "Fury Attack": "Perfura o alvo com chifres ou bico 2–5 vezes seguidas.",
+      "Fury Swipes": "Arranha freneticamente o alvo com garras 2–5 vezes seguidas.",
+      "Glare": "Fita o alvo com um olhar aterrorizante de serpente, causando paralisia.",
+      "Guillotine": "Corta o alvo com uma pinça em movimento giratório. Derrota instantaneamente se acertar.",
+      "Haze": "Cria uma névoa espessa que zera todos os boosts e debuffs de ambos os lados.",
+      "Hi Jump Kick": "Salta muito alto e desce com joelhada poderosa. Perde HP se o golpe errar.",
+      "Horn Drill": "Gira o chifre como uma broca. Derrota instantaneamente se acertar. Falha em alvos de nível mais alto.",
+      "Hydro Pump": "Lança um jato d'água de altíssima pressão. Um dos golpes Water mais poderosos.",
+      "Hyper Fang": "Morde furiosamente com dentes enormes e afiados. 10% de chance de fazer recuar.",
+      "Jump Kick": "Salta e desce com chute concentrado. Se errar, o usuário perde HP.",
+      "Karate Chop": "Golpe certeiro de caratê com alta taxa de acerto crítico.",
+      "Leech Life": "Suga o sangue do alvo com mandíbulas. Recupera metade do dano causado.",
+      "Leech Seed": "Planta uma semente parasita que drena HP do alvo a cada turno e transfere ao usuário.",
+      "Leer": "Olha fixamente para intimidar o alvo, reduzindo sua Defesa em 1 estágio.",
+      "Lick": "Lambe o alvo com língua longa e estranha. 30% de chance de paralisar.",
+      "Lovely Kiss": "Força um beijo sobre o alvo, deixando-o profundamente adormecido.",
+      "Low Kick": "Derruba o alvo com uma rasteira. Causa mais dano quanto mais pesado for o alvo.",
+      "Meditate": "Medita profundamente para concentrar força interior, elevando o Ataque em 1 estágio.",
+      "Mirror Move": "Copia e usa imediatamente o último golpe que o oponente utilizou.",
+      "Mist": "Cria uma névoa protetora que impede que os stats do usuário sejam reduzidos por 5 turnos.",
+      "Night Shade": "Projeta uma sombra aterrorizante. Causa dano exatamente igual ao nível do usuário.",
+      "Pay Day": "Arremessa moedas reluzentes no alvo. Recolhe dinheiro bônus ao final da batalha.",
+      "Petal Dance": "Dança lançando pétalas furiosamente por 2–3 turnos, depois fica confuso.",
+      "Pin Missile": "Dispara pinos afiados como mísseis 2–5 vezes seguidas.",
+      "Poison Gas": "Libera uma nuvem de gás venenoso que sempre envenena o alvo.",
+      "Powder Snow": "Sopra uma névoa gelada. 10% de chance de congelar o alvo.",
+      "Psywave": "Emite uma onda de energia psíquica que causa dano aleatório entre 50% e 150% do nível.",
+      "Quick Attack": "Ataca com velocidade extrema antes do oponente. Tem prioridade +1.",
+      "Rage": "Ataca com fúria crescente. Cada golpe recebido aumenta o Ataque em 1 estágio.",
+      "Rain Dance": "Invoca chuva torrencial por 5 turnos, fortalecendo golpes Water e enfraquecendo Fire.",
+      "Rapid Spin": "Gira rapidamente para golpear e remover armadilhas de campo como espinhos.",
+      "Roar": "Berra aterrorizando o alvo, forçando-o a recuar. Em batalha selvagem, encerra o combate.",
+      "Rolling Kick": "Executa um chute giratório. 30% de chance de fazer o alvo recuar.",
+      "Sand Attack": "Arremessa areia nos olhos do alvo, reduzindo sua precisão em 1 estágio.",
+      "Self Destruct": "Explode com força considerável, mas o usuário desmaia. Menos poderoso que Explosion.",
+      "Sharpen": "Aguça o contorno do corpo em ângulos retos, elevando o Ataque em 1 estágio.",
+      "Sky Attack": "O golpe mais poderoso do tipo Flying. Carrega no 1º turno, ataca no 2º. 30% de recuo.",
+      "Slam": "Golpeia violentamente o alvo com uma cauda longa ou tentáculo.",
+      "Smog": "Expele uma fumaça repugnante e tóxica. 40% de chance de envenenar o alvo.",
+      "Softboiled": "Transfere energia vital para recuperar metade do HP máximo do usuário.",
+      "Sonic Boom": "Dispara uma onda de choque que sempre causa exatamente 20 de dano fixo.",
+      "Spike Cannon": "Dispara espinhos endurecidos em alta velocidade 2–5 vezes seguidas.",
+      "Splash": "O usuário salta energeticamente. Absolutamente nenhum efeito em batalha.",
+      "Spore": "Polvilha esporos soporíferos com precisão perfeita. Sempre adormece o alvo.",
+      "Stomp": "Pisa com todo o peso sobre o alvo. 30% de chance de fazer recuar.",
+      "Submission": "Agarra e arremessa o alvo com força. Causa 1/4 do dano infligido como recuo.",
+      "Super Fang": "Morde com força precisa, reduzindo o HP do alvo exatamente à metade.",
+      "Supersonic": "Emite ondas sonoras caóticas que confundem o alvo. Precisão baixa.",
+      "Swords Dance": "Dança marcial que eleva o Ataque em 2 estágios de uma vez.",
+      "Thrash": "Ataca sem controle por 2–3 turnos com força total, depois fica confuso.",
+      "Twineedle": "Pica duas vezes com ferrões venenosos. 20% de chance de envenenar a cada picada.",
+      "Vice Grip": "Aperta o alvo com garras ou pinças de força esmagadora.",
+      "Vine Whip": "Chicoteia o alvo com cipós flexíveis e velozes.",
+      "Wrap": "Envolve e aperta o alvo com o corpo por 4–5 turnos, causando dano contínuo.",
+      "Waterfall": "Sobe uma cachoeira e mergulha sobre o alvo. 20% de chance de fazer recuar.",
+      "Wing Attack": "Golpeia o alvo com asas poderosas e abertas.",
+      "Acid Armor": "Dissolve o corpo em ácido líquido, elevando a Defesa em 2 estágios.",
+      "Baton Pass": "Passa a vez para outro Pokémon mantendo todos os boosts e debuffs acumulados.",
+      "Comet Punch": "Esmurra o alvo em sequência rápida 2–5 vezes consecutivas.",
+      "Double Edge": "Investida de corpo inteiro com potência máxima. Causa 1/3 do dano como recuo.",
+      "Egg Bomb": "Lança um ovo gigante com força máxima. Sem efeitos adicionais.",
+      "Headbutt": "Investe com a cabeça abaixada. 30% de chance de fazer o alvo recuar.",
+      "Hyper Beam": "O golpe mais poderoso do tipo Normal. Requer recarga no turno seguinte.",
+      "Tackle": "Bate de corpo no alvo. O golpe mais básico e fundamental do jogo.",
+      "Transform": "Transforma-se completamente no alvo, copiando tipo, stats, golpes e habilidades.",
+      "Tri Attack": "Dispara raios de três elementos. 6.7% de chance de queimar, paralisar ou congelar.",
+      "Amnesia": "Esvazia completamente a mente, elevando o Ataque Especial em 2 estágios de uma vez.",
+      "Barrier": "Cria uma barreira psíquica invisível, elevando a Defesa em 2 estágios.",
+      "Bide": "Absorve dano por 2 turnos em silêncio, depois libera o dobro do dano recebido.",
+      "Confusion": "Ataque psíquico básico. 10% de chance de deixar o alvo confuso.",
+      "Dream Eater": "Consome os sonhos do alvo adormecido, recuperando metade do dano causado. Só funciona em alvos dormindo.",
+      "Hypnosis": "Usa técnica hipnótica para adormecer o alvo. Precisão moderada.",
+      "Light Screen": "Barreira de luz que reduz dano de golpes especiais à metade por 5 turnos.",
+      "Psychic": "Golpe psíquico de alta potência. 10% de chance de reduzir Defesa Especial do alvo.",
+      "Recover": "Canaliza energia vital para recuperar exatamente metade do HP máximo.",
+      "Reflect": "Cria um campo refletor que reduz dano de golpes físicos à metade por 5 turnos.",
+      "Teleport": "Teletransporta o usuário para escapar imediatamente de batalhas selvagens.",
+      "Agility": "Move-se com velocidade extrema, elevando a Velocidade em 2 estágios.",
+      "Body Slam": "Joga o peso do corpo sobre o alvo. 30% de chance de paralisar.",
+      "Ember": "Lança fagulhas e pequenas chamas. 10% de chance de queimar o alvo.",
+      "Fire Blast": "Projeta uma explosão de fogo em forma de estrela. 10% de chance de queimar.",
+      "Fire Punch": "Soca com o punho envolto em chamas. 10% de chance de queimar.",
+      "Flamethrower": "Lança um jato contínuo de chamas intensas. 10% de chance de queimar.",
+      "Thunder": "Invoca um raio do céu. 30% de chance de paralisar. Precisão perfeita na chuva.",
+      "Thunder Punch": "Soca com o punho eletrificado. 10% de chance de paralisar.",
+      "Thunder Shock": "Descarga elétrica básica. 10% de chance de paralisar o alvo.",
+      "Thunder Wave": "Descarga controlada que paralisa o alvo. Precisão perfeita.",
+      "Thunderbolt": "Raio elétrico preciso e poderoso. 10% de chance de paralisar. O melhor golpe elétrico.",
+      "Blizzard": "Tempestade de neve devastadora. 10% de chance de congelar. Alta potência.",
+      "Ice Beam": "Raio de gelo preciso e confiável. 10% de chance de congelar o alvo.",
+      "Ice Punch": "Soca com o punho revestido de gelo. 10% de chance de congelar.",
+      "Bubble Beam": "Dispara rajada de bolhas pressurizada. 10% de chance de reduzir Velocidade.",
+      "Bubblebeam": "Dispara rajada de bolhas pressurizada. 10% de chance de reduzir Velocidade.",
+      "Water Gun": "Dispara um jato d'água direto. Golpe Water básico e confiável.",
+      "Waterfall": "Sobe uma correnteza e mergulha sobre o alvo. 20% de chance de fazer recuar.",
+      "Surf": "Invoca uma onda gigante que atinge todos. Pode ser usado para nadar fora de batalha.",
+      "Mega Kick": "Chute devastador com potência máxima. Precisão moderada.",
+      "Mega Punch": "Soco poderoso com força total. Precisão moderada.",
+      "Seismic Toss": "Usa a força da gravidade para arremessar o alvo. Dano igual ao nível do usuário.",
+      "Counter": "Aguarda e devolve exatamente o dobro do dano recebido por golpes físicos no turno.",
+      "Submission": "Agarra e projeta o alvo violentamente. Causa 1/4 do dano como recuo.",
+      "Take Down": "Investida com o corpo inteiro. Causa 1/4 do dano infligido como recuo ao usuário.",
+      "Double Edge": "Investida máxima sem freios. Causa 1/3 do dano infligido como recuo.",
+      "Swift": "Dispara estrelas cintilantes que jamais erram o alvo, ignorando evasão.",
+      "Slash": "Corta com garras ou lâmina afiada. Alta taxa de acerto crítico.",
+      "Scratch": "Arranha o alvo com garras. O golpe físico mais básico do jogo.",
+      "Cut": "Corta com lâmina ou garras. Pode cortar arbustos e árvores finas fora de batalha.",
+      "Strength": "Golpe de força bruta máxima. Pode empurrar pedras fora de batalha.",
+      "Growl": "Emite som fofo e inofensivo que reduz o Ataque do alvo em 1 estágio.",
+      "Tail Whip": "Abana a cauda de forma fofa, reduzindo a Defesa do alvo em 1 estágio.",
+      "Screech": "Emite um som estridente e perturbador que reduz a Defesa do alvo em 2 estágios.",
+      "Leer": "Fita o alvo com olhar intimidador que reduz sua Defesa em 1 estágio.",
+      "Growth": "Estimula o crescimento corporal, elevando Ataque e Ataque Especial em 1 estágio.",
+      "Harden": "Contrai os músculos ao máximo, elevando a Defesa em 1 estágio.",
+      "Defense Curl": "Enrola o corpo em posição defensiva, elevando a Defesa em 1 estágio.",
+      "Sludge": "Joga lama tóxica densa no alvo. 30% de chance de envenenar.",
+      "Toxic": "Envenena gravemente o alvo. O dano do veneno aumenta a cada turno.",
+      "Explosion": "A explosão mais poderosa possível. Causa dano imenso, mas o usuário desmaia.",
+      "Rock Slide": "Derruba uma avalanche de pedras. 30% de chance de fazer o alvo recuar.",
+      "Earthquake": "Sacode o solo violentamente, atingindo todos em campo. Muito poderoso.",
+      "Dig": "Mergulha no subsolo no 1º turno evitando golpes, emerge e ataca no 2º.",
+      "Fissure": "Abre uma fenda abissal sob o alvo. Derrota instantaneamente se acertar.",
+      "Horn Attack": "Perfura o alvo com um chifre afiado. Golpe físico direto sem efeitos extras.",
+      "Peck": "Bicada rápida e direta. Golpe físico básico do tipo Flying.",
+      "Gust": "Cria uma rajada de vento cortante. Atinge Pokémon que estão voando.",
+      "Pound": "Golpeia com as patas traseiras ou cauda. O golpe mais primário de todos.",
+      "Tackle": "Arremete o corpo contra o alvo. Golpe de contato mais básico do jogo.",
+      "Wrap": "Enrola o corpo ao redor do alvo, prendendo e causando dano por 4–5 turnos.",
+      "Stomp": "Pisa com força total sobre o alvo. 30% de chance de fazer recuar.",
+      "Headbutt": "Arremete com a cabeça abaixada. 30% de chance de fazer o alvo recuar.",
+      "Slam": "Bate com cauda, tentáculo ou membro longo com força máxima.",
+      "Body Slam": "Esmaga o alvo com o peso do corpo. 30% de chance de paralisar.",
+      "Hyper Beam": "Canaliza e dispara energia pura. Altíssimo dano mas exige recarga no turno seguinte.",
+      "Megahorn": "Investida com chifre descomunal de força brutal. Um dos golpes físicos mais fortes.",
+      "Dizzy Punch": "Soco rítmico e confuso. 20% de chance de confundir o alvo.",
+      "Comet Punch": "Soca rapidamente 2–5 vezes em sequência acelerada.",
+      "Substitute": "Cria um clone do usuário usando 1/4 do HP máximo. O clone absorve dano no lugar do usuário até ser destruído.",
+    };
     function openModal(p) {
       const overlay = document.getElementById("modal-overlay");
-
       document.getElementById("modal-number").textContent = `#${String(p.id).padStart(3, "0")}`;
       document.getElementById("modal-title").textContent = p.name;
       document.getElementById("modal-sprite").src = spriteUrl(p.id);
@@ -2879,7 +3303,6 @@
       headerEl.style.background = `linear-gradient(135deg, ${color}18 0%, transparent 70%)`;
       headerEl.style.borderBottom = `1px solid ${color}33`;
 
-      // Abilities
       // Abilities
       const abEl = document.getElementById("modal-abilities");
       abEl.innerHTML = [
@@ -2932,16 +3355,24 @@
         `<div class="weakness-item" style="background:${TYPE_COLORS[t] || "#888"};opacity:0.6">${t} <span class="mult-label">½×</span></div>`);
       rsEl.innerHTML = [...immune, ...quart, ...half].join("") || `<span style="color:var(--text-dim);font-size:13px">Nenhuma</span>`;
 
-      // Level Moves
       const lvEl = document.getElementById("modal-level-moves");
       lvEl.innerHTML = (p.levelMoves || []).map(m =>
-        `<div class="move-item">${m.move}<span class="move-level">Lv.${m.lv}</span></div>`
+        `<div class="move-item">
+      ${m.move}
+      <span class="move-level">Lv.${m.lv}</span>
+      <div class="move-tooltip">${MOVE_DESCRIPTIONS[m.move] || "Descrição não disponível."}</div>
+    </div>`
       ).join("") || `<span style="color:var(--text-dim);font-size:12px">Nenhum</span>`;
+
+
 
       // TM Moves
       const tmEl = document.getElementById("modal-tm-moves");
       tmEl.innerHTML = (p.tmMoves || []).map(m =>
-        `<div class="move-item">${m}</div>`
+        `<div class="move-item">
+      ${m}
+      <div class="move-tooltip">${MOVE_DESCRIPTIONS[m] || "Descrição não disponível."}</div>
+    </div>`
       ).join("") || `<span style="color:var(--text-dim);font-size:12px">Nenhum</span>`;
 
       overlay.classList.add("open");
@@ -2990,6 +3421,14 @@
       document.getElementById("btn-card").classList.remove("active");
       render();
     };
+
+    const btt = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      btt.classList.toggle("visible", window.scrollY > 300);
+    });
+    btt.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
     // =====================================================
     // INIT
