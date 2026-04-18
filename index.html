@@ -826,6 +826,58 @@
       background: var(--text-dim);
     }
 
+    /* ===== ABILITY DROPDOWN ===== */
+    .ability-item {
+      flex-direction: column;
+      align-items: stretch;
+      cursor: pointer;
+      user-select: none;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .ability-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      transition: background var(--transition);
+    }
+
+    .ability-item:hover .ability-header {
+      background: var(--surface2);
+    }
+
+    .ability-arrow {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--text-dim);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .ability-item.open .ability-arrow {
+      transform: rotate(180deg);
+    }
+
+    .ability-desc {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.25s ease;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: 0 12px;
+      border-top: 0px solid var(--border);
+    }
+
+    .ability-item.open .ability-desc {
+      max-height: 120px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
       .cards-grid {
@@ -2662,6 +2714,151 @@
     // =====================================================
     // MODAL
     // =====================================================
+
+    const ABILITY_DESCRIPTIONS = {
+      // Starters
+      "Overgrow": "Aumenta o poder dos golpes do tipo Grass em 1.5× quando o HP está abaixo de 1/3.",
+      "Chlorophyll": "Dobra a velocidade do Pokémon durante sol intenso.",
+      "Blaze": "Aumenta o poder dos golpes do tipo Fire em 1.5× quando o HP está abaixo de 1/3.",
+      "Solar Power": "Aumenta o Ataque Especial em 1.5× sob sol intenso, mas perde HP a cada turno.",
+      "Torrent": "Aumenta o poder dos golpes do tipo Water em 1.5× quando o HP está abaixo de 1/3.",
+      "Rain Dish": "Recupera 1/16 do HP máximo a cada turno durante chuva.",
+      // Bug
+      "Shield Dust": "Bloqueia efeitos secundários de golpes do oponente.",
+      "Run Away": "Garante fuga bem-sucedida de batalhas contra Pokémon selvagens.",
+      "Shed Skin": "Tem 1/3 de chance de curar uma condição de status a cada turno.",
+      "Compound Eyes": "Aumenta a precisão dos golpes próprios em 30%.",
+      "Tinted Lens": "Dobra o poder de golpes que seriam 'não muito eficazes'.",
+      "Swarm": "Aumenta o poder dos golpes do tipo Bug em 1.5× quando o HP está abaixo de 1/3.",
+      "Sniper": "Golpes críticos causam 2.25× de dano em vez de 1.5×.",
+      // Birds / Normal-Flying
+      "Keen Eye": "Impede que a precisão seja reduzida pelo oponente.",
+      "Tangled Feet": "Dobra a evasão quando está confuso.",
+      "Big Pecks": "Impede que a defesa seja reduzida pelo oponente.",
+      "Guts": "Aumenta o Ataque em 1.5× quando afetado por um status (queimadura não reduz Ataque).",
+      "Hustle": "Aumenta o Ataque em 1.5×, mas reduz a precisão de golpes físicos em 20%.",
+      // Poison
+      "Intimidate": "Reduz o Ataque do oponente em 1 estágio ao entrar em campo.",
+      "Unnerve": "Impede que o oponente use suas Berries durante a batalha.",
+      "Poison Point": "30% de chance de envenenar o oponente ao ser atingido por golpe de contato.",
+      "Rivalry": "Aumenta o poder em 25% contra Pokémon do mesmo gênero; reduz 25% contra gênero oposto.",
+      "Sheer Force": "Remove os efeitos secundários dos golpes, mas aumenta seu poder em 30%.",
+      // Electric
+      "Static": "30% de chance de paralisar o oponente ao ser atingido por golpe de contato.",
+      "Lightning Rod": "Atrai todos os golpes elétricos, absorvendo-os e aumentando Ataque Especial em 1 estágio.",
+      "Volt Absorb": "Absorve golpes do tipo Electric e recupera 1/4 do HP máximo.",
+      "Quick Feet": "Aumenta a velocidade em 1.5× quando afetado por um status.",
+      // Ground
+      "Sand Veil": "Aumenta a evasão em 1.25× durante tempestade de areia.",
+      "Sand Rush": "Dobra a velocidade durante tempestade de areia.",
+      "Sand Force": "Aumenta o poder de golpes Rock, Ground e Steel em 30% durante tempestade de areia.",
+      "Arena Trap": "Impede que Pokémon terrestres fujam ou sejam trocados.",
+      // Normal
+      "Cute Charm": "30% de chance de encantar o oponente ao ser atingido por golpe de contato.",
+      "Magic Guard": "O Pokémon só sofre dano direto de golpes, ignorando dano indireto.",
+      "Friend Guard": "Reduz o dano sofrido por aliados em batalhas duplas em 25%.",
+      "Unaware": "Ignora as mudanças de status (boosts) do oponente ao calcular dano.",
+      "Frisk": "Revela o item segurado pelo oponente ao entrar em campo.",
+      "Pickup": "Pode pegar itens deixados pelo oponente ou encontrar itens aleatórios após a batalha.",
+      "Technician": "Aumenta o poder de golpes com potência base 60 ou menos em 50%.",
+      // Fire
+      "Flash Fire": "Absorve golpes do tipo Fire, tornando-se imune e aumentando o poder de seus golpes Fire.",
+      "Drought": "Invoca sol intenso ao entrar em campo.",
+      "Flame Body": "30% de chance de queimar o oponente ao ser atingido por golpe de contato.",
+      "Vital Spirit": "Impede que o Pokémon adormeça.",
+      "Justified": "Aumenta o Ataque em 1 estágio ao ser atingido por um golpe do tipo Dark.",
+      // Water
+      "Water Absorb": "Absorve golpes do tipo Water e recupera 1/4 do HP máximo.",
+      "Damp": "Impede o uso de Self-Destruct e Explosion em batalha.",
+      "Swift Swim": "Dobra a velocidade durante chuva.",
+      "Cloud Nine": "Elimina os efeitos de clima enquanto estiver em campo.",
+      "Shell Armor": "Impede golpes críticos do oponente.",
+      "Hydration": "Cura condições de status a cada turno durante chuva.",
+      "Ice Body": "Recupera 1/16 do HP a cada turno durante granizo.",
+      "Torrent": "Aumenta o poder dos golpes Water em 1.5× quando o HP está abaixo de 1/3.",
+      // Psychic
+      "Synchronize": "Transmite queimadura, paralisia ou envenenamento ao oponente.",
+      "Inner Focus": "Impede que o Pokémon recue (flinch).",
+      "Magic Guard": "Só sofre dano direto de golpes, ignorando dano de veneno, queimadura, etc.",
+      "Insomnia": "Impede que o Pokémon adormeça.",
+      "Forewarn": "Revela o golpe mais poderoso do oponente ao entrar em campo.",
+      "Own Tempo": "Impede que o Pokémon fique confuso.",
+      "Oblivious": "Impede encantamento e previne Taunt. Também imune a intimidação por Cute Charm.",
+      "Trace": "Copia a ability do oponente ao entrar em campo.",
+      "Download": "Aumenta Ataque ou Ataque Especial em 1 estágio dependendo da defesa mais baixa do oponente.",
+      "Analytic": "Aumenta o poder do golpe em 30% se o Pokémon se mover por último.",
+      "Filter": "Reduz o dano de golpes super-eficazes em 25%.",
+      "Soundproof": "Torna o Pokémon imune a golpes sonoros.",
+      "Wonder Skin": "Reduz a precisão de golpes de status para 50%.",
+      // Ghost/Poison
+      "Levitate": "Torna o Pokémon imune a golpes do tipo Ground.",
+      "Cursed Body": "30% de chance de desativar o golpe do oponente após ser atingido.",
+      "Neutralizing Gas": "Desativa as abilities de todos os Pokémon em campo enquanto estiver ativo.",
+      // Rock/Ground
+      "Rock Head": "Impede que o Pokémon sofra dano de recuo de golpes de recuo.",
+      "Sturdy": "Sobrevive com 1 HP se estiver com HP cheio ao receber um golpe que o KO. Imune a OHKO.",
+      "Weak Armor": "Ao ser atingido por golpe físico, reduz Defesa mas aumenta Velocidade em 1 estágio.",
+      "Pressure": "Faz o oponente gastar 1 PP extra a cada golpe usado.",
+      "Reckless": "Aumenta o poder de golpes que causam dano de recuo em 20%.",
+      // Fighting
+      "No Guard": "Todos os golpes do e para o Pokémon sempre acertam.",
+      "Steadfast": "Aumenta a Velocidade em 1 estágio ao recuar (flinch).",
+      "Defiant": "Aumenta o Ataque em 2 estágios ao ter qualquer stat reduzido pelo oponente.",
+      "Anger Point": "Eleva o Ataque ao máximo ao receber um golpe crítico.",
+      // Others
+      "Early Bird": "Acorda do sono no dobro da velocidade normal.",
+      "Thick Fat": "Reduz o dano de golpes Fire e Ice em 50%.",
+      "Natural Cure": "Cura condições de status ao ser retirado de campo.",
+      "Serene Grace": "Dobra a chance de efeitos secundários dos golpes.",
+      "Healer": "1/3 de chance de curar a condição de status de aliados em batalhas duplas.",
+      "Leaf Guard": "Impede condições de status durante sol intenso.",
+      "Regenerator": "Recupera 1/3 do HP ao ser retirado de campo.",
+      "Illuminate": "Não tem efeito em batalha. Aumenta a taxa de encontros com Pokémon selvagens.",
+      "Magnet Pull": "Impede que Pokémon do tipo Steel fujam ou sejam trocados.",
+      "Aftermath": "Causa dano igual a 1/4 do HP do oponente ao ser derrotado por golpe de contato.",
+      "Limber": "Impede paralisia.",
+      "Imposter": "Transforma-se automaticamente no oponente ao entrar em campo.",
+      "Adaptability": "Aumenta o bônus de STAB de 1.5× para 2×.",
+      "Anticipation": "Avisa se o oponente possui golpes super-eficazes ou OHKO.",
+      "Immunity": "Impede envenenamento.",
+      "Gluttony": "Usa Berries de HP quando acima de 50% do HP (em vez de 25%).",
+      "Mold Breaker": "Os golpes ignoram as abilities do alvo que neutralizariam seu efeito.",
+      "Moxie": "Aumenta o Ataque em 1 estágio ao derrotar um oponente.",
+      "Hyper Cutter": "Impede que o Ataque seja reduzido pelo oponente.",
+      "Battle Armor": "Impede golpes críticos do oponente.",
+      "Multiscale": "Reduz o dano recebido à metade quando o HP está cheio.",
+      "Marvel Scale": "Aumenta a Defesa em 1.5× quando afetado por um status.",
+      "Snow Cloak": "Aumenta a evasão em 1.25× durante granizo.",
+      "Stench": "10% de chance de fazer o oponente recuar ao ser atingido.",
+      "Sticky Hold": "Impede que o item segurado pelo Pokémon seja removido.",
+      "Poison Touch": "30% de chance de envenenar o oponente ao usar golpes de contato.",
+      "Liquid Ooze": "Golpes de absorção de HP feitos contra este Pokémon causam dano ao invés de curar.",
+      "Clear Body": "Impede que os stats sejam reduzidos pelo oponente.",
+      "Overcoat": "Torna o Pokémon imune a dano de clima e a pós.",
+      "Effect Spore": "30% de chance de infligir paralisia, sono ou envenenamento ao ser atingido por contato.",
+      "Dry Skin": "Recupera HP durante chuva, perde HP sob sol. Absorve Water, mas é mais fraco contra Fire.",
+      "Water Veil": "Impede queimadura.",
+      "Skill Link": "Golpes de múltiplos hits sempre acertam o número máximo de vezes.",
+      "Flame Body": "30% de chance de queimar ao ser atingido por contato.",
+      "Unburden": "Dobra a Velocidade após o item segurado ser consumido ou removido.",
+      "Scrappy": "Permite acertar Pokémon do tipo Ghost com golpes Normal e Fighting.",
+      "Rock Head": "Impede dano de recuo de golpes como Double-Edge e Take Down.",
+      "Illuminate": "Sem efeito em batalha.",
+      "Poison Point": "30% de chance de envenenar ao ser atingido por golpe de contato.",
+      "Harvest": "50% de chance de recuperar uma Berry consumida ao final do turno (100% sob sol).",
+    };
+    function buildAbilityItem(tag, name, isHidden = false) {
+      const desc = ABILITY_DESCRIPTIONS[name] || "Descrição não disponível para esta ability.";
+      return `
+    <div class="ability-item">
+      <div class="ability-header">
+        <span class="ability-tag ${isHidden ? "hidden" : ""}">${tag}</span>
+        ${name}
+        <span class="ability-arrow">▼</span>
+      </div>
+      <div class="ability-desc">${desc}</div>
+    </div>`;
+    }
     function openModal(p) {
       const overlay = document.getElementById("modal-overlay");
 
@@ -2683,11 +2880,21 @@
       headerEl.style.borderBottom = `1px solid ${color}33`;
 
       // Abilities
+      // Abilities
       const abEl = document.getElementById("modal-abilities");
       abEl.innerHTML = [
-        ...p.abilities.map(a => `<div class="ability-item"><span class="ability-tag">Normal</span> ${a}</div>`),
-        ...(p.hiddenAbility ? [`<div class="ability-item"><span class="ability-tag hidden">Oculta</span> ${p.hiddenAbility}</div>`] : [])
+        ...p.abilities.map(a => buildAbilityItem("Normal", a)),
+        ...(p.hiddenAbility ? [buildAbilityItem("Oculta", p.hiddenAbility, true)] : [])
       ].join("");
+
+      // Adiciona toggle
+      abEl.querySelectorAll(".ability-item").forEach(item => {
+        item.addEventListener("click", () => {
+          const isOpen = item.classList.contains("open");
+          abEl.querySelectorAll(".ability-item").forEach(i => i.classList.remove("open"));
+          if (!isOpen) item.classList.add("open");
+        });
+      });
 
       // Evolution chain
       const evoEl = document.getElementById("modal-evo");
