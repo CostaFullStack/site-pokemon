@@ -50,6 +50,57 @@
       --Dragon: #7038f8;
     }
 
+    /* ===== LIGHT THEME ===== */
+    body.light {
+      --bg: #f0f2ff;
+      --bg2: #e4e8ff;
+      --bg3: #d8dcf5;
+      --surface: #ffffff;
+      --surface2: #eceffe;
+      --border: #c8cef0;
+      --text: #1a1f3a;
+      --text-muted: #4a5278;
+      --text-dim: #8892b0;
+    }
+
+    body.light body::before {
+      display: none;
+    }
+
+    /* ===== THEME TOGGLE BUTTON ===== */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      padding: 4px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(20deg) scale(1.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-toggle img {
+      width: 40px;
+      height: 40px;
+      image-rendering: pixelated;
+    }
+
+    header {
+      position: relative;
+    }
+
     /* ===== RESET & BASE ===== */
     *,
     *::before,
@@ -997,6 +1048,9 @@
         <circle cx="50" cy="50" r="7" fill="#e63946" />
       </svg>
     </div>
+    <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/337.png" id="theme-icon" alt="Tema" />
+    </button>
     <h1>POKÉDEX<br />1ª GERAÇÃO</h1>
     <p>Região de Kanto — 151 Pokémon</p>
     <div class="pokemon-count">⭐ Todos os 151 Pokémon</div>
@@ -1070,6 +1124,23 @@
     // =====================================================
     // JSON COMPLETO — 151 POKÉMON DA 1ª GERAÇÃO
     // =====================================================
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+
+    // Lunatone = escuro (#337), Solrock = claro (#338)
+    const SPRITES = {
+      dark: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/337.png",
+      light: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/338.png"
+    };
+
+    let isDark = true;
+
+    themeToggle.addEventListener("click", () => {
+      isDark = !isDark;
+      document.body.classList.toggle("light", !isDark);
+      themeIcon.src = isDark ? SPRITES.dark : SPRITES.light;
+      themeIcon.alt = isDark ? "Lunatone" : "Solrock";
+    });
     const POKEMON_DATA = [
       {
         id: 1, name: "Bulbasaur",
