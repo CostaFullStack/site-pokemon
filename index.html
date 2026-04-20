@@ -439,6 +439,140 @@
       color: var(--text);
     }
 
+    .modal-carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      /* border-top: 1px solid var(--border); */
+    }
+
+    .modal-nav {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    .modal-nav:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .modal-nav:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    #modal-counter {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+      min-width: 80px;
+      text-align: center;
+    }
+
+    /* CARROSSEL */
+    .modal-carousel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      padding: 8px 0;
+      overflow: hidden;
+    }
+
+    .carousel-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .carousel-item img {
+      image-rendering: pixelated;
+      transition: all 0.3s ease;
+      filter: brightness(0.5);
+    }
+
+    .carousel-item.active img {
+      filter: brightness(1) drop-shadow(0 0 10px var(--carousel-color, var(--accent)));
+    }
+
+    .modal-carousel {
+      --carousel-color: var(--accent);
+    }
+
+    .carousel-item.active span {
+      color: var(--carousel-color, var(--text));
+      font-weight: 900;
+    }
+
+    .carousel-item span {
+      font-size: 9px;
+      color: var(--text-dim);
+      font-family: 'Press Start 2P', monospace;
+      transition: color 0.3s ease;
+    }
+
+    .carousel-item.active span {
+      color: var(--text);
+    }
+
+    /* ANIMAÇÕES DE SLIDE */
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(60px) scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-60px) scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    .modal-header.anim-right {
+      animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+
+    .modal-header.anim-left {
+      animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+
+    .modal-header .type-badges {
+      margin-top: 12px;
+    }
+
     .type-badges {
       display: flex;
       gap: 6px;
@@ -1013,6 +1147,793 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* ===== AI SECTION ===== */
+    .ai-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #6c3fc5, #a855f7);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 20px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all var(--transition);
+      width: 100%;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .ai-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(168, 85, 247, 0.5);
+    }
+
+    .ai-btn:disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      transform: none;
+      background: linear-gradient(135deg, #2a2a3a, #1e2440);
+      box-shadow: none;
+      color: var(--text-muted);
+    }
+
+
+
+    /* ===== AI RESULT REDESIGN ===== */
+    .ai-main-card {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      background: linear-gradient(135deg, var(--surface2), var(--bg3));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ai-main-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-main-sprite {
+      width: 80px;
+      height: 80px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    }
+
+    .ai-main-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .ai-main-name {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .ai-main-types {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .ai-role-badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #c084fc;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .ai-main-right {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .ai-func {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .ai-moveset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ai-move-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: visible;
+    }
+
+    .ai-move-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .ai-move-card:hover .move-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .ai-move-emoji {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .ai-move-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .ai-move-why {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .ai-team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .ai-team-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      animation: cardIn 0.4s ease both;
+    }
+
+    .ai-team-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .ai-team-core {
+      border-color: rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.08);
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.15);
+    }
+
+    .ai-team-badge {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #a855f7;
+      color: white;
+      font-size: 8px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 1px;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .ai-team-num {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-dim);
+    }
+
+    .ai-team-sprite {
+      width: 56px;
+      height: 56px;
+      image-rendering: pixelated;
+      display: block;
+      margin: 8px auto 4px;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    }
+
+    .ai-team-name {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .ai-team-role {
+      font-size: 9px;
+      color: #a855f7;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .ai-team-types {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+    }
+
+    .ai-team-motivo {
+      font-size: 9px;
+      color: var(--text-dim);
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .ai-sinergia {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .ai-sin-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .ai-sin-tipos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ai-sin-tipo {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .ai-estrategia {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ai-est-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .ai-est-num {
+      background: #a855f7;
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .ai-counters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ai-counter-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .ai-counter-tipo {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .ai-counter-fix {
+      color: var(--text-muted);
+    }
+
+    .ai-alternativas {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .ai-alt-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .ai-moveset-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ai-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+
+    .ai-build-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ai-build-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .ai-build-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .ai-build-value {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .ai-build-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    .ai-ev-bar-wrap {
+      margin-top: 8px;
+    }
+
+    .ai-ev-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .ai-ev-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-muted);
+      min-width: 30px;
+    }
+
+    .ai-ev-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .ai-ev-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+
+    .ai-ev-val {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-dim);
+      min-width: 35px;
+      text-align: right;
+    }
+
+    .ai-alt-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ai-alt-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .ai-alt-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .ai-alt-sprite {
+      width: 40px;
+      height: 40px;
+      image-rendering: pixelated;
+      flex-shrink: 0;
+    }
+
+    .ai-alt-info {
+      flex: 1;
+    }
+
+    .ai-alt-name {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .ai-alt-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .ai-alt-troca {
+      font-size: 10px;
+      color: var(--accent2);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .ai-variant-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ai-variant-tab {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+
+    .ai-variant-tab.active {
+      background: #a855f7;
+      border-color: #a855f7;
+      color: white;
+    }
+
+    .ai-variant-panel {
+      display: none;
+    }
+
+    .ai-variant-panel.active {
+      display: block;
+    }
+
+    @keyframes dotBounce {
+
+      0%,
+      80%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      40% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    .ai-section-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 10px;
+    }
+
+    .ai-section-block h4 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: #a855f7;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .ai-section-block p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .ai-move-chip {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3px;
+    }
+
+    .ai-pokemon-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3px;
+    }
+
+    .ai-pokemon-chip img {
+      width: 28px;
+      height: 28px;
+      image-rendering: pixelated;
+    }
+
+    /* Pokeball capture animation */
+    .pokeball-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 7, 15, 0.92);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .pokeball-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .pokeball-capture {
+      width: 100px;
+      height: 100px;
+      animation: captureSpin 0.6s ease infinite;
+      filter: drop-shadow(0 0 20px rgba(230, 57, 70, 0.8));
+    }
+
+    @keyframes captureSpin {
+      0% {
+        transform: rotate(-20deg) scale(1);
+      }
+
+      25% {
+        transform: rotate(20deg) scale(1.08);
+      }
+
+      50% {
+        transform: rotate(-20deg) scale(1);
+      }
+
+      75% {
+        transform: rotate(20deg) scale(1.08);
+      }
+
+      100% {
+        transform: rotate(-20deg) scale(1);
+      }
+    }
+
+    .pokeball-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 12px;
+      color: var(--text);
+      text-align: center;
+      animation: blink 1s ease infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .pokeball-flash {
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.1s ease;
+    }
+
+    .pokeball-flash.show {
+      opacity: 1;
+    }
+
+    /* Nature tooltip */
+    .nature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      position: relative;
+      cursor: default;
+    }
+
+    .nature-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 999;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      font-weight: 600;
+    }
+
+    .nature-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--border);
+    }
+
+    .nature-chip:hover .nature-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Modal scroll-to-top */
+    .modal-scroll-top {
+      position: sticky;
+      bottom: 16px;
+      float: right;
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition);
+      box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+      z-index: 100;
+      margin-right: 8px;
+    }
+
+    .modal-scroll-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-scroll-top:hover {
+      transform: scale(1.1);
+    }
+
+    /* Choose pokemon btn */
+    .ai-choose-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1e2440, #252c4a);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-muted);
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: all var(--transition);
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .ai-choose-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
       .cards-grid {
@@ -1086,6 +2007,18 @@
     <div class="modal" id="modal">
       <div class="modal-header" id="modal-header">
         <button class="modal-close" id="modal-close">✕</button>
+        <div class="modal-carousel-nav">
+          <button class="modal-nav" id="modal-prev" title="Anterior">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tm-normal.png" style="width:24px;height:24px;image-rendering:pixelated;transform:scaleX(-1);" alt="←" />
+          </button>
+          <div class="modal-carousel" id="modal-carousel"></div>
+          <button class="modal-nav" id="modal-next" title="Próximo">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tm-normal.png" style="width:24px;height:24px;image-rendering:pixelated;" alt="→" />
+          </button>
+        </div>
+        <div style="text-align:center; margin-top:8px;">
+          <span id="modal-counter"></span>
+        </div>
         <div class="modal-number" id="modal-number"></div>
         <div class="modal-title" id="modal-title"></div>
         <div class="type-badges" id="modal-types"></div>
@@ -1115,6 +2048,14 @@
         <div class="modal-section">
           <div class="modal-section-title">TMs (Gen 1)</div>
           <div class="moves-grid" id="modal-tm-moves"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">Análise de Batalha</div>
+          <button class="ai-btn" id="ai-btn" onclick="analyzeWithAI()">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" style="width:20px;height:20px;image-rendering:pixelated;" alt="" />
+            Montar um time para PVP
+          </button>
+          <div class="ai-result" id="ai-result"></div>
         </div>
       </div>
     </div>
@@ -3299,6 +4240,7 @@
       "Spike Cannon": "Dispara espinhos afiados 2–5 vezes seguidas.",
       "Splash": "Salta no lugar. Absolutamente nenhum efeito.",
       "Spore": "Polvilha esporos que adormecem o alvo. Precisão perfeita.",
+      "Stun Spore": "Espalha esporos que paralisam o alvo, reduzindo sua velocidade e podendo impedi-lo de agir.",
       "Stomp": "Pisa com força no alvo. 30% de chance de fazer recuar.",
       "String Shot": "Dispara fio de seda que reduz a Velocidade do alvo em 1 estágio.",
       "Submission": "Agarra e joga o alvo. Causa 1/4 do dano como recuo ao usuário.",
@@ -3509,14 +4451,87 @@
       "Mimic": "Copia o último golpe usado pelo alvo e o substitui temporariamente na lista de golpes do usuário até o fim da batalha.",
     };
 
+    let currentModalId = null;
+    let lastNavDirection = null;
 
+    // Envolva o modal em posição relative para as setas ficarem nas bordas
+    document.getElementById("modal").style.position = "relative";
+
+    document.getElementById("modal-prev").addEventListener("click", () => {
+      const filtered = getFiltered();
+      const idx = filtered.findIndex(p => p.id === currentModalId);
+      if (idx > 0) {
+        lastNavDirection = "left";
+        openModal(filtered[idx - 1]);
+      }
+    });
+
+    document.getElementById("modal-next").addEventListener("click", () => {
+      const filtered = getFiltered();
+      const idx = filtered.findIndex(p => p.id === currentModalId);
+      if (idx < filtered.length - 1) {
+        lastNavDirection = "right";
+        openModal(filtered[idx + 1]);
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!document.getElementById("modal-overlay").classList.contains("open")) return;
+      if (e.key === "ArrowLeft") document.getElementById("modal-prev").click();
+      if (e.key === "ArrowRight") document.getElementById("modal-next").click();
+    });
+    // Navegação pelo teclado também
+    document.addEventListener("keydown", (e) => {
+      if (!document.getElementById("modal-overlay").classList.contains("open")) return;
+      if (e.key === "ArrowLeft") document.getElementById("modal-prev").click();
+      if (e.key === "ArrowRight") document.getElementById("modal-next").click();
+    });
+
+    function renderCarousel(p, filtered) {
+      const idx = filtered.findIndex(x => x.id === p.id);
+      const start = Math.max(0, idx - 2);
+      const end = Math.min(filtered.length - 1, idx + 2);
+      const visible = filtered.slice(start, end + 1);
+
+      const container = document.getElementById("modal-carousel");
+      container.innerHTML = visible.map(poke => `
+    <div class="carousel-item ${poke.id === p.id ? "active" : ""}"
+         onclick="openModalById(${poke.id})">
+      <img src="${spriteUrl(poke.id)}" width="${poke.id === p.id ? 56 : 36}"
+           height="${poke.id === p.id ? 56 : 36}" alt="${poke.name}"/>
+      <span>${poke.name}</span>
+    </div>
+  `).join("");
+    }
     function openModal(p) {
       const overlay = document.getElementById("modal-overlay");
       document.getElementById("modal-number").textContent = `#${String(p.id).padStart(3, "0")}`;
       document.getElementById("modal-title").textContent = p.name;
       document.getElementById("modal-sprite").src = spriteUrl(p.id);
       document.getElementById("modal-sprite").alt = p.name;
+      currentModalId = p.id;
+      const filtered = getFiltered();
+      const idx = filtered.findIndex(x => x.id === p.id);
+      // Limpa análise anterior
+      const oldResult = document.getElementById("ai-result");
+      if (oldResult) { oldResult.className = "ai-result"; oldResult.innerHTML = ""; }
+      const oldBtn = document.getElementById("ai-btn");
+      if (oldBtn) { oldBtn.disabled = false; oldBtn.innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" style="width:20px;height:20px;image-rendering:pixelated;" alt=""/> Montar um time para PVP`; }
+      document.getElementById("modal-prev").disabled = idx === 0;
+      document.getElementById("modal-next").disabled = idx === filtered.length - 1;
+      document.getElementById("modal-counter").textContent = `${idx + 1} / ${filtered.length}`;
+      // Cor dinâmica no carrossel
+      // document.getElementById("modal-carousel").style.setProperty("--carousel-color", color);
 
+      // Animação de direção
+      const header = document.getElementById("modal-header");
+      header.classList.remove("anim-right", "anim-left");
+      void header.offsetWidth; // força reflow
+      if (lastNavDirection === "right") header.classList.add("anim-right");
+      if (lastNavDirection === "left") header.classList.add("anim-left");
+      lastNavDirection = null;
+
+      renderCarousel(p, filtered);
       // Descrição
       let descEl = document.getElementById("modal-desc");
       if (!descEl) {
@@ -3535,6 +4550,8 @@
       // Header gradient
       const headerEl = document.getElementById("modal-header");
       const color = TYPE_COLORS[p.types[0]] || "#888";
+      // Cor dinâmica no carrossel
+      document.getElementById("modal-carousel").style.setProperty("--carousel-color", color);
       headerEl.style.background = `linear-gradient(135deg, ${color}18 0%, transparent 70%)`;
       headerEl.style.borderBottom = `1px solid ${color}33`;
 
@@ -3664,7 +4681,654 @@
     btt.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+    // =====================================================
+    // POKEBALL CAPTURE ANIMATION
+    // =====================================================
+    function showPokeballCapture(callback) {
+      const overlay = document.createElement("div");
+      overlay.className = "pokeball-overlay";
+      overlay.innerHTML = `
+    <svg class="pokeball-capture" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="#2e3660" stroke-width="4"/>
+      <path d="M2,50 Q2,2 50,2 Q98,2 98,50 Z" fill="#e63946" opacity="0.95"/>
+      <path d="M2,50 Q2,98 50,98 Q98,98 98,50 Z" fill="#13162a" opacity="0.95"/>
+      <line x1="2" y1="50" x2="98" y2="50" stroke="#2e3660" stroke-width="4"/>
+      <circle cx="50" cy="50" r="14" fill="#1e2440" stroke="#2e3660" stroke-width="4"/>
+      <circle cx="50" cy="50" r="7" fill="#e63946"/>
+    </svg>
+    <div class="pokeball-text">Voltando ao início...</div>
+  `;
+      const flash = document.createElement("div");
+      flash.className = "pokeball-flash";
+      document.body.appendChild(overlay);
+      document.body.appendChild(flash);
 
+      requestAnimationFrame(() => overlay.classList.add("show"));
+
+      setTimeout(() => {
+        flash.classList.add("show");
+        setTimeout(() => {
+          flash.classList.remove("show");
+          setTimeout(() => {
+            overlay.classList.remove("show");
+            setTimeout(() => {
+              overlay.remove();
+              flash.remove();
+              if (callback) callback();
+            }, 300);
+          }, 200);
+        }, 150);
+      }, 1200);
+    }
+
+    function switchBuild(n) {
+      document.querySelectorAll(".ai-variant-tab").forEach((t, i) => t.classList.toggle("active", i === n - 1));
+      document.querySelectorAll(".ai-variant-panel").forEach((p, i) => p.classList.toggle("active", i === n - 1));
+    }
+
+    // =====================================================
+    // ANALYZE WITH AI — VERSÃO COMPLETA
+    // =====================================================
+    async function analyzeWithAI() {
+      const p = POKEMON_DATA.find(x => x.id === currentModalId);
+      if (!p) return;
+
+      const btn = document.getElementById("ai-btn");
+      const result = document.getElementById("ai-result");
+
+      btn.disabled = true;
+      btn.innerHTML = `<div class="ai-thinking"><div class="ai-thinking-dots"><span></span><span></span><span></span></div> Montando análise para ${p.name}...</div>`;
+      result.className = "ai-result";
+      result.innerHTML = "";
+      await new Promise(r => setTimeout(r, 1000));
+
+      // =====================================================
+      // HELPERS
+      // =====================================================
+      const allMoves = m => [...m.levelMoves.map(x => x.move), ...m.tmMoves];
+      const hasMoves = (m, list) => list.some(mv => allMoves(m).includes(mv));
+      const moves = allMoves(p);
+
+      const STAB_MOVES = {
+        Fire: ["Flamethrower", "Fire Blast", "Fire Punch", "Ember", "Fire Spin"],
+        Water: ["Surf", "Hydro Pump", "Bubblebeam", "Water Gun", "Bubble"],
+        Grass: ["Solar Beam", "Razor Leaf", "Mega Drain", "Vine Whip", "Petal Dance"],
+        Electric: ["Thunderbolt", "Thunder", "Thunder Punch", "Thunder Shock"],
+        Psychic: ["Psychic", "Psybeam"],
+        Ice: ["Blizzard", "Ice Beam", "Ice Punch", "Powder Snow"],
+        Fighting: ["Submission", "Hi Jump Kick", "Jump Kick", "Karate Chop", "Low Kick", "Seismic Toss"],
+        Ground: ["Earthquake", "Dig", "Fissure"],
+        Rock: ["Rock Slide", "Rock Throw"],
+        Ghost: ["Night Shade", "Lick"],
+        Poison: ["Sludge", "Toxic", "Poison Sting"],
+        Bug: ["Pin Missile", "Twineedle", "Leech Life"],
+        Flying: ["Wing Attack", "Drill Peck", "Sky Attack", "Gust"],
+        Dragon: ["Dragon Rage"],
+        Normal: ["Body Slam", "Double Edge", "Hyper Beam", "Slam"]
+      };
+
+      const SETUP = ["Swords Dance", "Amnesia", "Agility", "Growth", "Barrier", "Reflect", "Light Screen", "Focus Energy"];
+      const STATUS = ["Thunder Wave", "Sleep Powder", "Toxic", "Stun Spore", "Hypnosis", "Lovely Kiss", "Sing", "Glare", "Confuse Ray", "Poison Gas"];
+      const RECOVERY = ["Rest", "Recover", "Softboiled", "Mega Drain", "Leech Seed"];
+      const HIGH_CRIT = ["Slash", "Razor Leaf", "Crabhammer", "Karate Chop", "Drill Peck"];
+      const COVERAGE = ["Earthquake", "Blizzard", "Ice Beam", "Thunderbolt", "Thunder", "Psychic", "Surf", "Flamethrower", "Fire Blast", "Solar Beam", "Rock Slide", "Body Slam", "Seismic Toss", "Hyper Beam"];
+
+      const temSetup = hasMoves(p, SETUP);
+      const temStatus = hasMoves(p, STATUS);
+      const temRecovery = hasMoves(p, RECOVERY);
+      const temCoverage = hasMoves(p, COVERAGE);
+      const temHighCrit = hasMoves(p, HIGH_CRIT);
+      const muitasRes = p.resistances["0.5x"].length + p.resistances.immune.length >= 3;
+      const fraquezas = [...(p.weaknesses["2x"] || []), ...(p.weaknesses["4x"] || [])];
+
+      const tipoEmoji = t => ({ Fire: "🔥", Water: "🌊", Grass: "🌿", Electric: "⚡", Psychic: "🧠", Ice: "❄️", Fighting: "🥊", Poison: "☠️", Ground: "🌎", Flying: "🦅", Rock: "🪨", Bug: "🐛", Ghost: "👻", Dragon: "🐉", Normal: "⭐" }[t] || "✨");
+      const tipoCor = t => TYPE_COLORS[t] || "#888";
+
+      const moveEmoji = mv => {
+        if (["Flamethrower", "Fire Blast", "Fire Punch", "Ember", "Fire Spin"].includes(mv)) return "🔥";
+        if (["Surf", "Hydro Pump", "Bubblebeam", "Water Gun"].includes(mv)) return "🌊";
+        if (["Thunderbolt", "Thunder", "Thunder Punch", "Thunder Wave"].includes(mv)) return "⚡";
+        if (["Blizzard", "Ice Beam", "Ice Punch"].includes(mv)) return "❄️";
+        if (["Psychic", "Psybeam", "Recover", "Amnesia", "Barrier", "Reflect"].includes(mv)) return "🧠";
+        if (["Earthquake", "Dig", "Fissure"].includes(mv)) return "🌎";
+        if (["Rock Slide", "Rock Throw"].includes(mv)) return "🪨";
+        if (["Swords Dance", "Slash", "Hyper Beam", "Submission", "Karate Chop", "Hi Jump Kick"].includes(mv)) return "⚔️";
+        if (["Sleep Powder", "Hypnosis", "Lovely Kiss", "Sing", "Rest", "Softboiled", "Recover"].includes(mv)) return "💚";
+        if (["Toxic", "Poison Sting", "Sludge"].includes(mv)) return "☠️";
+        if (["Body Slam", "Seismic Toss", "Mega Kick"].includes(mv)) return "💥";
+        if (["Solar Beam", "Razor Leaf", "Vine Whip", "Mega Drain"].includes(mv)) return "🌿";
+        if (["Wing Attack", "Drill Peck", "Sky Attack"].includes(mv)) return "🦅";
+        if (["Night Shade", "Confuse Ray", "Lick"].includes(mv)) return "👻";
+        if (["Agility", "Quick Attack"].includes(mv)) return "💨";
+        return "✨";
+      };
+
+      const moveJust = mv => {
+        if (STAB_MOVES[p.types[0]]?.includes(mv) || STAB_MOVES[p.types[1]]?.includes(mv)) return "STAB principal";
+        if (SETUP.includes(mv)) return "Setup ofensivo/defensivo";
+        if (STATUS.includes(mv)) return "Controle de status";
+        if (RECOVERY.includes(mv)) return "Sustentabilidade";
+        if (HIGH_CRIT.includes(mv)) return "Alto crit rate Gen 1";
+        if (mv === "Earthquake") return "Cobertura universal";
+        if (["Blizzard", "Ice Beam"].includes(mv)) return "Cobre Dragon/Flying/Grass";
+        if (["Thunderbolt", "Thunder"].includes(mv)) return "Cobre Water/Flying";
+        if (mv === "Seismic Toss") return "Dano fixo confiável";
+        if (mv === "Rock Slide") return "Cobre Fire/Flying/Bug";
+        if (mv === "Psychic") return "Meta dominante Gen 1";
+        return "Cobertura complementar";
+      };
+
+      // =====================================================
+      // NATURES COMPLETAS
+      // =====================================================
+      const NATURES = {
+        // +Atk
+        "Lonely": { boost: "Atk", cut: "Def", label: "Lonely (+Atk, -Def)" },
+        "Brave": { boost: "Atk", cut: "Spe", label: "Brave (+Atk, -Spe)" },
+        "Adamant": { boost: "Atk", cut: "SpA", label: "Adamant (+Atk, -SpA)" },
+        "Naughty": { boost: "Atk", cut: "SpD", label: "Naughty (+Atk, -SpD)" },
+        // +Def
+        "Bold": { boost: "Def", cut: "Atk", label: "Bold (+Def, -Atk)" },
+        "Relaxed": { boost: "Def", cut: "Spe", label: "Relaxed (+Def, -Spe)" },
+        "Impish": { boost: "Def", cut: "SpA", label: "Impish (+Def, -SpA)" },
+        "Lax": { boost: "Def", cut: "SpD", label: "Lax (+Def, -SpD)" },
+        // +Spe
+        "Timid": { boost: "Spe", cut: "Atk", label: "Timid (+Spe, -Atk)" },
+        "Hasty": { boost: "Spe", cut: "Def", label: "Hasty (+Spe, -Def)" },
+        "Jolly": { boost: "Spe", cut: "SpA", label: "Jolly (+Spe, -SpA)" },
+        "Naive": { boost: "Spe", cut: "SpD", label: "Naive (+Spe, -SpD)" },
+        // +SpA
+        "Modest": { boost: "SpA", cut: "Atk", label: "Modest (+SpA, -Atk)" },
+        "Mild": { boost: "SpA", cut: "Def", label: "Mild (+SpA, -Def)" },
+        "Quiet": { boost: "SpA", cut: "Spe", label: "Quiet (+SpA, -Spe)" },
+        "Rash": { boost: "SpA", cut: "SpD", label: "Rash (+SpA, -SpD)" },
+        // +SpD
+        "Calm": { boost: "SpD", cut: "Atk", label: "Calm (+SpD, -Atk)" },
+        "Gentle": { boost: "SpD", cut: "Def", label: "Gentle (+SpD, -Def)" },
+        "Sassy": { boost: "SpD", cut: "Spe", label: "Sassy (+SpD, -Spe)" },
+        "Careful": { boost: "SpD", cut: "SpA", label: "Careful (+SpD, -SpA)" },
+      };
+
+      const STAT_FULL = {
+        "Atk": "Attack", "Def": "Defense", "Spe": "Speed", "SpA": "Special Attack", "SpD": "Special Defense", "HP": "HP"
+      };
+
+      const renderNature = (natureName) => {
+        const n = NATURES[natureName];
+        if (!n) return `<span class="nature-chip">${natureName}</span>`;
+        return `<span class="nature-chip">
+      ${natureName}
+      <span style="font-size:10px;color:#a855f7;font-weight:700">(+${n.boost}, -${n.cut})</span>
+      <div class="nature-tooltip">+${STAT_FULL[n.boost]} / -${STAT_FULL[n.cut]}</div>
+    </span>`;
+      };
+
+      // =====================================================
+      // POKÉMON EXCLUÍDOS DO ROSTER
+      // =====================================================
+      const EXCLUIDOS = new Set([
+        1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19, 21, 23, 27, 29, 30, 32, 33,
+        35, 37, 39, 41, 43, 44, 46, 48, 50, 52, 54, 56, 58, 60, 61, 63, 66, 69, 70,
+        72, 74, 77, 79, 81, 84, 86, 88, 90, 92, 96, 98, 100, 102, 104, 109, 111,
+        116, 118, 120, 129, 133, 138, 140, 147, 148
+      ]);
+
+      // =====================================================
+      // ROSTER EXPANDIDO (apenas evoluções finais e únicos)
+      // =====================================================
+      const ROSTER_ALL = [
+        { id: 3, papel: "Special Attacker", motivo: "Sleep Powder + Solar Beam + Razor Leaf dominam", cobre: ["Water", "Ground", "Rock"] },
+        { id: 6, papel: "Mixed Sweeper", motivo: "Fire + Earthquake + Swords Dance — pressão total", cobre: ["Grass", "Bug", "Fighting", "Ice"] },
+        { id: 9, papel: "Special Attacker", motivo: "Surf + Ice Beam + Blizzard cobre quase tudo", cobre: ["Fire", "Rock", "Ground"] },
+        { id: 12, papel: "Status Lead", motivo: "Sleep Powder + Stun Spore com Compound Eyes perfeito", cobre: ["Fighting", "Ground"] },
+        { id: 15, papel: "Physical Attacker", motivo: "Twineedle + Pin Missile + Agility surpreende", cobre: ["Grass", "Fighting", "Ground"] },
+        { id: 18, papel: "Physical Sweeper", motivo: "Agility + Wing Attack + Mirror Move + Sky Attack", cobre: ["Grass", "Bug", "Fighting"] },
+        { id: 20, papel: "Disruptor", motivo: "Super Fang corta HP pela metade + Hyper Fang forte", cobre: ["Normal", "Ghost"] },
+        { id: 22, papel: "Physical Sweeper", motivo: "Drill Peck + Agility + alta velocidade natural", cobre: ["Grass", "Bug", "Fighting"] },
+        { id: 24, papel: "Status / Tank", motivo: "Glare paralisa + Wrap prende + Intimidate", cobre: ["Grass", "Fighting", "Poison"] },
+        { id: 26, papel: "Electric Sweeper", motivo: "Thunderbolt + Surf surpreende Grounds", cobre: ["Water", "Flying", "Ice"] },
+        { id: 28, papel: "Physical Sweeper", motivo: "Slash com alto crit + Earthquake + Swords Dance", cobre: ["Electric", "Poison", "Rock"] },
+        { id: 31, papel: "Mixed Tank", motivo: "Body Slam + Earthquake + Surf — cobertura enorme", cobre: ["Electric", "Rock", "Ground"] },
+        { id: 34, papel: "Mixed Attacker", motivo: "Earthquake + Megahorn + Thunderbolt — cobertura total", cobre: ["Electric", "Poison", "Rock"] },
+        { id: 36, papel: "Special Attacker", motivo: "Metronome + cobertura ampla via TMs — imprevisível", cobre: ["Fighting", "Ghost"] },
+        { id: 38, papel: "Special Attacker", motivo: "Flamethrower + Fire Spin + alta velocidade", cobre: ["Grass", "Bug", "Ice", "Steel"] },
+        { id: 40, papel: "Bulky Support", motivo: "Sing + Double Edge + Metronome — bulk imenso", cobre: ["Fighting", "Ghost"] },
+        { id: 42, papel: "Status / Disruptor", motivo: "Confuse Ray + Leech Life + Wing Attack + Haze", cobre: ["Grass", "Fighting", "Ground"] },
+        { id: 45, papel: "Status Attacker", motivo: "Sleep Powder + Solar Beam + Stun Spore", cobre: ["Water", "Ground", "Fighting"] },
+        { id: 47, papel: "Status Lead", motivo: "Spore 100% precisão + Slash + Swords Dance", cobre: ["Water", "Ground", "Electric"] },
+        { id: 49, papel: "Status Lead", motivo: "Sleep Powder + Psychic + cobertura de status variado", cobre: ["Grass", "Fighting", "Ground"] },
+        { id: 51, papel: "Speed Trap", motivo: "Arena Trap + Earthquake — força switches ruins", cobre: ["Electric", "Poison", "Rock"] },
+        { id: 53, papel: "Physical Sweeper", motivo: "Slash crit + Pay Day + Thunderbolt via TM", cobre: ["Normal", "Ghost"] },
+        { id: 55, papel: "Special Attacker", motivo: "Amnesia + Surf + Psychic + Ice Beam = combo top", cobre: ["Fire", "Ground", "Rock"] },
+        { id: 57, papel: "Physical Sweeper", motivo: "Submission + Counter + alta velocidade", cobre: ["Normal", "Ice", "Rock"] },
+        { id: 59, papel: "Physical Attacker", motivo: "Intimidate + Flash Fire + velocidade alta", cobre: ["Grass", "Bug", "Ice", "Poison"] },
+        { id: 62, papel: "Mixed Attacker", motivo: "Surf + Submission + Amnesia — Water/Fighting único", cobre: ["Fire", "Rock", "Normal", "Ice"] },
+        { id: 65, papel: "Special Sweeper", motivo: "Meta dominante — Psychic é o tipo mais forte da Gen 1", cobre: ["Fighting", "Poison"] },
+        { id: 68, papel: "Physical Sweeper", motivo: "1000 socos em 2s — Submission + Earthquake + Counter", cobre: ["Normal", "Ice", "Rock"] },
+        { id: 71, papel: "Status Attacker", motivo: "Sleep Powder + Razor Leaf + Slam — imprevisível", cobre: ["Water", "Ground", "Electric"] },
+        { id: 73, papel: "Defensive Tank", motivo: "Barrier + muitas resistências + Hydro Pump", cobre: ["Fire", "Ground", "Rock"] },
+        { id: 76, papel: "Wallbreaker", motivo: "Explosion garante KO garantido quando necessário", cobre: ["Electric", "Normal", "Flying", "Poison"] },
+        { id: 78, papel: "Physical Sweeper", motivo: "Agility + Fire Spin + alta velocidade natural", cobre: ["Grass", "Bug", "Ice"] },
+        { id: 80, papel: "Bulky Psychic", motivo: "Amnesia + Surf + Psychic = combo devastador", cobre: ["Fire", "Water", "Fighting", "Poison"] },
+        { id: 82, papel: "Special Wall", motivo: "Imune a Poison + Thunder Wave + muitas resistências", cobre: ["Normal", "Flying", "Ice", "Rock", "Dragon"] },
+        { id: 83, papel: "Physical Sweeper", motivo: "Swords Dance + Slash + alta crit rate", cobre: ["Grass", "Bug", "Fighting"] },
+        { id: 85, papel: "Physical Sweeper", motivo: "Drill Peck + Tri Attack + Agility — velocidade alta", cobre: ["Grass", "Bug", "Fighting"] },
+        { id: 87, papel: "Bulky Special", motivo: "Thick Fat + Ice Beam + Surf — muito resistente", cobre: ["Fire", "Rock", "Dragon"] },
+        { id: 89, papel: "Tank / Disruptor", motivo: "Minimize + Explosion + muita bulk", cobre: ["Grass", "Fighting", "Poison"] },
+        { id: 91, papel: "Defensive Wall", motivo: "Shell Armor + resistências enormes + Blizzard", cobre: ["Normal", "Flying", "Ice", "Bug"] },
+        { id: 94, papel: "Disruptor", motivo: "Hypnosis + Thunderbolt — único Ghost jogável", cobre: ["Normal", "Fighting", "Poison"] },
+        { id: 97, papel: "Psychic Support", motivo: "Hypnosis + Psychic + Meditate — combo de controle", cobre: ["Fighting", "Poison", "Ghost"] },
+        { id: 99, papel: "Physical Attacker", motivo: "Crabhammer crit + Guillotine OHKO + Swords Dance", cobre: ["Fire", "Ground", "Rock"] },
+        { id: 101, papel: "Electric Attacker", motivo: "Explosion surpresa + Thunderbolt + alta velocidade", cobre: ["Water", "Flying", "Ice"] },
+        { id: 103, papel: "Special Attacker", motivo: "Psychic + Sleep Powder = combo letal", cobre: ["Water", "Ground", "Fighting"] },
+        { id: 105, papel: "Physical Tank", motivo: "Thick Fat + Bone Rush + Swords Dance", cobre: ["Electric", "Poison"] },
+        { id: 106, papel: "Physical Sweeper", motivo: "Hi Jump Kick + Mega Kick + Reckless = dano enorme", cobre: ["Normal", "Ice", "Rock"] },
+        { id: 107, papel: "Physical Fighter", motivo: "Fire/Ice/Thunder Punch — cobertura física única", cobre: ["Normal", "Ice", "Rock"] },
+        { id: 108, papel: "Utility Tank", motivo: "Wrap + Disable + Slam + Supersonic — disruptor único", cobre: ["Normal", "Ghost"] },
+        { id: 110, papel: "Status / Tank", motivo: "Levitate + Explosion + Haze + Sludge", cobre: ["Grass", "Fighting", "Poison"] },
+        { id: 112, papel: "Physical Tank", motivo: "Imune a Electric + Earthquake devastador", cobre: ["Electric", "Normal", "Flying"] },
+        { id: 113, papel: "Suporte Puro", motivo: "Softboiled + Sing + Seismic Toss — melhor suporte", cobre: ["Fighting", "Ghost"] },
+        { id: 114, papel: "Status Attacker", motivo: "Sleep Powder + Bind + Slam + Growth", cobre: ["Water", "Ground", "Electric"] },
+        { id: 115, papel: "Physical Attacker", motivo: "Mega Punch + Body Slam + Earthquake — muito versátil", cobre: ["Normal", "Ghost"] },
+        { id: 117, papel: "Special Attacker", motivo: "Agility + Hydro Pump + Sniper ability", cobre: ["Fire", "Ground", "Rock"] },
+        { id: 119, papel: "Physical Attacker", motivo: "Horn Drill OHKO + Waterfall + Agility", cobre: ["Fire", "Ground", "Rock"] },
+        { id: 121, papel: "Utility / Tank", motivo: "Cobertura absurda + Recover. Um dos melhores", cobre: ["Fire", "Rock", "Ground"] },
+        { id: 122, papel: "Support / Wall", motivo: "Barrier + Light Screen + Psychic — support top", cobre: ["Fighting", "Poison"] },
+        { id: 123, papel: "Physical Sweeper", motivo: "Swords Dance + Slash + Agility — muito rápido", cobre: ["Grass", "Bug", "Fighting"] },
+        { id: 124, papel: "Status Lead", motivo: "Lovely Kiss + Ice Punch + Psychic — combo único", cobre: ["Dragon", "Flying", "Grass"] },
+        { id: 125, papel: "Electric Sweeper", motivo: "Thunder Punch + Ice Punch + Fire Punch = cobertura", cobre: ["Water", "Flying", "Ice"] },
+        { id: 126, papel: "Special Attacker", motivo: "Flamethrower + Confuse Ray + Fire Punch", cobre: ["Grass", "Bug", "Ice"] },
+        { id: 127, papel: "Physical Sweeper", motivo: "Swords Dance + Slash + alta crit rate", cobre: ["Grass", "Fighting", "Ground"] },
+        { id: 128, papel: "Physical Attacker", motivo: "Body Slam paralisia + Hyper Beam + Sheer Force", cobre: ["Normal", "Ghost"] },
+        { id: 130, papel: "Physical Sweeper", motivo: "Intimidate + dano físico enorme + Hyper Beam", cobre: ["Fire", "Ground"] },
+        { id: 131, papel: "Bulky Special", motivo: "Bulk imenso + Water/Ice/Thunder + Sing", cobre: ["Fire", "Rock", "Dragon", "Fighting"] },
+        { id: 134, papel: "Bulky Attacker", motivo: "Water Absorb + Acid Armor + Hydro Pump", cobre: ["Fire", "Ground", "Rock"] },
+        { id: 135, papel: "Speed Control", motivo: "Velocidade alta + Thunder Wave + Thunderbolt", cobre: ["Water", "Flying"] },
+        { id: 136, papel: "Special Attacker", motivo: "Flash Fire + Flamethrower + alta velocidade", cobre: ["Grass", "Bug", "Ice"] },
+        { id: 137, papel: "Special Attacker", motivo: "Tri Attack + Thunderbolt + Ice Beam + Recover", cobre: ["Normal", "Ghost"] },
+        { id: 139, papel: "Special Attacker", motivo: "Swift Swim + Shell Armor + Hydro Pump + Blizzard", cobre: ["Fire", "Ground", "Flying"] },
+        { id: 141, papel: "Physical Sweeper", motivo: "Swords Dance + Slash + velocidade alta na água", cobre: ["Fire", "Normal", "Flying", "Poison"] },
+        { id: 142, papel: "Physical Sweeper", motivo: "Agility + Wing Attack + Hyper Beam — muito rápido", cobre: ["Grass", "Bug", "Fighting"] },
+        { id: 143, papel: "Bulky Attacker", motivo: "Amnesia + Body Slam + Bulk imenso + Rest", cobre: ["Fighting", "Ghost"] },
+        { id: 144, papel: "Legendary Wall", motivo: "Bulk lendário + Blizzard + Agility", cobre: ["Ground", "Grass", "Fighting", "Bug"] },
+        { id: 145, papel: "Special Sweeper", motivo: "Thunderbolt + Drill Peck + velocidade excepcional", cobre: ["Water", "Flying", "Fighting"] },
+        { id: 146, papel: "Special Attacker", motivo: "Fire Blast + Agility + Pressure — difícil de parar", cobre: ["Grass", "Bug", "Ice", "Fighting"] },
+        { id: 149, papel: "Mixed Sweeper", motivo: "Melhor da Gen 1 — cobertura e stats incomparáveis", cobre: ["Fighting", "Bug", "Ground", "Electric"] },
+        { id: 150, papel: "Legendary Sweeper", motivo: "O mais poderoso — Psychic + Amnesia + Recover", cobre: ["Fighting", "Poison", "Ghost"] },
+        { id: 151, papel: "Utility Total", motivo: "Aprende TODOS os TMs — versatilidade incomparável", cobre: ["Fighting", "Poison", "Ghost"] },
+      ];
+
+      // =====================================================
+      // SELECIONA PARCEIROS (3 POOLS DIFERENTES POR VARIANTE)
+      // =====================================================
+      function selecionarParceiros(varianteSeed) {
+        const disponiveis = ROSTER_ALL.filter(r => r.id !== p.id && !EXCLUIDOS.has(r.id));
+        const cobreFreq = r => fraquezas.some(fr =>
+          r.cobre.includes(fr) ||
+          (POKEMON_DATA.find(x => x.id === r.id)?.resistances["0.5x"] || []).includes(fr) ||
+          (POKEMON_DATA.find(x => x.id === r.id)?.resistances.immune || []).includes(fr)
+        );
+
+        const comCob = disponiveis.filter(cobreFreq);
+        const semCob = disponiveis.filter(r => !cobreFreq(r));
+
+        // Embaralha diferente por variante
+        const shuffle = (arr, seed) => {
+          const a = [...arr];
+          for (let i = a.length - 1; i > 0; i--) {
+            const j = (seed * (i + 7) * 31337 + i * 997) % (i + 1);
+            [a[i], a[j]] = [a[j], a[i]];
+          }
+          return a;
+        };
+
+        const ordenados = [...shuffle(comCob, varianteSeed), ...shuffle(semCob, varianteSeed + 100)];
+        const tiposUsados = [...p.types];
+        const resultado = [];
+
+        for (const r of ordenados) {
+          if (resultado.length >= 5) break;
+          const pkData = POKEMON_DATA.find(x => x.id === r.id);
+          if (!pkData) continue;
+          const novoTipo = pkData.types.some(t => !tiposUsados.includes(t));
+          if (novoTipo || resultado.length < 2) {
+            resultado.push({ ...r, pkData });
+            pkData.types.forEach(t => tiposUsados.push(t));
+          }
+        }
+        return resultado;
+      }
+
+      const parceiros1 = selecionarParceiros(1);
+      const parceiros2 = selecionarParceiros(37);
+      const parceiros3 = selecionarParceiros(73);
+
+      // =====================================================
+      // GERA BUILD (por variante)
+      // =====================================================
+      function gerarBuild(variante, parceiros) {
+        const hasAmnesia = moves.includes("Amnesia");
+        const hasSwordsDance = moves.includes("Swords Dance");
+        const hasThunderWave = moves.includes("Thunder Wave");
+        const hasSleepMove = moves.some(m => ["Sleep Powder", "Hypnosis", "Lovely Kiss", "Sing", "Spore"].includes(m));
+        const isSpecial = p.types.some(t => ["Psychic", "Water", "Ice", "Electric", "Fire", "Grass"].includes(t));
+        const isPhysical = p.types.some(t => ["Fighting", "Ground", "Rock", "Normal", "Flying"].includes(t));
+
+        let papel, funcao, abilityName, natureName, evs;
+
+        // EVs sempre com max 2000 por stat e total 4000
+        if (variante === 1) {
+          if (temRecovery && muitasRes) {
+            papel = "Wall / Tanque"; funcao = "Absorve dano com resistências e se recupera para durar toda a batalha.";
+            abilityName = p.abilities[0]; natureName = "Bold";
+            evs = [{ stat: "HP", val: 2000, cor: "#6890f0" }, { stat: "Def", val: 1500, cor: "#78c850" }, { stat: "SpD", val: 500, cor: "#98d8d8" }];
+          } else if (hasAmnesia && isSpecial) {
+            papel = "Special Sweeper Setup"; funcao = "Usa Amnesia para dobrar o Ataque Especial e varrer o time adversário.";
+            abilityName = p.abilities[0]; natureName = "Modest";
+            evs = [{ stat: "SpA", val: 2000, cor: "#f85888" }, { stat: "Spe", val: 1500, cor: "#f8d030" }, { stat: "HP", val: 500, cor: "#6890f0" }];
+          } else if (hasSwordsDance && isPhysical) {
+            papel = "Physical Sweeper Setup"; funcao = "Usa Swords Dance para dobrar o Ataque e varrer fisicamente.";
+            abilityName = p.abilities[0]; natureName = "Adamant";
+            evs = [{ stat: "Atk", val: 2000, cor: "#c03028" }, { stat: "Spe", val: 1500, cor: "#f8d030" }, { stat: "HP", val: 500, cor: "#6890f0" }];
+          } else if (isSpecial) {
+            papel = "Special Attacker"; funcao = "Pressiona com golpes especiais de alta potência e cobertura ampla.";
+            abilityName = p.abilities[0]; natureName = "Modest";
+            evs = [{ stat: "SpA", val: 2000, cor: "#f85888" }, { stat: "Spe", val: 1000, cor: "#f8d030" }, { stat: "HP", val: 1000, cor: "#6890f0" }];
+          } else if (temHighCrit) {
+            papel = "Physical Sweeper"; funcao = "Alta taxa de crítico na Gen 1 garante dano consistente e imprevisível.";
+            abilityName = p.abilities[0]; natureName = "Jolly";
+            evs = [{ stat: "Atk", val: 2000, cor: "#c03028" }, { stat: "Spe", val: 1500, cor: "#f8d030" }, { stat: "HP", val: 500, cor: "#6890f0" }];
+          } else {
+            papel = "Mixed Attacker"; funcao = "Pressiona com cobertura ampla física e especial, difícil de prever.";
+            abilityName = p.abilities[0]; natureName = "Hardy";
+            evs = [{ stat: "Atk", val: 1500, cor: "#c03028" }, { stat: "SpA", val: 1500, cor: "#f85888" }, { stat: "Spe", val: 1000, cor: "#f8d030" }];
+          }
+        } else if (variante === 2) {
+          if (hasSleepMove) {
+            papel = "Sleep Lead"; funcao = "Abre com sleep move para adiantar um Pokémon e criar vantagem imediata.";
+            abilityName = p.abilities[0]; natureName = "Timid";
+            evs = [{ stat: "Spe", val: 2000, cor: "#f8d030" }, { stat: "SpA", val: 1500, cor: "#f85888" }, { stat: "HP", val: 500, cor: "#6890f0" }];
+          } else if (hasThunderWave) {
+            papel = "Paralysis Support"; funcao = "Distribui Thunder Wave para lentificar o time adversário inteiro.";
+            abilityName = p.abilities[p.abilities.length - 1] || p.abilities[0]; natureName = "Calm";
+            evs = [{ stat: "HP", val: 2000, cor: "#6890f0" }, { stat: "Spe", val: 1000, cor: "#f8d030" }, { stat: "Def", val: 1000, cor: "#78c850" }];
+          } else if (isPhysical && !isSpecial) {
+            papel = "Wallbreaker Físico"; funcao = "Foca em quebrar tanks físicos com pressão constante.";
+            abilityName = p.hiddenAbility || p.abilities[0]; natureName = "Brave";
+            evs = [{ stat: "Atk", val: 2000, cor: "#c03028" }, { stat: "HP", val: 1000, cor: "#6890f0" }, { stat: "Def", val: 1000, cor: "#78c850" }];
+          } else {
+            papel = "Bulky Attacker"; funcao = "Equilibra bulk e poder ofensivo para durar mais e causar dano constante.";
+            abilityName = p.hiddenAbility || p.abilities[0]; natureName = "Rash";
+            evs = [{ stat: "HP", val: 1500, cor: "#6890f0" }, { stat: "SpA", val: 1500, cor: "#f85888" }, { stat: "Def", val: 1000, cor: "#78c850" }];
+          }
+        } else {
+          if (moves.includes("Rest") || moves.includes("Recover")) {
+            papel = "Stall / Toxic Staller"; funcao = "Usa Toxic + Recovery para vencer por desgaste lento.";
+            abilityName = p.hiddenAbility || p.abilities[0]; natureName = "Careful";
+            evs = [{ stat: "HP", val: 2000, cor: "#6890f0" }, { stat: "Def", val: 1000, cor: "#78c850" }, { stat: "SpD", val: 1000, cor: "#98d8d8" }];
+          } else if (moves.includes("Explosion") || moves.includes("Self Destruct")) {
+            papel = "Kamikaze / Sacrifício"; funcao = "Entra para absorver golpe e usa Explosion para garantir KO estratégico.";
+            abilityName = p.abilities[0]; natureName = "Brave";
+            evs = [{ stat: "Atk", val: 2000, cor: "#c03028" }, { stat: "HP", val: 1500, cor: "#6890f0" }, { stat: "Def", val: 500, cor: "#78c850" }];
+          } else if (moves.includes("Agility")) {
+            papel = "Agility Sweeper"; funcao = "Usa Agility para superar rivais rápidos e sweepear após boost.";
+            abilityName = p.hiddenAbility || p.abilities[0]; natureName = "Naive";
+            evs = [{ stat: "SpA", val: 2000, cor: "#f85888" }, { stat: "Atk", val: 1000, cor: "#c03028" }, { stat: "Spe", val: 1000, cor: "#f8d030" }];
+          } else {
+            papel = "Revenge Killer"; funcao = "Entra em Pokémon enfraquecidos e finaliza com poder bruto.";
+            abilityName = p.abilities[0]; natureName = "Jolly";
+            evs = [{ stat: "Spe", val: 2000, cor: "#f8d030" }, { stat: "Atk", val: 1500, cor: "#c03028" }, { stat: "HP", val: 500, cor: "#6890f0" }];
+          }
+        }
+
+        // Moveset diferente por variante
+        const prioridades = variante === 1
+          ? [...(STAB_MOVES[p.types[0]] || []), ...(p.types[1] ? STAB_MOVES[p.types[1]] || [] : []), ...SETUP, ...COVERAGE, ...STATUS, ...RECOVERY, ...HIGH_CRIT, ...moves]
+          : variante === 2
+            ? [...STATUS, ...RECOVERY, ...(STAB_MOVES[p.types[0]] || []), ...COVERAGE, ...SETUP, ...HIGH_CRIT, ...moves]
+            : [...RECOVERY, ...moves.filter(m => ["Explosion", "Self Destruct", "Agility", "Counter"].includes(m)), ...STATUS, ...COVERAGE, ...(STAB_MOVES[p.types[0]] || []), ...moves];
+
+        const movesetFinal = [];
+        for (const mv of prioridades) {
+          if (movesetFinal.length >= 4) break;
+          if (moves.includes(mv) && !movesetFinal.includes(mv)) movesetFinal.push(mv);
+        }
+
+        // Alternativas — seed diferente por variante, 5 opções
+        const seedAlt = variante * 17 + p.id;
+        const usados = new Set([p.id, ...parceiros.map(r => r.id)]);
+        const poolAlt = ROSTER_ALL.filter(x =>
+          !usados.has(x.id) &&
+          !EXCLUIDOS.has(x.id) &&
+          POKEMON_DATA.find(d => d.id === x.id)
+        );
+        const shuffleAlt = (arr, seed) => {
+          const a = [...arr];
+          for (let i = a.length - 1; i > 0; i--) {
+            const j = (seed * (i + 13) * 7919 + i * 31) % (i + 1);
+            [a[i], a[j]] = [a[j], a[i]];
+          }
+          return a;
+        };
+        const altOrdenados = shuffleAlt(poolAlt, seedAlt);
+        const alternativas = [];
+        const tiposAlt = [];
+        for (let i = 0; i < altOrdenados.length; i++) {
+          if (alternativas.length >= 5) break;
+          const r = altOrdenados[i];
+          const pkData = POKEMON_DATA.find(d => d.id === r.id);
+          if (!pkData) continue;
+          const novoTipo = pkData.types.some(t => !tiposAlt.includes(t));
+          if (novoTipo || alternativas.length < 2) {
+            const saindoPk = parceiros[alternativas.length] || parceiros[0];
+            alternativas.push({
+              ...r,
+              pkData,
+              saindo: saindoPk.pkData
+            });
+            pkData.types.forEach(t => tiposAlt.push(t));
+          }
+        }
+
+        return { papel, funcao, abilityName, natureName, evs, movesetFinal, alternativas };
+      }
+
+      const build1 = gerarBuild(1, parceiros1);
+      const build2 = gerarBuild(2, parceiros2);
+      const build3 = gerarBuild(3, parceiros3);
+
+      // =====================================================
+      // RENDER HELPERS
+      // =====================================================
+      const renderEVs = (evs) => {
+        const total = evs.reduce((a, b) => a + b.val, 0);
+        return `<div class="ai-ev-bar-wrap">
+      ${evs.map(e => `
+        <div class="ai-ev-row">
+          <span class="ai-ev-label">${e.stat}</span>
+          <div class="ai-ev-bar"><div class="ai-ev-fill" style="width:${Math.round(e.val / 20)}%;background:${e.cor}"></div></div>
+          <span class="ai-ev-val">${e.val}</span>
+        </div>
+      `).join("")}
+      <div style="font-size:9px;color:var(--text-dim);margin-top:4px">Total: ${total} / 4000 EVs</div>
+    </div>`;
+      };
+
+      const renderBuildPanel = (build, parceiros, idx) => {
+        const tiposUnicos = [...new Set([p, ...parceiros.map(r => r.pkData)].flatMap(pk => pk.types))];
+        return `
+    <div class="ai-variant-panel ${idx === 1 ? "active" : ""}" id="panel-${idx}">
+      <div class="ai-main-card">
+        <div class="ai-main-left">
+          <img src="${spriteUrl(p.id)}" class="ai-main-sprite" alt="${p.name}"/>
+          <div class="ai-main-info">
+            <div class="ai-main-num">#${String(p.id).padStart(3, "0")}</div>
+            <div class="ai-main-name">${p.name}</div>
+            <div class="ai-main-types">${p.types.map(t => `<span class="type-badge" style="background:${tipoCor(t)}">${tipoEmoji(t)} ${t}</span>`).join("")}</div>
+            <div class="ai-role-badge">${build.papel}</div>
+          </div>
+        </div>
+        <div class="ai-main-right"><div class="ai-func">${build.funcao}</div></div>
+      </div>
+
+      <div class="ai-section-block">
+        <h4>🧬 BUILD — ${build.papel.toUpperCase()}</h4>
+        <div class="ai-build-grid">
+          <div class="ai-build-item">
+            <div class="ai-build-label">ABILITY</div>
+            <div class="ai-build-value">${build.abilityName}</div>
+            <div class="ai-build-sub">${ABILITY_DESCRIPTIONS[build.abilityName] || "Ability principal"}</div>
+          </div>
+          <div class="ai-build-item">
+            <div class="ai-build-label">NATURE</div>
+            ${renderNature(build.natureName)}
+          </div>
+          <div class="ai-build-item">
+            <div class="ai-build-label">PAPEL</div>
+            <div class="ai-build-value" style="font-size:11px">${build.papel}</div>
+          </div>
+        </div>
+        <div style="margin-top:8px">
+          <div style="font-family:'Press Start 2P',monospace;font-size:8px;color:var(--text-muted);letter-spacing:1px;margin-bottom:8px">📊 EVS</div>
+          ${renderEVs(build.evs)}
+        </div>
+      </div>
+
+      <div class="ai-section-block">
+        <h4>🎯 MOVESET</h4>
+        <div class="ai-moveset-grid">
+         ${build.movesetFinal.map(mv => `
+    <div class="ai-move-card">
+      <span class="ai-move-emoji">${moveEmoji(mv)}</span>
+      <div class="ai-move-info">
+        <div class="ai-move-name">${mv}</div>
+        <div class="ai-move-why">${moveJust(mv)}</div>
+      </div>
+      <div class="move-tooltip">${MOVE_DESCRIPTIONS[mv] || "Descrição não disponível."}</div>
+    </div>
+`).join("")}
+        </div>
+      </div>
+
+      <div class="ai-section-block">
+        <h4>🤝 TIME RECOMENDADO</h4>
+        <div class="ai-team-grid">
+          <div class="ai-team-card ai-team-core" onclick="openModalById(${p.id})">
+            <div class="ai-team-badge">CORE</div>
+            <img src="${spriteUrl(p.id)}" class="ai-team-sprite" alt="${p.name}"/>
+            <div class="ai-team-name">${p.name}</div>
+            <div class="ai-team-role">${build.papel}</div>
+            <div class="ai-team-types">${p.types.map(t => `<span class="type-badge" style="background:${tipoCor(t)};font-size:8px;padding:2px 6px">${t}</span>`).join("")}</div>
+          </div>
+          ${parceiros.slice(0, 5).map((r, i) => `
+            <div class="ai-team-card" onclick="openModalById(${r.id})" style="animation-delay:${i * 0.08}s">
+              <div class="ai-team-num">${i + 2}</div>
+              <img src="${spriteUrl(r.id)}" class="ai-team-sprite" alt="${r.pkData.name}"/>
+              <div class="ai-team-name">${r.pkData.name}</div>
+              <div class="ai-team-role">${r.papel}</div>
+              <div class="ai-team-types">${r.pkData.types.map(t => `<span class="type-badge" style="background:${tipoCor(t)};font-size:8px;padding:2px 6px">${t}</span>`).join("")}</div>
+              <div class="ai-team-motivo">${r.motivo}</div>
+            </div>
+          `).join("")}
+        </div>
+        <div class="ai-sinergia">
+          <div class="ai-sin-title">🔗 COBERTURA DE TIPOS</div>
+          <div class="ai-sin-tipos">${tiposUnicos.map(t => `<span class="ai-sin-tipo" style="background:${tipoCor(t)}20;border:1px solid ${tipoCor(t)}60;color:${tipoCor(t)}">${tipoEmoji(t)} ${t}</span>`).join("")}</div>
+        </div>
+      </div>
+
+      <div class="ai-section-block">
+        <h4>🎮 ESTRATÉGIA GERAL</h4>
+        <div class="ai-estrategia">
+          <div class="ai-est-item"><span class="ai-est-num">1</span><span>Abra com <strong>${parceiros[0]?.pkData.name || "Suporte"}</strong> para distribuir status e forçar switches desvantajosos</span></div>
+          <div class="ai-est-item"><span class="ai-est-num">2</span><span>${temSetup ? `Use <strong>${build.movesetFinal.find(m => SETUP.includes(m)) || "setup"}</strong> para boostar antes de atacar` : `Pressione com cobertura — force o oponente a trocar constantemente`}</span></div>
+          <div class="ai-est-item"><span class="ai-est-num">3</span><span>Use <strong>${parceiros[1]?.pkData.name || "tank"}</strong> para absorver os golpes que ameaçam <strong>${p.name}</strong></span></div>
+          <div class="ai-est-item"><span class="ai-est-num">4</span><span>Finalize com <strong>${p.name}</strong> após o time adversário estar enfraquecido${temSetup ? " e com boost ativo" : ""}</span></div>
+        </div>
+      </div>
+
+      <div class="ai-section-block">
+        <h4>⚠️ COUNTERS & COMO LIDAR</h4>
+        <div class="ai-counters">
+          ${fraquezas.length > 0 ? fraquezas.map(fr => `
+            <div class="ai-counter-item">
+              <span class="ai-counter-tipo" style="background:${tipoCor(fr)}20;border:1px solid ${tipoCor(fr)}60;color:${tipoCor(fr)}">${tipoEmoji(fr)} ${fr}</span>
+              <span class="ai-counter-fix">→ Use <strong>${parceiros.find(r => r.pkData.resistances["0.5x"].includes(fr) || r.pkData.resistances.immune.includes(fr))?.pkData.name || "parceiro resistente"}</strong> para absorver</span>
+            </div>
+          `).join("") : `<p style="color:var(--text-muted)">Poucas fraquezas críticas — time favorável.</p>`}
+        </div>
+  <div class="ai-alternativas" style="margin-top:12px">
+          <div class="ai-alt-title">🔄 ALTERNATIVAS DE PARCEIROS</div>
+          <div class="ai-alt-cards">
+            ${build.alternativas.map(alt => `
+              <div class="ai-alt-card" onclick="openModalById(${alt.pkData.id})">
+                <img src="${spriteUrl(alt.saindo.id)}" class="ai-alt-sprite" style="opacity:0.4" alt="${alt.saindo.name}"/>
+                <span style="color:var(--text-dim);font-size:16px">→</span>
+                <img src="${spriteUrl(alt.pkData.id)}" class="ai-alt-sprite" alt="${alt.pkData.name}"/>
+                <div class="ai-alt-info">
+                  <div class="ai-alt-name">${alt.pkData.name}</div>
+                  <div class="ai-alt-sub">${alt.papel} — ${alt.motivo}</div>
+                </div>
+                <div class="ai-alt-troca">no lugar de ${alt.saindo.name}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão escolher outro -->
+      <button class="ai-choose-btn" onclick="triggerChooseAnother()">
+        🔄 Escolher outro Pokémon
+      </button>
+    </div>`;
+      };
+      // Mostra "Análise finalizada" só após tudo estar pronto
+      btn.innerHTML = `<div class="ai-thinking"><div class="ai-thinking-dots"><span></span><span></span><span></span></div> Análise do Pokémon ${p.name} finalizada</div>`;
+
+      result.className = "ai-result visible";
+      result.innerHTML = `
+    <div class="ai-variant-tabs">
+      <button class="ai-variant-tab active" onclick="switchBuild(1)">🥇 Build Principal</button>
+      <button class="ai-variant-tab" onclick="switchBuild(2)">🥈 2ª Alternativa</button>
+      <button class="ai-variant-tab" onclick="switchBuild(3)">🥉 3ª Alternativa</button>
+    </div>
+    ${renderBuildPanel(build1, parceiros1, 1)}
+    ${renderBuildPanel(build2, parceiros2, 2)}
+    ${renderBuildPanel(build3, parceiros3, 3)}
+  `;
+
+      // Mostra botão de scroll interno no modal
+      setupModalScrollBtn()
+    }
+
+    function triggerChooseAnother() {
+      showPokeballCapture(() => {
+        closeModal();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    function setupModalScrollBtn() {
+      const modal = document.getElementById("modal");
+      let scrollBtn = document.getElementById("modal-scroll-btn");
+      if (!scrollBtn) {
+        scrollBtn = document.createElement("button");
+        scrollBtn.id = "modal-scroll-btn";
+        scrollBtn.className = "modal-scroll-top";
+        scrollBtn.innerHTML = "▲";
+        scrollBtn.title = "Voltar ao topo do card";
+        scrollBtn.onclick = () => modal.scrollTo({ top: 0, behavior: "smooth" });
+        modal.appendChild(scrollBtn);
+      }
+      modal.onscroll = () => {
+        scrollBtn.classList.toggle("visible", modal.scrollTop > 200);
+      };
+    }
+    // Troca de aba de build
+    function switchBuild(n) {
+      document.querySelectorAll(".ai-variant-tab").forEach((t, i) => t.classList.toggle("active", i === n - 1));
+      document.querySelectorAll(".ai-variant-panel").forEach((p, i) => p.classList.toggle("active", i === n - 1));
+    }
     // =====================================================
     // INIT
     // =====================================================
