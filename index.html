@@ -354,7 +354,7 @@
       color: white;
       border-color: var(--accent);
     }
-
+    
     /* ===== GRID / TABLE CONTAINER ===== */
     #pokemon-container {
       transition: opacity 0.25s ease;
@@ -1992,6 +1992,30 @@
       .ai-alt-card>span[style*="font-size:16px"] {
         font-size: 12px !important;
       }
+
+      .ai-variant-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 4px;
+      }
+
+      .ai-variant-tab {
+        font-size: 9px;
+        padding: 6px 4px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .ai-build-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .ai-build-item {
+        padding: 12px;
+      }
     }
   </style>
 </head>
@@ -2013,7 +2037,7 @@
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/337.png" id="theme-icon" alt="Tema" />
     </button>
     <h1>POKÉDEX<br />1ª GERAÇÃO</h1>
-    <p>Região de Kanto — 151 Pokémon</p>
+    <p class="kanto-region">Região de Kanto — 151 Pokémon</p>
     <div class="pokemon-count">⭐ Todos os 151 Pokémon</div>
 
     <div class="search-bar">
@@ -3941,6 +3965,7 @@
       "Steadfast": "Aumenta a Velocidade em 1 estágio ao recuar (flinch).",
       "Defiant": "Aumenta o Ataque em 2 estágios ao ter qualquer stat reduzido pelo oponente.",
       "Anger Point": "Eleva o Ataque ao máximo ao receber um golpe crítico.",
+      "Iron Fist": "Aumenta o poder de golpes de soco em 20%, incluindo Fire Punch, Ice Punch e Thunder Punch.",
       // Others
       "Early Bird": "Acorda do sono no dobro da velocidade normal.",
       "Thick Fat": "Reduz o dano de golpes Fire e Ice em 50%.",
@@ -4694,6 +4719,36 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeModal();
     });
+    // Swipe down to close modal (mobile)
+    // Only activates when modal scroll is at top
+    // First swipe may just scroll to top; second swipe from top closes
+    (function () {
+      const modal = document.getElementById("modal");
+      let touchStartY = 0;
+      let touchStartScrollTop = 0;
+      let wasAtTopOnStart = false;
+
+      modal.addEventListener("touchstart", (e) => {
+        touchStartY = e.touches[0].clientY;
+        touchStartScrollTop = modal.scrollTop;
+        wasAtTopOnStart = modal.scrollTop === 0;
+      }, { passive: true });
+
+      modal.addEventListener("touchend", (e) => {
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaY = touchEndY - touchStartY;
+
+        // Only care about downward swipes of 60px+
+        if (deltaY < 60) return;
+
+        // If we were already at top when the swipe started → close
+        if (wasAtTopOnStart) {
+          closeModal();
+        }
+        // If we weren't at top but scroll is now 0 → just stay, next swipe will close
+        // (browser's native scroll already brought us to top)
+      }, { passive: true });
+    })();
 
     document.getElementById("search-input").oninput = (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
@@ -5343,7 +5398,9 @@
 
     function triggerChooseAnother() {
       showPokeballCapture(() => {
+        activeType = "All";
         closeModal();
+        render();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
