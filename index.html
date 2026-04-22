@@ -1178,6 +1178,7 @@
     }
 
     /* ===== AI SECTION ===== */
+
     .ai-btn {
       display: flex;
       align-items: center;
@@ -1212,6 +1213,63 @@
       color: var(--text-muted);
     }
 
+    body.light .ai-btn {
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+    }
+
+    body.light .ai-btn:hover {
+      box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5);
+    }
+
+    body.light .ai-btn:disabled {
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      opacity: 0.7;
+    }
+
+    body.light .ai-thinking {
+      color: white;
+    }
+
+    body.light .ai-thinking-dots span {
+      background: white;
+    }
+
+    body.light .ai-choose-btn {
+      background: white;
+      border: 1px solid #c8cef0;
+      color: #4a5278;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    body.light .ai-choose-btn:hover {
+      border-color: var(--accent);
+      color: #1a1f3a;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+
+    body.light .ai-btn {
+      box-shadow: none;
+    }
+
+    body.light .ai-btn:hover {
+      box-shadow: none;
+    }
+
+    body.light .ai-btn:disabled {
+      box-shadow: none;
+    }
+
+    body.light .pokeball-text {
+      color: #1a1f3a;
+    }
+
+    body.light .pokeball-overlay {
+      background: rgba(240, 242, 255, 0.92);
+    }
 
 
     /* ===== AI RESULT REDESIGN ===== */
@@ -3766,25 +3824,30 @@
       const allBtn = document.createElement("button");
       allBtn.className = `filter-btn filter-btn-all ${activeType === "All" ? "active" : ""}`;
       allBtn.textContent = "⭐ Todos";
-      allBtn.onmouseenter = () => {
-        if (activeType !== "All") {
-          allBtn.style.background = "#e6394660";
-          allBtn.style.color = "#e63946";
-          allBtn.style.border = "none";
-        }
-      };
-      allBtn.onmouseleave = () => {
-        if (activeType !== "All") {
-          allBtn.style.background = "var(--surface2)";
-          allBtn.style.color = "var(--text)";
-          allBtn.style.border = "1px solid var(--border)";
-        }
-      };
+
+      if (window.innerWidth > 768) {
+        allBtn.onmouseenter = () => {
+          if (activeType !== "All") {
+            allBtn.style.background = "#e6394660";
+            allBtn.style.color = "#e63946";
+            allBtn.style.border = "none";
+          }
+        };
+        allBtn.onmouseleave = () => {
+          if (activeType !== "All") {
+            allBtn.style.background = "var(--surface2)";
+            allBtn.style.color = "var(--text)";
+            allBtn.style.border = "1px solid var(--border)";
+          }
+        };
+      }
+
       allBtn.onclick = () => {
         activeType = "All";
         renderFilters();
         render();
       };
+
       container.appendChild(allBtn);
 
       const tiposOrdenados = activeType !== "All"
