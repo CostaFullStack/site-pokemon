@@ -3811,8 +3811,6 @@
     // =====================================================
     function renderFilters() {
       const container = document.getElementById("filter-buttons");
-
-      // Grava posições antigas
       const oldPositions = {};
       container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
         const rect = btn.getBoundingClientRect();
@@ -3824,30 +3822,9 @@
       const allBtn = document.createElement("button");
       allBtn.className = `filter-btn filter-btn-all ${activeType === "All" ? "active" : ""}`;
       allBtn.textContent = "⭐ Todos";
-
-      if (window.innerWidth > 768) {
-        allBtn.onmouseenter = () => {
-          if (activeType !== "All") {
-            allBtn.style.background = "#e6394660";
-            allBtn.style.color = "#e63946";
-            allBtn.style.border = "none";
-          }
-        };
-        allBtn.onmouseleave = () => {
-          if (activeType !== "All") {
-            allBtn.style.background = "var(--surface2)";
-            allBtn.style.color = "var(--text)";
-            allBtn.style.border = "1px solid var(--border)";
-          }
-        };
-      }
-
-      allBtn.onclick = () => {
-        activeType = "All";
-        renderFilters();
-        render();
-      };
-
+      allBtn.style.background = activeType === "All" ? "var(--accent)" : "var(--surface2)";
+      allBtn.style.color = activeType === "All" ? "white" : "var(--text)";
+      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); };
       container.appendChild(allBtn);
 
       const tiposOrdenados = activeType !== "All"
@@ -3859,18 +3836,43 @@
         btn.dataset.type = type;
         btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
         btn.textContent = type;
-        btn.style.background = activeType === type ? (TYPE_COLORS[type] || "#888") : "var(--surface2)";
-        btn.style.color = activeType === type ? "white" : "var(--text-muted)";
+
+        // Aplica cor base correta
+        if (activeType === type) {
+          btn.style.background = TYPE_COLORS[type] || "#888";
+          btn.style.color = "white";
+        } else {
+          btn.style.background = "var(--surface2)";
+          btn.style.color = "var(--text-muted)";
+        }
         btn.style.border = "none";
+
         btn.onclick = () => {
           activeType = activeType === type ? "All" : type;
           renderFilters();
           render();
         };
+
+        // Hover só no desktop
+        if (!('ontouchstart' in window)) {
+          btn.onmouseenter = () => {
+            if (activeType !== type) {
+              btn.style.background = (TYPE_COLORS[type] || "#888") + "60";
+              btn.style.color = TYPE_COLORS[type] || "#888";
+            }
+          };
+          btn.onmouseleave = () => {
+            if (activeType !== type) {
+              btn.style.background = "var(--surface2)";
+              btn.style.color = "var(--text-muted)";
+            }
+          };
+        }
+
         container.appendChild(btn);
       });
 
-      // Anima da posição antiga para a nova
+      // Animação de posição
       container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
         const type = btn.dataset.type;
         if (oldPositions[type] !== undefined) {
@@ -3887,19 +3889,6 @@
             });
           }
         }
-        btn.onmouseenter = () => {
-          if (activeType !== type) {
-            btn.style.background = (TYPE_COLORS[type] || "#888") + "60";
-            btn.style.color = TYPE_COLORS[type] || "#888";
-          }
-        };
-
-        btn.onmouseleave = () => {
-          if (activeType !== type) {
-            btn.style.background = "var(--surface2)";
-            btn.style.color = "var(--text-muted)";
-          }
-        };
       });
     }
     // =====================================================
