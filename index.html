@@ -90,6 +90,19 @@
       animation: filterPop 0.3s ease;
     }
 
+    .filter-btn:focus {
+      outline: none;
+    }
+
+    .filter-btn:focus:not(:focus-visible) {
+      background: inherit;
+      box-shadow: none;
+    }
+
+    .filter-btn-all:focus:not(:focus-visible) {
+      background: var(--surface2);
+    }
+
     /* ===== THEME TOGGLE BUTTON ===== */
     .theme-toggle {
       position: absolute;
@@ -3824,7 +3837,7 @@
       allBtn.textContent = "⭐ Todos";
       allBtn.style.background = activeType === "All" ? "var(--accent)" : "var(--surface2)";
       allBtn.style.color = activeType === "All" ? "white" : "var(--text)";
-      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); };
+      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); allBtn.blur(); };
       container.appendChild(allBtn);
 
       const tiposOrdenados = activeType !== "All"
@@ -3850,6 +3863,7 @@
           activeType = activeType === type ? "All" : type;
           renderFilters();
           render();
+          btn.blur();
         };
 
         if (window.innerWidth > 768) {
