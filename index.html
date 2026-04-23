@@ -3837,7 +3837,6 @@
         btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
         btn.textContent = type;
 
-        // Aplica cor base correta
         if (activeType === type) {
           btn.style.background = TYPE_COLORS[type] || "#888";
           btn.style.color = "white";
@@ -3853,8 +3852,7 @@
           render();
         };
 
-        // Hover só no desktop
-        if (!('ontouchstart' in window)) {
+        if (window.innerWidth > 768) {
           btn.onmouseenter = () => {
             if (activeType !== type) {
               btn.style.background = (TYPE_COLORS[type] || "#888") + "60";
@@ -5570,6 +5568,7 @@
         activeType = "All";
         closeModal();
         render();
+        renderFilters();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
