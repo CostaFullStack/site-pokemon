@@ -3824,14 +3824,7 @@
       allBtn.textContent = "⭐ Todos";
       allBtn.style.background = activeType === "All" ? "var(--accent)" : "var(--surface2)";
       allBtn.style.color = activeType === "All" ? "white" : "var(--text)";
-      allBtn.onclick = () => {
-        allBtn.blur();
-        setTimeout(() => {
-          activeType = "All";
-          renderFilters();
-          render();
-        }, 50);
-      };
+      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); };
       container.appendChild(allBtn);
 
       const tiposOrdenados = activeType !== "All"
@@ -3844,6 +3837,7 @@
         btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
         btn.textContent = type;
 
+        // Aplica cor base correta
         if (activeType === type) {
           btn.style.background = TYPE_COLORS[type] || "#888";
           btn.style.color = "white";
@@ -3854,15 +3848,12 @@
         btn.style.border = "none";
 
         btn.onclick = () => {
-          const tipo = activeType === type ? "All" : type;
-          btn.blur();
-          setTimeout(() => {
-            activeType = tipo;
-            renderFilters();
-            render();
-          }, 50);
+          activeType = activeType === type ? "All" : type;
+          renderFilters();
+          render();
         };
 
+        // Hover só no desktop
         if (!('ontouchstart' in window)) {
           btn.onmouseenter = () => {
             if (activeType !== type) {
@@ -3881,6 +3872,7 @@
         container.appendChild(btn);
       });
 
+      // Animação de posição
       container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
         const type = btn.dataset.type;
         if (oldPositions[type] !== undefined) {
