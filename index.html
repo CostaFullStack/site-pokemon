@@ -90,21 +90,6 @@
       animation: filterPop 0.3s ease;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      .filter-btn::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.15);
-        opacity: 0;
-        transition: opacity var(--transition);
-      }
-
-      .filter-btn:hover::before {
-        opacity: 1;
-      }
-    }
-
     /* ===== THEME TOGGLE BUTTON ===== */
     .theme-toggle {
       position: absolute;
@@ -3839,7 +3824,14 @@
       allBtn.textContent = "⭐ Todos";
       allBtn.style.background = activeType === "All" ? "var(--accent)" : "var(--surface2)";
       allBtn.style.color = activeType === "All" ? "white" : "var(--text)";
-      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); };
+      allBtn.onclick = () => {
+        allBtn.blur();
+        setTimeout(() => {
+          activeType = "All";
+          renderFilters();
+          render();
+        }, 50);
+      };
       container.appendChild(allBtn);
 
       const tiposOrdenados = activeType !== "All"
@@ -3852,7 +3844,6 @@
         btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
         btn.textContent = type;
 
-        // Aplica cor base correta
         if (activeType === type) {
           btn.style.background = TYPE_COLORS[type] || "#888";
           btn.style.color = "white";
@@ -3863,12 +3854,15 @@
         btn.style.border = "none";
 
         btn.onclick = () => {
-          activeType = activeType === type ? "All" : type;
-          renderFilters();
-          render();
+          const tipo = activeType === type ? "All" : type;
+          btn.blur();
+          setTimeout(() => {
+            activeType = tipo;
+            renderFilters();
+            render();
+          }, 50);
         };
 
-        // Hover só no desktop
         if (!('ontouchstart' in window)) {
           btn.onmouseenter = () => {
             if (activeType !== type) {
@@ -3887,7 +3881,6 @@
         container.appendChild(btn);
       });
 
-      // Animação de posição
       container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
         const type = btn.dataset.type;
         if (oldPositions[type] !== undefined) {
