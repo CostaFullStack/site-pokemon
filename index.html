@@ -3837,7 +3837,7 @@
       allBtn.textContent = "⭐ Todos";
       allBtn.style.background = activeType === "All" ? "var(--accent)" : "var(--surface2)";
       allBtn.style.color = activeType === "All" ? "white" : "var(--text)";
-      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); allBtn.blur(); };
+      allBtn.onclick = () => { activeType = "All"; render(); allBtn.blur(); };
       container.appendChild(allBtn);
 
       const tiposOrdenados = activeType !== "All"
