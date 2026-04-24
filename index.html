@@ -90,6 +90,10 @@
       animation: filterPop 0.3s ease;
     }
 
+    .filter-btn {
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
     /* ===== THEME TOGGLE BUTTON ===== */
     .theme-toggle {
       position: absolute;
@@ -301,9 +305,20 @@
       overflow: hidden;
     }
 
-    .filter-btn:hover {
-      opacity: 0.85;
-      transform: translateY(-2px);
+    /* Hover só deve existir em dispositivos com hover real */
+    @media (hover: hover) {
+      .filter-btn:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+      }
+
+      .filter-btn:hover::before {
+        opacity: 1;
+      }
+
+      .filter-btn.active {
+        transform: translateY(-2px);
+      }
     }
 
     .filter-btn::before {
@@ -315,10 +330,6 @@
       transition: opacity var(--transition);
     }
 
-    .filter-btn:hover::before {
-      opacity: 1;
-    }
-
     .filter-btn.active {
       transform: translateY(-2px);
     }
@@ -326,12 +337,10 @@
     .filter-btn-all {
       background: var(--surface2);
       color: var(--text);
-      /* border: 1px solid var(--border); */
     }
 
     .filter-btn-all.active {
       background: var(--accent);
-      border-color: var(--accent);
     }
 
     /* ===== STATS BAR ===== */
@@ -2024,12 +2033,7 @@
 
     /* ===== RESPONSIVE ===== */
 
-
     @media (max-width: 600px) {
-      .filter-btn:hover {
-        background: unset !important;
-        color: unset !important;
-      }
 
       #view-toggle-btns {
         display: none;
@@ -3789,15 +3793,14 @@
     // =====================================================
     const ALL_TYPES = [...new Set(POKEMON_DATA.flatMap(p => p.types))].sort();
 
-    // =====================================================
-    // FILTER LOGIC
-    // =====================================================
     function getFiltered() {
       return POKEMON_DATA.filter(p => {
         const matchType = activeType === "All" || p.types.includes(activeType);
-        const matchSearch = !searchQuery ||
+        const matchSearch =
+          !searchQuery ||
           p.name.toLowerCase().includes(searchQuery) ||
           String(p.id).includes(searchQuery);
+
         return matchType && matchSearch;
       }).sort((a, b) => {
         if (sortCol === "id") return (a.id - b.id) * sortDir;
@@ -3811,6 +3814,7 @@
     // =====================================================
     function renderFilters() {
       const container = document.getElementById("filter-buttons");
+
       const oldPositions = {};
       container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
         const rect = btn.getBoundingClientRect();
@@ -3819,25 +3823,39 @@
 
       container.innerHTML = "";
 
+      // ===== BOTÃO "TODOS"
       const allBtn = document.createElement("button");
       allBtn.className = `filter-btn filter-btn-all ${activeType === "All" ? "active" : ""}`;
       allBtn.textContent = "⭐ Todos";
-      allBtn.style.background = activeType === "All" ? "var(--accent)" : "var(--surface2)";
-      allBtn.style.color = activeType === "All" ? "white" : "var(--text)";
-      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); };
+
+      allBtn.style.background =
+        activeType === "All" ? "var(--accent)" : "var(--surface2)";
+      allBtn.style.color =
+        activeType === "All" ? "white" : "var(--text)";
+
+      allBtn.onclick = (e) => {
+        e.currentTarget.blur(); // 🔥 FIX MOBILE
+        activeType = "All";
+        renderFilters();
+        render();
+      };
+
       container.appendChild(allBtn);
 
-      const tiposOrdenados = activeType !== "All"
-        ? [activeType, ...ALL_TYPES.filter(t => t !== activeType)]
-        : ALL_TYPES;
+      // ===== TIPOS
+      const tiposOrdenados =
+        activeType !== "All"
+          ? [activeType, ...ALL_TYPES.filter(t => t !== activeType)]
+          : ALL_TYPES;
 
       tiposOrdenados.forEach(type => {
         const btn = document.createElement("button");
+
         btn.dataset.type = type;
         btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
         btn.textContent = type;
 
-        // Aplica cor base correta
+        // Estado visual
         if (activeType === type) {
           btn.style.background = TYPE_COLORS[type] || "#888";
           btn.style.color = "white";
@@ -3845,48 +3863,55 @@
           btn.style.background = "var(--surface2)";
           btn.style.color = "var(--text-muted)";
         }
-        btn.style.border = "none";
 
-        btn.onclick = () => {
+        btn.style.border = "none";
+        btn.style.webkitTapHighlightColor = "transparent"; // 🔥 mobile fix
+
+        btn.onclick = (e) => {
+          e.currentTarget.blur(); // 🔥 FIX PRINCIPAL
+
           activeType = activeType === type ? "All" : type;
+
           renderFilters();
           render();
         };
 
-        // Hover só no desktop
-        if (!('ontouchstart' in window)) {
-          btn.onmouseenter = () => {
-            if (activeType !== type) {
-              btn.style.background = (TYPE_COLORS[type] || "#888") + "60";
-              btn.style.color = TYPE_COLORS[type] || "#888";
-            }
-          };
-          btn.onmouseleave = () => {
-            if (activeType !== type) {
-              btn.style.background = "var(--surface2)";
-              btn.style.color = "var(--text-muted)";
-            }
-          };
-        }
-
         container.appendChild(btn);
       });
 
-      // Animação de posição
+      // ===== ANIMAÇÃO (FLIP)
       container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
         const type = btn.dataset.type;
+
         if (oldPositions[type] !== undefined) {
           const newRect = btn.getBoundingClientRect();
           const delta = oldPositions[type] - newRect.left;
+
           if (Math.abs(delta) > 1) {
+            btn.style.willChange = "transform";
             btn.style.transition = "none";
             btn.style.transform = `translateX(${delta}px)`;
+
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
-                btn.style.transition = "transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+                btn.style.transition =
+                  "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
                 btn.style.transform = "translateX(0)";
+
+                btn.addEventListener(
+                  "transitionend",
+                  () => {
+                    btn.style.transition = "";
+                    btn.style.transform = "";
+                    btn.style.willChange = "";
+                  },
+                  { once: true }
+                );
               });
             });
+          } else {
+            btn.style.transition = "";
+            btn.style.transform = "";
           }
         }
       });
