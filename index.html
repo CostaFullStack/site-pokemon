@@ -3813,109 +3813,131 @@
     // RENDER FILTER BUTTONS
     // =====================================================
     function renderFilters() {
-      const container = document.getElementById("filter-buttons");
+  const container = document.getElementById("filter-buttons");
 
-      const oldPositions = {};
-      container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
-        const rect = btn.getBoundingClientRect();
-        oldPositions[btn.dataset.type] = rect.left;
+  const oldPositions = {};
+  container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
+    const rect = btn.getBoundingClientRect();
+    oldPositions[btn.dataset.type] = rect.left;
+  });
+
+  container.innerHTML = "";
+
+  const isTouch = window.matchMedia("(hover: none)").matches;
+
+  // ===== BOTÃO "TODOS"
+  const allBtn = document.createElement("button");
+  allBtn.className = `filter-btn filter-btn-all ${activeType === "All" ? "active" : ""}`;
+  allBtn.textContent = "⭐ Todos";
+
+  allBtn.style.background =
+    activeType === "All" ? "var(--accent)" : "var(--surface2)";
+  allBtn.style.color =
+    activeType === "All" ? "white" : "var(--text)";
+
+  allBtn.onclick = (e) => {
+    e.currentTarget.blur();
+    activeType = "All";
+    renderFilters();
+    render();
+  };
+
+  container.appendChild(allBtn);
+
+  // ===== TIPOS
+  const tiposOrdenados =
+    activeType !== "All"
+      ? [activeType, ...ALL_TYPES.filter(t => t !== activeType)]
+      : ALL_TYPES;
+
+  tiposOrdenados.forEach(type => {
+    const btn = document.createElement("button");
+
+    btn.dataset.type = type;
+    btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
+    btn.textContent = type;
+
+    const baseColor = TYPE_COLORS[type] || "#888";
+
+    // Estado inicial
+    if (activeType === type) {
+      btn.style.background = baseColor;
+      btn.style.color = "white";
+    } else {
+      btn.style.background = "var(--surface2)";
+      btn.style.color = "var(--text-muted)";
+    }
+
+    btn.style.border = "none";
+    btn.style.webkitTapHighlightColor = "transparent";
+
+    // CLICK
+    btn.onclick = (e) => {
+      e.currentTarget.blur();
+
+      activeType = activeType === type ? "All" : type;
+
+      renderFilters();
+      render();
+    };
+
+    // HOVER (apenas desktop real)
+    if (!isTouch) {
+      btn.addEventListener("mouseenter", () => {
+        if (activeType !== type) {
+          btn.style.background = baseColor + "33"; // 🔥 pré-cor suave
+          btn.style.color = baseColor;
+        }
       });
 
-      container.innerHTML = "";
-
-      // ===== BOTÃO "TODOS"
-      const allBtn = document.createElement("button");
-      allBtn.className = `filter-btn filter-btn-all ${activeType === "All" ? "active" : ""}`;
-      allBtn.textContent = "⭐ Todos";
-
-      allBtn.style.background =
-        activeType === "All" ? "var(--accent)" : "var(--surface2)";
-      allBtn.style.color =
-        activeType === "All" ? "white" : "var(--text)";
-
-      allBtn.onclick = (e) => {
-        e.currentTarget.blur(); // 🔥 FIX MOBILE
-        activeType = "All";
-        renderFilters();
-        render();
-      };
-
-      container.appendChild(allBtn);
-
-      // ===== TIPOS
-      const tiposOrdenados =
-        activeType !== "All"
-          ? [activeType, ...ALL_TYPES.filter(t => t !== activeType)]
-          : ALL_TYPES;
-
-      tiposOrdenados.forEach(type => {
-        const btn = document.createElement("button");
-
-        btn.dataset.type = type;
-        btn.className = `filter-btn ${activeType === type ? "active" : ""}`;
-        btn.textContent = type;
-
-        // Estado visual
-        if (activeType === type) {
-          btn.style.background = TYPE_COLORS[type] || "#888";
-          btn.style.color = "white";
-        } else {
+      btn.addEventListener("mouseleave", () => {
+        if (activeType !== type) {
           btn.style.background = "var(--surface2)";
           btn.style.color = "var(--text-muted)";
         }
-
-        btn.style.border = "none";
-        btn.style.webkitTapHighlightColor = "transparent"; // 🔥 mobile fix
-
-        btn.onclick = (e) => {
-          e.currentTarget.blur(); // 🔥 FIX PRINCIPAL
-
-          activeType = activeType === type ? "All" : type;
-
-          renderFilters();
-          render();
-        };
-
-        container.appendChild(btn);
-      });
-
-      // ===== ANIMAÇÃO (FLIP)
-      container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
-        const type = btn.dataset.type;
-
-        if (oldPositions[type] !== undefined) {
-          const newRect = btn.getBoundingClientRect();
-          const delta = oldPositions[type] - newRect.left;
-
-          if (Math.abs(delta) > 1) {
-            btn.style.willChange = "transform";
-            btn.style.transition = "none";
-            btn.style.transform = `translateX(${delta}px)`;
-
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                btn.style.transition =
-                  "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-                btn.style.transform = "translateX(0)";
-
-                btn.addEventListener(
-                  "transitionend",
-                  () => {
-                    btn.style.transition = "";
-                    btn.style.transform = "";
-                    btn.style.willChange = "";
-                  },
-                  { once: true }
-                );
-              });
-            });
-          } else {
-            btn.style.transition = "";
-            btn.style.transform = "";
-          }
-        }
       });
     }
+
+    container.appendChild(btn);
+  });
+
+  // ===== ANIMAÇÃO (FLIP)
+  container.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
+    const type = btn.dataset.type;
+
+    if (oldPositions[type] !== undefined) {
+      const newRect = btn.getBoundingClientRect();
+      const delta = oldPositions[type] - newRect.left;
+
+      if (Math.abs(delta) > 1) {
+        btn.style.willChange = "transform";
+        btn.style.transition = "none";
+        btn.style.transform = `translateX(${delta}px)`;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            btn.style.transition =
+              "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+            btn.style.transform = "translateX(0)";
+
+            btn.addEventListener(
+              "transitionend",
+              () => {
+                btn.style.transition = "";
+                btn.style.transform = "";
+                btn.style.willChange = "";
+              },
+              { once: true }
+            );
+          });
+        });
+      } else {
+        btn.style.transition = "";
+        btn.style.transform = "";
+      }
+    }
+  });
+}
     // =====================================================
     // RENDER CARDS
     // =====================================================
