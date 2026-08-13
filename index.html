@@ -4678,9 +4678,17 @@
     let isRetro = sessionStorage.getItem("poke-retro") === "1";
 
     function applyRetro() {
-      document.body.classList.toggle("retro", isRetro);
-      retroToggle.classList.toggle("active", isRetro);
-    }
+  document.body.classList.toggle("retro", isRetro);
+  retroToggle.classList.toggle("active", isRetro);
+
+  // Força reflow no Meowth para evitar filtro "grudado" no mobile (iOS Safari)
+  const meowth = document.querySelector(".professor-sprite");
+  if (meowth) {
+    meowth.style.display = "none";
+    void meowth.offsetHeight; // força o navegador a recalcular o layout
+    meowth.style.display = "";
+  }
+}
     applyRetro();
 
     retroToggle.addEventListener("click", () => {
