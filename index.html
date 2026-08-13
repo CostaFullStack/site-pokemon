@@ -3942,6 +3942,8 @@
     /* ===== RESPONSIVE ===== */
 
     @media (max-width: 600px) {
+ 
+
       body.retro .card-info-row {
         flex-direction: column;
         flex-wrap: wrap;
@@ -3979,9 +3981,9 @@
       body.retro .stone-filter-btn {
         width: 100% !important;
         box-sizing: border-box;
-        font-size: 11px !important;
+        font-size: 10px !important;
         white-space: nowrap;
-        padding: 7px 6px !important;
+        padding: 8px 6px !important;
       }
 
       body.retro .modal-sprite {
@@ -4678,17 +4680,17 @@
     let isRetro = sessionStorage.getItem("poke-retro") === "1";
 
     function applyRetro() {
-  document.body.classList.toggle("retro", isRetro);
-  retroToggle.classList.toggle("active", isRetro);
+      document.body.classList.toggle("retro", isRetro);
+      retroToggle.classList.toggle("active", isRetro);
 
-  // Força reflow no Meowth para evitar filtro "grudado" no mobile (iOS Safari)
-  const meowth = document.querySelector(".professor-sprite");
-  if (meowth) {
-    meowth.style.display = "none";
-    void meowth.offsetHeight; // força o navegador a recalcular o layout
-    meowth.style.display = "";
-  }
-}
+      // Força reflow no Meowth para evitar filtro "grudado" no mobile (iOS Safari)
+      const meowth = document.querySelector(".professor-sprite");
+      if (meowth) {
+        meowth.style.display = "none";
+        void meowth.offsetHeight; // força o navegador a recalcular o layout
+        meowth.style.display = "";
+      }
+    }
     applyRetro();
 
     retroToggle.addEventListener("click", () => {
@@ -11411,7 +11413,21 @@
       allBtn.style.color =
         activeType === "All" ? "white" : "var(--text-muted)";
       allBtn.style.border = "none";
-      allBtn.onclick = () => { activeType = "All"; renderFilters(); render(); applyTypeTheme(activeType); };
+      allBtn.onclick = () => {
+        activeType = "All";
+        searchQuery = "";
+        document.getElementById("search-input").value = "";
+        applyTypeTheme("All");
+        renderFilters();
+        render();
+
+        // Reinicia o typewriter
+        const el = document.getElementById("typewriter-text");
+        if (el) {
+          el.innerHTML = "";
+          el.style.opacity = "1";
+        }
+      };
       container.appendChild(allBtn);
 
 
@@ -11929,12 +11945,23 @@
         }
 
         if (filtered.length === 0) {
-          container.innerHTML = `<div class="empty-state"><p>🔍</p><p>Nenhum Pokémon encontrado</p><span>Tente outro filtro ou nome</span></div>`;
+          container.innerHTML = `
+    <div class="empty-state">
+      <img src="${spriteUrl(54)}" style="width:80px;height:80px;image-rendering:pixelated;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));animation:guessPulseColor 2s ease-in-out infinite;"/>
+      <p>Psyduck não encontrou...</p>
+      <span>Tente outro filtro, nome ou número</span>
+    </div>`;
           return;
         }
 
         if (viewMode === "card") {
           container.appendChild(renderCards(filtered));
+
+          if (searchQuery && filtered.length > 0) {
+            setTimeout(() => {
+              container.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 500);
+          }
         } else {
           container.appendChild(renderTable(filtered));
         }
@@ -14064,11 +14091,12 @@
 
     function quickPokeballCapture(callback) {
       const overlay = document.createElement("div");
-      overlay.className = "pokeball-quick-overlay";
+      overlay.className = "pokeball-overlay";
       overlay.innerHTML = `
-    <img class="pokeball-quick-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Poké Ball" />`;
+    <img class="pokeball-capture" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Poké Ball" />
+  `;
       const flash = document.createElement("div");
-      flash.className = "pokeball-quick-flash";
+      flash.className = "pokeball-flash";
       document.body.appendChild(overlay);
       document.body.appendChild(flash);
 
@@ -14078,14 +14106,16 @@
         flash.classList.add("show");
         setTimeout(() => {
           flash.classList.remove("show");
-          overlay.classList.remove("show");
           setTimeout(() => {
-            overlay.remove();
-            flash.remove();
-            if (callback) callback();
-          }, 150);
-        }, 80);
-      }, 350);
+            overlay.classList.remove("show");
+            setTimeout(() => {
+              overlay.remove();
+              flash.remove();
+              if (callback) callback();
+            }, 300);
+          }, 200);
+        }, 150);
+      }, 1200);
     }
     // =====================================================
     // POKEBALL CAPTURE ANIMATION
