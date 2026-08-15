@@ -3939,7 +3939,8 @@
     }
 
     .fav-btn.active img {
-      filter: brightness(1) drop-shadow(0 0 8px rgba(104, 144, 240, 0.9));
+      filter: brightness(1) drop-shadow(0 0 6px rgba(104, 144, 240, 0.8));
+      transform: scale(1.3);
     }
 
     .fav-modal-btn {
@@ -3960,6 +3961,10 @@
 
     .fav-modal-btn:hover {
       transform: scale(1.1);
+    }
+
+    .fav-modal-btn:hover img {
+      filter: brightness(1) drop-shadow(0 0 8px rgba(104, 144, 240, 0.8)) !important;
     }
 
     .fav-modal-btn.active {
@@ -4476,14 +4481,15 @@
     }
 
     /* ===== RAIO ATRÁS DO SPRITE ===== */
+
     .guess-sprite-wrap {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 16px 0;
+      min-height: 160px;
     }
-
 
     .guess-sprite-burst {
       position: absolute;
@@ -4512,14 +4518,10 @@
       z-index: 2;
     }
 
-
-
     .guess-input-wrap {
       position: relative;
       z-index: 2;
     }
-
-
 
     .guess-sprite {
       position: relative;
@@ -13631,11 +13633,40 @@
       sprite.style.opacity = "0";
       sprite.style.transition = "none";
       sprite.classList.remove("reveal-spin", "revealed");
+      sprite.style.width = "0px";
+      sprite.style.height = "0px";
 
       setTimeout(() => {
         sprite.src = spriteUrl(guessCurrentPokemon.id);
         sprite.onload = () => {
-          sprite.style.opacity = "1";
+          const duration = 600;
+          const startTime = performance.now();
+          const targetSize = 140;
+          let animId;
+
+          function animate(now) {
+            const t = Math.min((now - startTime) / duration, 1);
+            const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+            const size = ease * targetSize;
+            const opacity = t < 0.15 ? t / 0.15 : 1;
+            const shake = t > 0.75 ? (Math.random() - 0.5) * (t - 0.75) * 10 : 0;
+
+            sprite.style.width = `${size}px`;
+            sprite.style.height = `${size}px`;
+            sprite.style.opacity = opacity;
+            sprite.style.transform = `translateX(${shake}px)`;
+
+            if (t < 1) {
+              animId = requestAnimationFrame(animate);
+            } else {
+              sprite.style.width = `${targetSize}px`;
+              sprite.style.height = `${targetSize}px`;
+              sprite.style.transform = "";
+            }
+          }
+
+          animId = requestAnimationFrame(animate);
         };
       }, 50);
 
@@ -14053,7 +14084,7 @@
       const isFav = favorites.has(p.id);
       favModalBtn.className = `fav-modal-btn${isFav ? " active" : ""}`;
       favModalBtn.dataset.id = p.id;
-      favModalBtn.innerHTML = `<img src="${spriteUrl(120)}" alt="Favoritar" style="width:20px;height:20px;image-rendering:pixelated;filter:${isFav ? 'brightness(1) drop-shadow(0 0 8px rgba(104,144,240,0.9))' : 'brightness(0)'};transition:filter 0.3s ease;"/>`;
+      favModalBtn.innerHTML = `<img src="${spriteUrl(120)}" alt="Favoritar" style="width:40px;height:40px;image-rendering:pixelated;filter:${isFav ? 'brightness(1) drop-shadow(0 0 8px rgba(104,144,240,0.9))' : 'brightness(0)'};transition:filter 0.3s ease;"/>`;
 
       const newFavBtn = favModalBtn.cloneNode(true);
       favModalBtn.parentNode.replaceChild(newFavBtn, favModalBtn);
@@ -14063,7 +14094,7 @@
         toggleFavorite(p.id, e);
         const nowFav = favorites.has(p.id);
         newFavBtn.className = `fav-modal-btn${nowFav ? " active" : ""}`;
-        newFavBtn.innerHTML = `<img src="${spriteUrl(120)}" alt="Favoritar" style="width:20px;height:20px;image-rendering:pixelated;filter:${nowFav ? 'brightness(1) drop-shadow(0 0 8px rgba(104,144,240,0.9))' : 'brightness(0)'};transition:filter 0.3s ease;"/>`;
+        newFavBtn.innerHTML = `<img src="${spriteUrl(120)}" alt="Favoritar" style="width:40px;height:40px;image-rendering:pixelated;filter:${nowFav ? 'brightness(1) drop-shadow(0 0 8px rgba(104,144,240,0.9))' : 'brightness(0)'};transition:filter 0.3s ease;"/>`;
       };
       const filtered = getFiltered();
       const idx = filtered.findIndex((x) => x.id === p.id);
@@ -16105,7 +16136,7 @@
 
       const added = favorites.has(id);
       showToast(
-        added ? "Adicionado aos favoritos!" : "Removido dos favoritos",
+        added ? "Adicionado aos favoritos!" : "Removido dos favoritos!",
         added ? `<img src="${spriteUrl(120)}" style="width:40px;height:40px;image-rendering:pixelated;filter:brightness(1) drop-shadow(0 0 6px rgba(104,144,240,0.9));vertical-align:middle;"/>` : `<img src="${spriteUrl(120)}" style="width:44px;height:44px;image-rendering:pixelated;filter:brightness(0);vertical-align:middle;"/>`,
         added ? "#6890f0" : null
       );
