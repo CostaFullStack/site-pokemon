@@ -1837,6 +1837,57 @@
       color: var(--text-dim);
     }
 
+    /* ===== SHAKE NO CARD AO ERRAR (Quem é esse Pokémon?) ===== */
+    @keyframes guessModalShake {
+
+      0%,
+      100% {
+        transform: translateX(0) scale(1);
+      }
+
+      10% {
+        transform: translateX(-10px) scale(1.01);
+      }
+
+      20% {
+        transform: translateX(9px) scale(1.01);
+      }
+
+      30% {
+        transform: translateX(-8px) scale(1.01);
+      }
+
+      40% {
+        transform: translateX(7px) scale(1.01);
+      }
+
+      50% {
+        transform: translateX(-6px) scale(1.01);
+      }
+
+      60% {
+        transform: translateX(5px) scale(1.01);
+      }
+
+      70% {
+        transform: translateX(-4px) scale(1.005);
+      }
+
+      80% {
+        transform: translateX(3px) scale(1.005);
+      }
+
+      90% {
+        transform: translateX(-2px) scale(1);
+      }
+    }
+
+    .guess-modal.shake {
+      animation: guessModalShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both !important;
+      transition: none !important;
+      overflow: visible !important;
+    }
+
     @keyframes guessShake {
 
       0%,
@@ -13456,6 +13507,15 @@
       setTimeout(() => life.classList.remove("shake"), 500);
     }
 
+    function shakeCard() {
+      const modalCard = document.querySelector(".guess-modal");
+      if (!modalCard) return;
+      modalCard.classList.remove("shake");
+      void modalCard.offsetWidth; // força reflow pra poder reanimar em erros seguidos
+      modalCard.classList.add("shake");
+      setTimeout(() => modalCard.classList.remove("shake"), 500);
+    }
+
     function normalizeGuess(str) {
       return str.toLowerCase().trim()
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -13785,6 +13845,7 @@
         // ❌ ERRO
         guessErrors++;
         shakeLive();
+        shakeCard();
         updateGuessScoreUI();
 
         input.classList.add("wrong");
