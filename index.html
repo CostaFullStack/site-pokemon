@@ -36,20 +36,20 @@
 
       /* Type colors */
       --Normal: #a8a878;
-      --Fire: #f08030;
-      --Water: #6890f0;
-      --Electric: #f8d030;
-      --Grass: #78c850;
-      --Ice: #98d8d8;
-      --Fighting: #c03028;
-      --Poison: #a040a0;
-      --Ground: #e0c068;
-      --Flying: #a890f0;
-      --Psychic: #f85888;
-      --Bug: #a8b820;
-      --Rock: #b8a038;
-      --Ghost: #705898;
-      --Dragon: #7038f8;
+      --Fogo: #f08030;
+      --Água: #6890f0;
+      --Elétrico: #f8d030;
+      --Grama: #78c850;
+      --Gelo: #98d8d8;
+      --Lutador: #c03028;
+      --Veneno: #a040a0;
+      --Terra: #e0c068;
+      --Voador: #a890f0;
+      --Psíquico: #f85888;
+      --Inseto: #a8b820;
+      --Pedra: #b8a038;
+      --Fantasma: #705898;
+      --Dragão: #7038f8;
     }
 
     /* ===== LIGHT THEME ===== */
@@ -4805,13 +4805,13 @@
       {
         id: 1,
         name: "Bulbasaur",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Overgrow"],
         hiddenAbility: "Chlorophyll",
         evolution: { chain: [1, 2, 3], methods: ["Lv.16", "Lv.32"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Water", "Electric"],
+          "0.5x": ["Grama", "Lutador", "Água", "Elétrico"],
           "0.25x": [],
           immune: [],
         },
@@ -4846,13 +4846,13 @@
       {
         id: 2,
         name: "Ivysaur",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Overgrow"],
         hiddenAbility: "Chlorophyll",
         evolution: { chain: [1, 2, 3], methods: ["Lv.16", "Lv.32"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Water", "Electric"],
+          "0.5x": ["Grama", "Lutador", "Água", "Elétrico"],
           "0.25x": [],
           immune: [],
         },
@@ -4887,13 +4887,13 @@
       {
         id: 3,
         name: "Venusaur",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Overgrow"],
         hiddenAbility: "Chlorophyll",
         evolution: { chain: [1, 2, 3], methods: ["Lv.16", "Lv.32"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Water", "Electric"],
+          "0.5x": ["Grama", "Lutador", "Água", "Elétrico"],
           "0.25x": [],
           immune: [],
         },
@@ -4928,13 +4928,13 @@
       {
         id: 4,
         name: "Charmander",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Blaze"],
         hiddenAbility: "Solar Power",
         evolution: { chain: [4, 5, 6], methods: ["Lv.16", "Lv.36"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inset", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -4976,13 +4976,13 @@
       {
         id: 5,
         name: "Charmeleon",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Blaze"],
         hiddenAbility: "Solar Power",
         evolution: { chain: [4, 5, 6], methods: ["Lv.16", "Lv.36"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -5023,15 +5023,15 @@
       {
         id: 6,
         name: "Charizard",
-        types: ["Fire", "Flying"],
+        types: ["Fogo", "Voador"],
         abilities: ["Blaze"],
         hiddenAbility: "Solar Power",
         evolution: { chain: [4, 5, 6], methods: ["Lv.16", "Lv.36"] },
-        weaknesses: { "2x": ["Water", "Electric", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Elétrico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Bug", "Steel", "Fairy", "Fighting"],
+          "0.5x": ["Fogo", "Grama", "Inseto", "Metal", "Fada", "Lutador"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Scratch" },
@@ -5071,13 +5071,13 @@
       {
         id: 7,
         name: "Squirtle",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Torrent"],
         hiddenAbility: "Rain Dish",
         evolution: { chain: [7, 8, 9], methods: ["Lv.16", "Lv.36"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -5117,13 +5117,13 @@
       {
         id: 8,
         name: "Wartortle",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Torrent"],
         hiddenAbility: "Rain Dish",
         evolution: { chain: [7, 8, 9], methods: ["Lv.16", "Lv.36"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -5162,13 +5162,13 @@
       {
         id: 9,
         name: "Blastoise",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Torrent"],
         hiddenAbility: "Rain Dish",
         evolution: { chain: [7, 8, 9], methods: ["Lv.16", "Lv.36"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -5207,13 +5207,13 @@
       {
         id: 10,
         name: "Caterpie",
-        types: ["Bug"],
+        types: ["Inseto"],
         abilities: ["Shield Dust"],
         hiddenAbility: "Run Away",
         evolution: { chain: [10, 11, 12], methods: ["Lv.7", "Lv.10"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Ground"],
+          "0.5x": ["Grama", "Lutador", "Terra"],
           "0.25x": [],
           immune: [],
         },
@@ -5226,13 +5226,13 @@
       {
         id: 11,
         name: "Metapod",
-        types: ["Bug"],
+        types: ["Inseto"],
         abilities: ["Shed Skin"],
         hiddenAbility: null,
         evolution: { chain: [10, 11, 12], methods: ["Lv.7", "Lv.10"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Ground"],
+          "0.5x": ["Grama", "Lutador", "Terra"],
           "0.25x": [],
           immune: [],
         },
@@ -5242,18 +5242,18 @@
       {
         id: 12,
         name: "Butterfree",
-        types: ["Bug", "Flying"],
+        types: ["Inseto", "Voador"],
         abilities: ["Compound Eyes"],
         hiddenAbility: "Tinted Lens",
         evolution: { chain: [10, 11, 12], methods: ["Lv.7", "Lv.10"] },
         weaknesses: {
-          "2x": ["Fire", "Electric", "Ice", "Flying", "Rock"],
+          "2x": ["Fogo", "Elétrico", "Gelo", "Voador", "Pedra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Inseto"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Confusion" },
@@ -5277,19 +5277,19 @@
           "Reflect",
           "Bide",
           "Rest",
-          "Psychic",
+          "Psíquico",
         ],
       },
       {
         id: 13,
         name: "Weedle",
-        types: ["Bug", "Poison"],
+        types: ["Inseto", "Veneno"],
         abilities: ["Shield Dust"],
         hiddenAbility: "Run Away",
         evolution: { chain: [13, 14, 15], methods: ["Lv.7", "Lv.10"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Psychic", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Psíquico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5302,13 +5302,13 @@
       {
         id: 14,
         name: "Kakuna",
-        types: ["Bug", "Poison"],
+        types: ["Inseto", "Veneno"],
         abilities: ["Shed Skin"],
         hiddenAbility: null,
         evolution: { chain: [13, 14, 15], methods: ["Lv.7", "Lv.10"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Psychic", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Psíquico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5318,13 +5318,13 @@
       {
         id: 15,
         name: "Beedrill",
-        types: ["Bug", "Poison"],
+        types: ["Inseto", "Veneno"],
         abilities: ["Swarm"],
         hiddenAbility: "Sniper",
         evolution: { chain: [13, 14, 15], methods: ["Lv.7", "Lv.10"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Psychic", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Psíquico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5351,15 +5351,15 @@
       {
         id: 16,
         name: "Pidgey",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Keen Eye", "Tangled Feet"],
         hiddenAbility: "Big Pecks",
         evolution: { chain: [16, 17, 18], methods: ["Lv.18", "Lv.36"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -5388,15 +5388,15 @@
       {
         id: 17,
         name: "Pidgeotto",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Keen Eye", "Tangled Feet"],
         hiddenAbility: "Big Pecks",
         evolution: { chain: [16, 17, 18], methods: ["Lv.18", "Lv.36"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -5425,15 +5425,15 @@
       {
         id: 18,
         name: "Pidgeot",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Keen Eye", "Tangled Feet"],
         hiddenAbility: "Big Pecks",
         evolution: { chain: [16, 17, 18], methods: ["Lv.18", "Lv.36"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -5466,8 +5466,8 @@
         abilities: ["Run Away", "Guts"],
         hiddenAbility: "Hustle",
         evolution: { chain: [19, 20], methods: ["Lv.20"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Tackle" },
           { lv: 1, move: "Tail Whip" },
@@ -5498,8 +5498,8 @@
         abilities: ["Run Away", "Guts"],
         hiddenAbility: "Hustle",
         evolution: { chain: [19, 20], methods: ["Lv.20"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Tackle" },
           { lv: 1, move: "Tail Whip" },
@@ -5528,15 +5528,15 @@
       {
         id: 21,
         name: "Spearow",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Keen Eye"],
         hiddenAbility: "Sniper",
         evolution: { chain: [21, 22], methods: ["Lv.20"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Peck" },
@@ -5564,15 +5564,15 @@
       {
         id: 22,
         name: "Fearow",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Keen Eye"],
         hiddenAbility: "Sniper",
         evolution: { chain: [21, 22], methods: ["Lv.20"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Peck" },
@@ -5600,13 +5600,13 @@
       {
         id: 23,
         name: "Ekans",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Intimidate", "Shed Skin"],
         hiddenAbility: "Unnerve",
         evolution: { chain: [23, 24], methods: ["Lv.22"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5637,13 +5637,13 @@
       {
         id: 24,
         name: "Arbok",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Intimidate", "Shed Skin"],
         hiddenAbility: "Unnerve",
         evolution: { chain: [23, 24], methods: ["Lv.22"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5674,13 +5674,13 @@
       {
         id: 25,
         name: "Pikachu",
-        types: ["Electric"],
+        types: ["Elétrico"],
         abilities: ["Static"],
         hiddenAbility: "Lightning Rod",
         evolution: { chain: [25, 26], methods: ["Thunder Stone"] },
-        weaknesses: { "2x": ["Ground"], "4x": [] },
+        weaknesses: { "2x": ["Terra"], "4x": [] },
         resistances: {
-          "0.5x": ["Electric", "Flying", "Steel"],
+          "0.5x": ["Elétrico", "Voador", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -5719,13 +5719,13 @@
       {
         id: 26,
         name: "Raichu",
-        types: ["Electric"],
+        types: ["Elétrico"],
         abilities: ["Static"],
         hiddenAbility: "Lightning Rod",
         evolution: { chain: [25, 26], methods: ["Thunder Stone"] },
-        weaknesses: { "2x": ["Ground"], "4x": [] },
+        weaknesses: { "2x": ["Terra"], "4x": [] },
         resistances: {
-          "0.5x": ["Electric", "Flying", "Steel"],
+          "0.5x": ["Elétrico", "Voador", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -5760,15 +5760,15 @@
       {
         id: 27,
         name: "Sandshrew",
-        types: ["Ground"],
+        types: ["Terra"],
         abilities: ["Sand Veil"],
         hiddenAbility: "Sand Rush",
         evolution: { chain: [27, 28], methods: ["Lv.22"] },
-        weaknesses: { "2x": ["Water", "Grass", "Ice"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Grama", "Gelo"], "4x": [] },
         resistances: {
-          "0.5x": ["Poison", "Rock"],
+          "0.5x": ["Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Scratch" },
@@ -5797,15 +5797,15 @@
       {
         id: 28,
         name: "Sandslash",
-        types: ["Ground"],
+        types: ["Terra"],
         abilities: ["Sand Veil"],
         hiddenAbility: "Sand Rush",
         evolution: { chain: [27, 28], methods: ["Lv.22"] },
-        weaknesses: { "2x": ["Water", "Grass", "Ice"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Grama", "Gelo"], "4x": [] },
         resistances: {
-          "0.5x": ["Poison", "Rock"],
+          "0.5x": ["Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Scratch" },
@@ -5834,13 +5834,13 @@
       {
         id: 29,
         name: "Nidoran♀",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Poison Point", "Rivalry"],
         hiddenAbility: "Hustle",
         evolution: { chain: [29, 30, 31], methods: ["Lv.16", "Moon Stone"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5874,13 +5874,13 @@
       {
         id: 30,
         name: "Nidorina",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Poison Point", "Rivalry"],
         hiddenAbility: "Hustle",
         evolution: { chain: [29, 30, 31], methods: ["Lv.16", "Moon Stone"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5914,15 +5914,15 @@
       {
         id: 31,
         name: "Nidoqueen",
-        types: ["Poison", "Ground"],
+        types: ["Veneno", "Terra"],
         abilities: ["Poison Point", "Rivalry"],
         hiddenAbility: "Sheer Force",
         evolution: { chain: [29, 30, 31], methods: ["Lv.16", "Moon Stone"] },
-        weaknesses: { "2x": ["Water", "Ice", "Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Gelo", "Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug", "Rock"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -5957,13 +5957,13 @@
       {
         id: 32,
         name: "Nidoran♂",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Poison Point", "Rivalry"],
         hiddenAbility: "Hustle",
         evolution: { chain: [32, 33, 34], methods: ["Lv.16", "Moon Stone"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -5996,13 +5996,13 @@
       {
         id: 33,
         name: "Nidorino",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Poison Point", "Rivalry"],
         hiddenAbility: "Hustle",
         evolution: { chain: [32, 33, 34], methods: ["Lv.16", "Moon Stone"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -6035,15 +6035,15 @@
       {
         id: 34,
         name: "Nidoking",
-        types: ["Poison", "Ground"],
+        types: ["Veneno", "Terra"],
         abilities: ["Poison Point", "Rivalry"],
         hiddenAbility: "Sheer Force",
         evolution: { chain: [32, 33, 34], methods: ["Lv.16", "Moon Stone"] },
-        weaknesses: { "2x": ["Water", "Ice", "Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Gelo", "Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug", "Rock"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -6083,8 +6083,8 @@
         abilities: ["Cute Charm", "Magic Guard"],
         hiddenAbility: "Friend Guard",
         evolution: { chain: [35, 36], methods: ["Moon Stone"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Pound" },
           { lv: 1, move: "Growl" },
@@ -6109,7 +6109,7 @@
           "Rage",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -6137,8 +6137,8 @@
         abilities: ["Cute Charm", "Magic Guard"],
         hiddenAbility: "Unaware",
         evolution: { chain: [35, 36], methods: ["Moon Stone"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Sing" },
           { lv: 1, move: "Double Slap" },
@@ -6158,7 +6158,7 @@
           "Rage",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -6181,13 +6181,13 @@
       {
         id: 37,
         name: "Vulpix",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Flash Fire"],
         hiddenAbility: "Drought",
         evolution: { chain: [37, 38], methods: ["Fire Stone"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -6218,13 +6218,13 @@
       {
         id: 38,
         name: "Ninetales",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Flash Fire"],
         hiddenAbility: "Drought",
         evolution: { chain: [37, 38], methods: ["Fire Stone"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -6256,8 +6256,8 @@
         abilities: ["Cute Charm"],
         hiddenAbility: "Friend Guard",
         evolution: { chain: [39, 40], methods: ["Moon Stone"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Sing" },
           { lv: 9, move: "Pound" },
@@ -6281,7 +6281,7 @@
           "Seismic Toss",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -6306,8 +6306,8 @@
         abilities: ["Cute Charm"],
         hiddenAbility: "Frisk",
         evolution: { chain: [39, 40], methods: ["Moon Stone"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Sing" },
           { lv: 1, move: "Disable" },
@@ -6326,7 +6326,7 @@
           "Seismic Toss",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -6346,18 +6346,18 @@
       {
         id: 41,
         name: "Zubat",
-        types: ["Poison", "Flying"],
+        types: ["Veneno", "Voador"],
         abilities: ["Inner Focus"],
         hiddenAbility: "Infiltrator",
         evolution: { chain: [41, 42], methods: ["Lv.22"] },
         weaknesses: {
-          "2x": ["Electric", "Ice", "Psychic", "Rock"],
+          "2x": ["Elétrico", "Gelo", "Psíquico", "Pedra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Leech Life" },
@@ -6380,18 +6380,18 @@
       {
         id: 42,
         name: "Golbat",
-        types: ["Poison", "Flying"],
+        types: ["Veneno", "Voador"],
         abilities: ["Inner Focus"],
         hiddenAbility: "Infiltrator",
         evolution: { chain: [41, 42], methods: ["Lv.22"] },
         weaknesses: {
-          "2x": ["Electric", "Ice", "Psychic", "Rock"],
+          "2x": ["Elétrico", "Gelo", "Psíquico", "Pedra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Leech Life" },
@@ -6414,13 +6414,13 @@
       {
         id: 43,
         name: "Oddish",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Run Away",
         evolution: { chain: [43, 44, 45], methods: ["Lv.21", "Leaf Stone"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -6448,13 +6448,13 @@
       {
         id: 44,
         name: "Gloom",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Stench",
         evolution: { chain: [43, 44, 45], methods: ["Lv.21", "Leaf Stone"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -6482,13 +6482,13 @@
       {
         id: 45,
         name: "Vileplume",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Effect Spore",
         evolution: { chain: [43, 44, 45], methods: ["Lv.21", "Leaf Stone"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -6515,16 +6515,16 @@
       {
         id: 46,
         name: "Paras",
-        types: ["Bug", "Grass"],
+        types: ["Inseto", "Grama"],
         abilities: ["Effect Spore", "Dry Skin"],
         hiddenAbility: "Damp",
         evolution: { chain: [46, 47], methods: ["Lv.24"] },
         weaknesses: {
-          "2x": ["Fire", "Ice", "Flying", "Bug", "Poison"],
+          "2x": ["Fogo", "Gelo", "Voador", "Inseto", "Veneno"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Ground", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Terra", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -6555,16 +6555,16 @@
       {
         id: 47,
         name: "Parasect",
-        types: ["Bug", "Grass"],
+        types: ["Inseto", "Grama"],
         abilities: ["Effect Spore", "Dry Skin"],
         hiddenAbility: "Damp",
         evolution: { chain: [46, 47], methods: ["Lv.24"] },
         weaknesses: {
-          "2x": ["Fire", "Ice", "Flying", "Bug", "Poison"],
+          "2x": ["Fogo", "Gelo", "Voador", "Inseto", "Veneno"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Ground", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Terra", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -6595,13 +6595,13 @@
       {
         id: 48,
         name: "Venonat",
-        types: ["Bug", "Poison"],
+        types: ["Inseto", "Veneno"],
         abilities: ["Compound Eyes", "Tinted Lens"],
         hiddenAbility: "Run Away",
         evolution: { chain: [48, 49], methods: ["Lv.31"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Psychic", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Psíquico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -6613,7 +6613,7 @@
           { lv: 30, move: "Stun Spore" },
           { lv: 35, move: "Psybeam" },
           { lv: 38, move: "Sleep Powder" },
-          { lv: 43, move: "Psychic" },
+          { lv: 43, move: "Psíquico" },
         ],
         tmMoves: [
           "Toxic",
@@ -6622,20 +6622,20 @@
           "Bide",
           "Rest",
           "Substitute",
-          "Psychic",
+          "Psíquico",
           "Mega Drain",
         ],
       },
       {
         id: 49,
         name: "Venomoth",
-        types: ["Bug", "Poison"],
+        types: ["Inseto", "Veneno"],
         abilities: ["Shield Dust", "Tinted Lens"],
         hiddenAbility: "Wonder Skin",
         evolution: { chain: [48, 49], methods: ["Lv.31"] },
-        weaknesses: { "2x": ["Fire", "Flying", "Psychic", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Psíquico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -6647,7 +6647,7 @@
           { lv: 30, move: "Stun Spore" },
           { lv: 38, move: "Psybeam" },
           { lv: 43, move: "Sleep Powder" },
-          { lv: 50, move: "Psychic" },
+          { lv: 50, move: "Psíquico" },
         ],
         tmMoves: [
           "Toxic",
@@ -6656,22 +6656,22 @@
           "Bide",
           "Rest",
           "Substitute",
-          "Psychic",
+          "Psíquico",
           "Mega Drain",
         ],
       },
       {
         id: 50,
         name: "Diglett",
-        types: ["Ground"],
+        types: ["Terra"],
         abilities: ["Sand Veil", "Arena Trap"],
         hiddenAbility: "Sand Force",
         evolution: { chain: [50, 51], methods: ["Lv.26"] },
-        weaknesses: { "2x": ["Water", "Grass", "Ice"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Grama", "Gelo"], "4x": [] },
         resistances: {
-          "0.5x": ["Poison", "Rock"],
+          "0.5x": ["Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Scratch" },
@@ -6699,15 +6699,15 @@
       {
         id: 51,
         name: "Dugtrio",
-        types: ["Ground"],
+        types: ["Terra"],
         abilities: ["Sand Veil", "Arena Trap"],
         hiddenAbility: "Sand Force",
         evolution: { chain: [50, 51], methods: ["Lv.26"] },
-        weaknesses: { "2x": ["Water", "Grass", "Ice"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Grama", "Gelo"], "4x": [] },
         resistances: {
-          "0.5x": ["Poison", "Rock"],
+          "0.5x": ["Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Scratch" },
@@ -6739,8 +6739,8 @@
         abilities: ["Pickup", "Technician"],
         hiddenAbility: "Unnerve",
         evolution: { chain: [52, 53], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Scratch" },
           { lv: 1, move: "Growl" },
@@ -6778,8 +6778,8 @@
         abilities: ["Limber", "Technician"],
         hiddenAbility: "Unnerve",
         evolution: { chain: [52, 53], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Scratch" },
           { lv: 1, move: "Growl" },
@@ -6816,13 +6816,13 @@
       {
         id: 54,
         name: "Psyduck",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Damp", "Cloud Nine"],
         hiddenAbility: "Swift Swim",
         evolution: { chain: [54, 55], methods: ["Lv.33"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -6844,7 +6844,7 @@
           "Ice Beam",
           "Blizzard",
           "Amnesia",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Bide",
@@ -6858,13 +6858,13 @@
       {
         id: 55,
         name: "Golduck",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Damp", "Cloud Nine"],
         hiddenAbility: "Swift Swim",
         evolution: { chain: [54, 55], methods: ["Lv.33"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -6886,7 +6886,7 @@
           "Ice Beam",
           "Blizzard",
           "Amnesia",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Bide",
@@ -6900,13 +6900,13 @@
       {
         id: 56,
         name: "Mankey",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Vital Spirit", "Anger Point"],
         hiddenAbility: "Defiant",
         evolution: { chain: [56, 57], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -6941,13 +6941,13 @@
       {
         id: 57,
         name: "Primeape",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Vital Spirit", "Anger Point"],
         hiddenAbility: "Defiant",
         evolution: { chain: [56, 57], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -6982,13 +6982,13 @@
       {
         id: 58,
         name: "Growlithe",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Intimidate", "Flash Fire"],
         hiddenAbility: "Justified",
         evolution: { chain: [58, 59], methods: ["Fire Stone"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -7019,13 +7019,13 @@
       {
         id: 59,
         name: "Arcanine",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Intimidate", "Flash Fire"],
         hiddenAbility: "Justified",
         evolution: { chain: [58, 59], methods: ["Fire Stone"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -7053,13 +7053,13 @@
       {
         id: 60,
         name: "Poliwag",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Water Absorb", "Damp"],
         hiddenAbility: "Swift Swim",
         evolution: { chain: [60, 61, 62], methods: ["Lv.25", "Water Stone"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -7091,13 +7091,13 @@
       {
         id: 61,
         name: "Poliwhirl",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Water Absorb", "Damp"],
         hiddenAbility: "Swift Swim",
         evolution: { chain: [60, 61, 62], methods: ["Lv.25", "Water Stone"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -7134,16 +7134,16 @@
       {
         id: 62,
         name: "Poliwrath",
-        types: ["Water", "Fighting"],
+        types: ["Água", "Lutador"],
         abilities: ["Water Absorb", "Damp"],
         hiddenAbility: "Swift Swim",
         evolution: { chain: [60, 61, 62], methods: ["Lv.25", "Water Stone"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Flying", "Psychic"],
+          "2x": ["Elétrico", "Grama", "Voador", "Psíquico"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel", "Rock", "Bug", "Dark"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal", "Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -7181,20 +7181,20 @@
       {
         id: 63,
         name: "Abra",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Synchronize", "Inner Focus"],
         hiddenAbility: "Magic Guard",
         evolution: { chain: [63, 64, 65], methods: ["Lv.16", "Trade"] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
         levelMoves: [{ lv: 1, move: "Teleport" }],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -7209,13 +7209,13 @@
       {
         id: 64,
         name: "Kadabra",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Synchronize", "Inner Focus"],
         hiddenAbility: "Magic Guard",
         evolution: { chain: [63, 64, 65], methods: ["Lv.16", "Trade"] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -7225,12 +7225,12 @@
           { lv: 20, move: "Disable" },
           { lv: 27, move: "Psybeam" },
           { lv: 31, move: "Recover" },
-          { lv: 38, move: "Psychic" },
+          { lv: 38, move: "Psíquico" },
           { lv: 42, move: "Reflect" },
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -7246,13 +7246,13 @@
       {
         id: 65,
         name: "Alakazam",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Synchronize", "Inner Focus"],
         hiddenAbility: "Magic Guard",
         evolution: { chain: [63, 64, 65], methods: ["Lv.16", "Trade"] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -7262,12 +7262,12 @@
           { lv: 20, move: "Disable" },
           { lv: 27, move: "Psybeam" },
           { lv: 31, move: "Recover" },
-          { lv: 38, move: "Psychic" },
+          { lv: 38, move: "Psíquico" },
           { lv: 42, move: "Reflect" },
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -7286,13 +7286,13 @@
       {
         id: 66,
         name: "Machop",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Guts", "No Guard"],
         hiddenAbility: "Steadfast",
         evolution: { chain: [66, 67, 68], methods: ["Lv.28", "Trade"] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -7328,13 +7328,13 @@
       {
         id: 67,
         name: "Machoke",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Guts", "No Guard"],
         hiddenAbility: "Steadfast",
         evolution: { chain: [66, 67, 68], methods: ["Lv.28", "Trade"] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -7370,13 +7370,13 @@
       {
         id: 68,
         name: "Machamp",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Guts", "No Guard"],
         hiddenAbility: "Steadfast",
         evolution: { chain: [66, 67, 68], methods: ["Lv.28", "Trade"] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -7412,13 +7412,13 @@
       {
         id: 69,
         name: "Bellsprout",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Gluttony",
         evolution: { chain: [69, 70, 71], methods: ["Lv.21", "Leaf Stone"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -7448,13 +7448,13 @@
       {
         id: 70,
         name: "Weepinbell",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Gluttony",
         evolution: { chain: [69, 70, 71], methods: ["Lv.21", "Leaf Stone"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -7484,13 +7484,13 @@
       {
         id: 71,
         name: "Victreebel",
-        types: ["Grass", "Poison"],
+        types: ["Grama", "Veneno"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Gluttony",
         evolution: { chain: [69, 70, 71], methods: ["Lv.21", "Leaf Stone"] },
-        weaknesses: { "2x": ["Fire", "Ice", "Flying", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Gelo", "Voador", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Fighting"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Lutador"],
           "0.25x": [],
           immune: [],
         },
@@ -7520,20 +7520,20 @@
       {
         id: 72,
         name: "Tentacool",
-        types: ["Water", "Poison"],
+        types: ["Água", "Veneno"],
         abilities: ["Clear Body", "Liquid Ooze"],
         hiddenAbility: "Rain Dish",
         evolution: { chain: [72, 73], methods: ["Lv.30"] },
-        weaknesses: { "2x": ["Electric", "Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Terra", "Psíquico"], "4x": [] },
         resistances: {
           "0.5x": [
-            "Fire",
-            "Water",
-            "Ice",
-            "Steel",
-            "Fighting",
-            "Poison",
-            "Bug",
+            "Fogo",
+            "Água",
+            "Gelo",
+            "Metal",
+            "Lutador",
+            "Veneno",
+            "Inseto",
           ],
           "0.25x": [],
           immune: [],
@@ -7566,20 +7566,20 @@
       {
         id: 73,
         name: "Tentacruel",
-        types: ["Water", "Poison"],
+        types: ["Água", "Veneno"],
         abilities: ["Clear Body", "Liquid Ooze"],
         hiddenAbility: "Rain Dish",
         evolution: { chain: [72, 73], methods: ["Lv.30"] },
-        weaknesses: { "2x": ["Electric", "Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Terra", "Psíquico"], "4x": [] },
         resistances: {
           "0.5x": [
-            "Fire",
-            "Water",
-            "Ice",
-            "Steel",
-            "Fighting",
-            "Poison",
-            "Bug",
+            "Fogo",
+            "Água",
+            "Gelo",
+            "Metal",
+            "Lutador",
+            "Veneno",
+            "Inseto",
           ],
           "0.25x": [],
           immune: [],
@@ -7612,18 +7612,18 @@
       {
         id: 74,
         name: "Geodude",
-        types: ["Rock", "Ground"],
+        types: ["Pedra", "Terra"],
         abilities: ["Rock Head", "Sturdy"],
         hiddenAbility: "Sand Veil",
         evolution: { chain: [74, 75, 76], methods: ["Lv.25", "Trade"] },
         weaknesses: {
-          "2x": ["Water", "Grass", "Ice", "Fighting", "Ground", "Steel"],
+          "2x": ["Água", "Grama", "Gelo", "Lutador", "Terra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Rock"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -7655,18 +7655,18 @@
       {
         id: 75,
         name: "Graveler",
-        types: ["Rock", "Ground"],
+        types: ["Pedra", "Terra"],
         abilities: ["Rock Head", "Sturdy"],
         hiddenAbility: "Sand Veil",
         evolution: { chain: [74, 75, 76], methods: ["Lv.25", "Trade"] },
         weaknesses: {
-          "2x": ["Water", "Grass", "Ice", "Fighting", "Ground", "Steel"],
+          "2x": ["Água", "Grama", "Gelo", "Lutador", "Terra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Rock"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -7698,18 +7698,18 @@
       {
         id: 76,
         name: "Golem",
-        types: ["Rock", "Ground"],
+        types: ["Pedra", "Terra"],
         abilities: ["Rock Head", "Sturdy"],
         hiddenAbility: "Sand Veil",
         evolution: { chain: [74, 75, 76], methods: ["Lv.25", "Trade"] },
         weaknesses: {
-          "2x": ["Water", "Grass", "Ice", "Fighting", "Ground", "Steel"],
+          "2x": ["Água", "Grama", "Gelo", "Lutador", "Terra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Rock"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -7742,13 +7742,13 @@
       {
         id: 77,
         name: "Ponyta",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Run Away", "Flash Fire"],
         hiddenAbility: "Flame Body",
         evolution: { chain: [77, 78], methods: ["Lv.40"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -7781,13 +7781,13 @@
       {
         id: 78,
         name: "Rapidash",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Run Away", "Flash Fire"],
         hiddenAbility: "Flame Body",
         evolution: { chain: [77, 78], methods: ["Lv.40"] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -7821,16 +7821,16 @@
       {
         id: 79,
         name: "Slowpoke",
-        types: ["Water", "Psychic"],
+        types: ["Água", "Psíquico"],
         abilities: ["Oblivious", "Own Tempo"],
         hiddenAbility: "Regenerator",
         evolution: { chain: [79, 80], methods: ["Lv.37"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Bug", "Ghost", "Dark"],
+          "2x": ["Elétrico", "Grama", "Inseto", "Fantasma", "Dark"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel", "Fighting", "Psychic"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal", "Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -7841,11 +7841,11 @@
           { lv: 27, move: "Growl" },
           { lv: 33, move: "Water Gun" },
           { lv: 40, move: "Amnesia" },
-          { lv: 48, move: "Psychic" },
+          { lv: 48, move: "Psíquico" },
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Bubblebeam",
           "Surf",
           "Blizzard",
@@ -7868,16 +7868,16 @@
       {
         id: 80,
         name: "Slowbro",
-        types: ["Water", "Psychic"],
+        types: ["Água", "Psíquico"],
         abilities: ["Oblivious", "Own Tempo"],
         hiddenAbility: "Regenerator",
         evolution: { chain: [79, 80], methods: ["Lv.37"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Bug", "Ghost", "Dark"],
+          "2x": ["Elétrico", "Grama", "Inseto", "Fantasma", "Dark"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel", "Fighting", "Psychic"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal", "Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -7889,11 +7889,11 @@
           { lv: 33, move: "Water Gun" },
           { lv: 37, move: "Withdraw" },
           { lv: 44, move: "Amnesia" },
-          { lv: 55, move: "Psychic" },
+          { lv: 55, move: "Psíquico" },
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Bubblebeam",
           "Surf",
           "Blizzard",
@@ -7916,27 +7916,27 @@
       {
         id: 81,
         name: "Magnemite",
-        types: ["Electric", "Steel"],
+        types: ["Elétrico", "Metal"],
         abilities: ["Magnet Pull", "Sturdy"],
         hiddenAbility: "Analytic",
         evolution: { chain: [81, 82], methods: ["Lv.30"] },
-        weaknesses: { "2x": ["Fire", "Fighting", "Ground"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Lutador", "Terra"], "4x": [] },
         resistances: {
           "0.5x": [
             "Normal",
-            "Electric",
-            "Flying",
-            "Steel",
-            "Grass",
-            "Ice",
-            "Psychic",
-            "Bug",
-            "Rock",
-            "Dragon",
-            "Fairy",
+            "Elétrico",
+            "Voador",
+            "Metal",
+            "Grama",
+            "Gelo",
+            "Psíquico",
+            "Inseto",
+            "Pedra",
+            "Dragão",
+            "Fada",
           ],
           "0.25x": [],
-          immune: ["Poison"],
+          immune: ["Veneno"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -7966,27 +7966,27 @@
       {
         id: 82,
         name: "Magneton",
-        types: ["Electric", "Steel"],
+        types: ["Elétrico", "Metal"],
         abilities: ["Magnet Pull", "Sturdy"],
         hiddenAbility: "Analytic",
         evolution: { chain: [81, 82], methods: ["Lv.30"] },
-        weaknesses: { "2x": ["Fire", "Fighting", "Ground"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Lutador", "Terra"], "4x": [] },
         resistances: {
           "0.5x": [
             "Normal",
-            "Electric",
-            "Flying",
-            "Steel",
-            "Grass",
-            "Ice",
-            "Psychic",
-            "Bug",
-            "Rock",
-            "Dragon",
-            "Fairy",
+            "Elétrico",
+            "Voador",
+            "Metal",
+            "Grama",
+            "Gelo",
+            "Psíquico",
+            "Inseto",
+            "Pedra",
+            "Dragão",
+            "Fada",
           ],
           "0.25x": [],
-          immune: ["Poison"],
+          immune: ["Veneno"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -8016,15 +8016,15 @@
       {
         id: 83,
         name: "Farfetch'd",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Keen Eye", "Inner Focus"],
         hiddenAbility: "Defiant",
         evolution: { chain: [83], methods: [] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Peck" },
@@ -8053,15 +8053,15 @@
       {
         id: 84,
         name: "Doduo",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Run Away", "Early Bird"],
         hiddenAbility: "Tangled Feet",
         evolution: { chain: [84, 85], methods: ["Lv.31"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Peck" },
@@ -8089,15 +8089,15 @@
       {
         id: 85,
         name: "Dodrio",
-        types: ["Normal", "Flying"],
+        types: ["Normal", "Voador"],
         abilities: ["Run Away", "Early Bird"],
         hiddenAbility: "Tangled Feet",
         evolution: { chain: [84, 85], methods: ["Lv.31"] },
-        weaknesses: { "2x": ["Electric", "Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting"],
+          "0.5x": ["Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground", "Ghost"],
+          immune: ["Terra", "Fantasma"],
         },
         levelMoves: [
           { lv: 1, move: "Peck" },
@@ -8126,13 +8126,13 @@
       {
         id: 86,
         name: "Seel",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Thick Fat", "Hydration"],
         hiddenAbility: "Ice Body",
         evolution: { chain: [86, 87], methods: ["Lv.34"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -8163,15 +8163,15 @@
       {
         id: 87,
         name: "Dewgong",
-        types: ["Water", "Ice"],
+        types: ["Água", "Gelo"],
         abilities: ["Thick Fat", "Hydration"],
         hiddenAbility: "Ice Body",
         evolution: { chain: [86, 87], methods: ["Lv.34"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Rock"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Pedra"],
           "4x": [],
         },
-        resistances: { "0.5x": ["Water", "Ice"], "0.25x": [], immune: [] },
+        resistances: { "0.5x": ["Água", "Gelo"], "0.25x": [], immune: [] },
         levelMoves: [
           { lv: 1, move: "Headbutt" },
           { lv: 30, move: "Growl" },
@@ -8200,13 +8200,13 @@
       {
         id: 88,
         name: "Grimer",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Stench", "Sticky Hold"],
         hiddenAbility: "Poison Touch",
         evolution: { chain: [88, 89], methods: ["Lv.38"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -8239,13 +8239,13 @@
       {
         id: 89,
         name: "Muk",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Stench", "Sticky Hold"],
         hiddenAbility: "Poison Touch",
         evolution: { chain: [88, 89], methods: ["Lv.38"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto"],
           "0.25x": [],
           immune: [],
         },
@@ -8280,13 +8280,13 @@
       {
         id: 90,
         name: "Shellder",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Shell Armor", "Skill Link"],
         hiddenAbility: "Overcoat",
         evolution: { chain: [90, 91], methods: ["Water Stone"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -8317,15 +8317,15 @@
       {
         id: 91,
         name: "Cloyster",
-        types: ["Water", "Ice"],
+        types: ["Água", "Gelo"],
         abilities: ["Shell Armor", "Skill Link"],
         hiddenAbility: "Overcoat",
         evolution: { chain: [90, 91], methods: ["Water Stone"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Rock"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Pedra"],
           "4x": [],
         },
-        resistances: { "0.5x": ["Water", "Ice"], "0.25x": [], immune: [] },
+        resistances: { "0.5x": ["Água", "Gelo"], "0.25x": [], immune: [] },
         levelMoves: [
           { lv: 1, move: "Withdraw" },
           { lv: 1, move: "Supersonic" },
@@ -8350,18 +8350,18 @@
       {
         id: 92,
         name: "Gastly",
-        types: ["Ghost", "Poison"],
+        types: ["Fantasma", "Veneno"],
         abilities: ["Levitate"],
         hiddenAbility: null,
         evolution: { chain: [92, 93, 94], methods: ["Lv.25", "Trade"] },
         weaknesses: {
-          "2x": ["Ghost", "Psychic", "Ground", "Dark"],
+          "2x": ["Fantasma", "Psíquico", "Terra", "Dark"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Poison", "Bug", "Fairy"],
+          "0.5x": ["Grama", "Veneno", "Inseto", "Fada"],
           "0.25x": [],
-          immune: ["Normal", "Fighting"],
+          immune: ["Normal", "Lutador"],
         },
         levelMoves: [
           { lv: 1, move: "Lick" },
@@ -8372,7 +8372,7 @@
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8388,18 +8388,18 @@
       {
         id: 93,
         name: "Haunter",
-        types: ["Ghost", "Poison"],
+        types: ["Fantasma", "Veneno"],
         abilities: ["Levitate"],
         hiddenAbility: null,
         evolution: { chain: [92, 93, 94], methods: ["Lv.25", "Trade"] },
         weaknesses: {
-          "2x": ["Ghost", "Psychic", "Ground", "Dark"],
+          "2x": ["Fantasma", "Psíquico", "Terra", "Dark"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Poison", "Bug", "Fairy"],
+          "0.5x": ["Grama", "Veneno", "Inseto", "Fada"],
           "0.25x": [],
-          immune: ["Normal", "Fighting"],
+          immune: ["Normal", "Lutador"],
         },
         levelMoves: [
           { lv: 1, move: "Lick" },
@@ -8410,7 +8410,7 @@
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8426,18 +8426,18 @@
       {
         id: 94,
         name: "Gengar",
-        types: ["Ghost", "Poison"],
+        types: ["Fantasma", "Veneno"],
         abilities: ["Cursed Body"],
         hiddenAbility: null,
         evolution: { chain: [92, 93, 94], methods: ["Lv.25", "Trade"] },
         weaknesses: {
-          "2x": ["Ghost", "Psychic", "Ground", "Dark"],
+          "2x": ["Fantasma", "Psíquico", "Terra", "Dark"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Poison", "Bug", "Fairy"],
+          "0.5x": ["Grama", "Veneno", "Inseto", "Fada"],
           "0.25x": [],
-          immune: ["Normal", "Fighting"],
+          immune: ["Normal", "Lutador"],
         },
         levelMoves: [
           { lv: 1, move: "Lick" },
@@ -8448,7 +8448,7 @@
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8468,18 +8468,18 @@
       {
         id: 95,
         name: "Onix",
-        types: ["Rock", "Ground"],
+        types: ["Pedra", "Terra"],
         abilities: ["Rock Head", "Sturdy"],
         hiddenAbility: "Weak Armor",
         evolution: { chain: [95], methods: [] },
         weaknesses: {
-          "2x": ["Water", "Grass", "Ice", "Fighting", "Ground", "Steel"],
+          "2x": ["Água", "Grama", "Gelo", "Lutador", "Terra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Rock"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Tackle" },
@@ -8509,13 +8509,13 @@
       {
         id: 96,
         name: "Drowzee",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Insomnia", "Forewarn"],
         hiddenAbility: "Inner Focus",
         evolution: { chain: [96, 97], methods: ["Lv.26"] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -8526,13 +8526,13 @@
           { lv: 17, move: "Confusion" },
           { lv: 24, move: "Headbutt" },
           { lv: 29, move: "Poison Gas" },
-          { lv: 32, move: "Psychic" },
+          { lv: 32, move: "Psíquico" },
           { lv: 37, move: "Meditate" },
           { lv: 44, move: "Dream Eater" },
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8552,13 +8552,13 @@
       {
         id: 97,
         name: "Hypno",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Insomnia", "Forewarn"],
         hiddenAbility: "Inner Focus",
         evolution: { chain: [96, 97], methods: ["Lv.26"] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -8569,13 +8569,13 @@
           { lv: 17, move: "Confusion" },
           { lv: 24, move: "Headbutt" },
           { lv: 33, move: "Poison Gas" },
-          { lv: 37, move: "Psychic" },
+          { lv: 37, move: "Psíquico" },
           { lv: 43, move: "Meditate" },
           { lv: 54, move: "Dream Eater" },
         ],
         tmMoves: [
           "Toxic",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8595,13 +8595,13 @@
       {
         id: 98,
         name: "Krabby",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Hyper Cutter", "Shell Armor"],
         hiddenAbility: "Sheer Force",
         evolution: { chain: [98, 99], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -8632,13 +8632,13 @@
       {
         id: 99,
         name: "Kingler",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Hyper Cutter", "Shell Armor"],
         hiddenAbility: "Sheer Force",
         evolution: { chain: [98, 99], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -8670,13 +8670,13 @@
       {
         id: 100,
         name: "Voltorb",
-        types: ["Electric"],
+        types: ["Elétrico"],
         abilities: ["Soundproof", "Static"],
         hiddenAbility: "Aftermath",
         evolution: { chain: [100, 101], methods: ["Lv.30"] },
-        weaknesses: { "2x": ["Ground"], "4x": [] },
+        weaknesses: { "2x": ["Terra"], "4x": [] },
         resistances: {
-          "0.5x": ["Electric", "Flying", "Steel"],
+          "0.5x": ["Elétrico", "Voador", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -8707,13 +8707,13 @@
       {
         id: 101,
         name: "Electrode",
-        types: ["Electric"],
+        types: ["Elétrico"],
         abilities: ["Soundproof", "Static"],
         hiddenAbility: "Aftermath",
         evolution: { chain: [100, 101], methods: ["Lv.30"] },
-        weaknesses: { "2x": ["Ground"], "4x": [] },
+        weaknesses: { "2x": ["Terra"], "4x": [] },
         resistances: {
-          "0.5x": ["Electric", "Flying", "Steel"],
+          "0.5x": ["Elétrico", "Voador", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -8745,22 +8745,22 @@
       {
         id: 102,
         name: "Exeggcute",
-        types: ["Grass", "Psychic"],
+        types: ["Grama", "Psíquico"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Harvest",
         evolution: { chain: [102, 103], methods: ["Leaf Stone"] },
         weaknesses: {
-          "2x": ["Fire", "Ice", "Flying", "Poison", "Bug", "Ghost", "Dark"],
+          "2x": ["Fogo", "Gelo", "Voador", "Veneno", "Inseto", "Fantasma", "Dark"],
           "4x": [],
         },
         resistances: {
           "0.5x": [
-            "Grass",
-            "Water",
-            "Electric",
-            "Fighting",
-            "Psychic",
-            "Ground",
+            "Grama",
+            "Água",
+            "Elétrico",
+            "Lutador",
+            "Psíquico",
+            "Terra",
           ],
           "0.25x": [],
           immune: [],
@@ -8779,7 +8779,7 @@
           "Toxic",
           "Mega Drain",
           "Solar Beam",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8793,22 +8793,22 @@
       {
         id: 103,
         name: "Exeggutor",
-        types: ["Grass", "Psychic"],
+        types: ["Grama", "Psíquico"],
         abilities: ["Chlorophyll"],
         hiddenAbility: "Harvest",
         evolution: { chain: [102, 103], methods: ["Leaf Stone"] },
         weaknesses: {
-          "2x": ["Fire", "Ice", "Flying", "Poison", "Bug", "Ghost", "Dark"],
+          "2x": ["Fogo", "Gelo", "Voador", "Veneno", "Inseto", "Fantasma", "Dark"],
           "4x": [],
         },
         resistances: {
           "0.5x": [
-            "Grass",
-            "Water",
-            "Electric",
-            "Fighting",
-            "Psychic",
-            "Ground",
+            "Grama",
+            "Água",
+            "Elétrico",
+            "Lutador",
+            "Psíquico",
+            "Terra",
           ],
           "0.25x": [],
           immune: [],
@@ -8822,7 +8822,7 @@
           "Toxic",
           "Mega Drain",
           "Solar Beam",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -8836,15 +8836,15 @@
       {
         id: 104,
         name: "Cubone",
-        types: ["Ground"],
+        types: ["Terra"],
         abilities: ["Rock Head", "Lightning Rod"],
         hiddenAbility: "Battle Armor",
         evolution: { chain: [104, 105], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Water", "Grass", "Ice"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Grama", "Gelo"], "4x": [] },
         resistances: {
-          "0.5x": ["Poison", "Rock"],
+          "0.5x": ["Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Growl" },
@@ -8875,15 +8875,15 @@
       {
         id: 105,
         name: "Marowak",
-        types: ["Ground"],
+        types: ["Terra"],
         abilities: ["Rock Head", "Lightning Rod"],
         hiddenAbility: "Battle Armor",
         evolution: { chain: [104, 105], methods: ["Lv.28"] },
-        weaknesses: { "2x": ["Water", "Grass", "Ice"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Grama", "Gelo"], "4x": [] },
         resistances: {
-          "0.5x": ["Poison", "Rock"],
+          "0.5x": ["Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Growl" },
@@ -8915,13 +8915,13 @@
       {
         id: 106,
         name: "Hitmonlee",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Limber", "Reckless"],
         hiddenAbility: "Unburden",
         evolution: { chain: [106], methods: [] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -8954,13 +8954,13 @@
       {
         id: 107,
         name: "Hitmonchan",
-        types: ["Fighting"],
+        types: ["Lutador"],
         abilities: ["Keen Eye", "Iron Fist"],
         hiddenAbility: "Inner Focus",
         evolution: { chain: [107], methods: [] },
-        weaknesses: { "2x": ["Flying", "Psychic", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Voador", "Psíquico", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Rock", "Bug", "Dark"],
+          "0.5x": ["Pedra", "Inseto", "Dark"],
           "0.25x": [],
           immune: [],
         },
@@ -8996,8 +8996,8 @@
         abilities: ["Own Tempo", "Oblivious"],
         hiddenAbility: "Cloud Nine",
         evolution: { chain: [108], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Wrap" },
           { lv: 7, move: "Supersonic" },
@@ -9023,7 +9023,7 @@
           "Ice Beam",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -9040,13 +9040,13 @@
       {
         id: 109,
         name: "Koffing",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Levitate"],
         hiddenAbility: "Neutralizing Gas",
         evolution: { chain: [109, 110], methods: ["Lv.35"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug", "Fairy"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -9080,13 +9080,13 @@
       {
         id: 110,
         name: "Weezing",
-        types: ["Poison"],
+        types: ["Veneno"],
         abilities: ["Levitate"],
         hiddenAbility: "Neutralizing Gas",
         evolution: { chain: [109, 110], methods: ["Lv.35"] },
-        weaknesses: { "2x": ["Ground", "Psychic"], "4x": [] },
+        weaknesses: { "2x": ["Terra", "Psíquico"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Poison", "Bug", "Fairy"],
+          "0.5x": ["Grama", "Lutador", "Veneno", "Inseto", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -9120,18 +9120,18 @@
       {
         id: 111,
         name: "Rhyhorn",
-        types: ["Ground", "Rock"],
+        types: ["Terra", "Pedra"],
         abilities: ["Lightning Rod", "Rock Head"],
         hiddenAbility: "Reckless",
         evolution: { chain: [111, 112], methods: ["Lv.42"] },
         weaknesses: {
-          "2x": ["Water", "Grass", "Ice", "Fighting", "Ground", "Steel"],
+          "2x": ["Água", "Grama", "Gelo", "Lutador", "Terra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Rock"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Horn Attack" },
@@ -9161,18 +9161,18 @@
       {
         id: 112,
         name: "Rhydon",
-        types: ["Ground", "Rock"],
+        types: ["Terra", "Pedra"],
         abilities: ["Lightning Rod", "Rock Head"],
         hiddenAbility: "Reckless",
         evolution: { chain: [111, 112], methods: ["Lv.42"] },
         weaknesses: {
-          "2x": ["Water", "Grass", "Ice", "Fighting", "Ground", "Steel"],
+          "2x": ["Água", "Grama", "Gelo", "Lutador", "Terra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Rock"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Pedra"],
           "0.25x": [],
-          immune: ["Electric"],
+          immune: ["Elétrico"],
         },
         levelMoves: [
           { lv: 1, move: "Horn Attack" },
@@ -9213,8 +9213,8 @@
         abilities: ["Natural Cure", "Serene Grace"],
         hiddenAbility: "Healer",
         evolution: { chain: [113], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Pound" },
           { lv: 1, move: "Growl" },
@@ -9240,7 +9240,7 @@
           "Blizzard",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -9262,16 +9262,16 @@
       {
         id: 114,
         name: "Tangela",
-        types: ["Grass"],
+        types: ["Grama"],
         abilities: ["Chlorophyll", "Leaf Guard"],
         hiddenAbility: "Regenerator",
         evolution: { chain: [114], methods: [] },
         weaknesses: {
-          "2x": ["Fire", "Ice", "Flying", "Poison", "Bug"],
+          "2x": ["Fogo", "Gelo", "Voador", "Veneno", "Inseto"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Water", "Electric", "Ground"],
+          "0.5x": ["Grama", "Água", "Elétrico", "Terra"],
           "0.25x": [],
           immune: [],
         },
@@ -9309,8 +9309,8 @@
         abilities: ["Early Bird", "Scrappy"],
         hiddenAbility: "Inner Focus",
         evolution: { chain: [115], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Comet Punch" },
           { lv: 1, move: "Leer" },
@@ -9351,13 +9351,13 @@
       {
         id: 116,
         name: "Horsea",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Swift Swim", "Sniper"],
         hiddenAbility: "Damp",
         evolution: { chain: [116, 117], methods: ["Lv.32"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9386,13 +9386,13 @@
       {
         id: 117,
         name: "Seadra",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Poison Point", "Sniper"],
         hiddenAbility: "Damp",
         evolution: { chain: [116, 117], methods: ["Lv.32"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9421,13 +9421,13 @@
       {
         id: 118,
         name: "Goldeen",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Swift Swim", "Water Veil"],
         hiddenAbility: "Lightning Rod",
         evolution: { chain: [118, 119], methods: ["Lv.33"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9458,13 +9458,13 @@
       {
         id: 119,
         name: "Seaking",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Swift Swim", "Water Veil"],
         hiddenAbility: "Lightning Rod",
         evolution: { chain: [118, 119], methods: ["Lv.33"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9496,13 +9496,13 @@
       {
         id: 120,
         name: "Staryu",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Illuminate", "Natural Cure"],
         hiddenAbility: "Analytic",
         evolution: { chain: [120, 121], methods: ["Water Stone"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9522,7 +9522,7 @@
           "Surf",
           "Blizzard",
           "Ice Beam",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -9539,16 +9539,16 @@
       {
         id: 121,
         name: "Starmie",
-        types: ["Water", "Psychic"],
+        types: ["Água", "Psíquico"],
         abilities: ["Illuminate", "Natural Cure"],
         hiddenAbility: "Analytic",
         evolution: { chain: [120, 121], methods: ["Water Stone"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Bug", "Ghost", "Dark"],
+          "2x": ["Elétrico", "Grama", "Inseto", "Fantasma", "Dark"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel", "Fighting", "Psychic"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal", "Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -9562,7 +9562,7 @@
           "Surf",
           "Blizzard",
           "Ice Beam",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -9580,13 +9580,13 @@
       {
         id: 122,
         name: "Mr. Mime",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Soundproof", "Filter"],
         hiddenAbility: "Technician",
         evolution: { chain: [122], methods: [] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -9598,7 +9598,7 @@
           { lv: 39, move: "Meditate" },
           { lv: 45, move: "Substitute" },
           { lv: 51, move: "Psybeam" },
-          { lv: 58, move: "Psychic" },
+          { lv: 58, move: "Psíquico" },
         ],
         tmMoves: [
           "Mega Punch",
@@ -9611,7 +9611,7 @@
           "Seismic Toss",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -9629,18 +9629,18 @@
       {
         id: 123,
         name: "Scyther",
-        types: ["Bug", "Flying"],
+        types: ["Inseto", "Voador"],
         abilities: ["Swarm", "Technician"],
         hiddenAbility: "Steadfast",
         evolution: { chain: [123], methods: [] },
         weaknesses: {
-          "2x": ["Fire", "Electric", "Ice", "Flying", "Rock"],
+          "2x": ["Fogo", "Elétrico", "Gelo", "Voador", "Pedra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Bug"],
+          "0.5x": ["Grama", "Lutador", "Inseto"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Quick Attack" },
@@ -9670,15 +9670,15 @@
       {
         id: 124,
         name: "Jynx",
-        types: ["Ice", "Psychic"],
+        types: ["Gelo", "Psíquico"],
         abilities: ["Oblivious", "Forewarn"],
         hiddenAbility: "Dry Skin",
         evolution: { chain: [124], methods: [] },
         weaknesses: {
-          "2x": ["Fire", "Rock", "Bug", "Ghost", "Dark", "Steel"],
+          "2x": ["Fogo", "Pedra", "Inseto", "Fantasma", "Dark", "Metal"],
           "4x": [],
         },
-        resistances: { "0.5x": ["Ice", "Psychic"], "0.25x": [], immune: [] },
+        resistances: { "0.5x": ["Gelo", "Psíquico"], "0.25x": [], immune: [] },
         levelMoves: [
           { lv: 1, move: "Pound" },
           { lv: 1, move: "Lick" },
@@ -9697,7 +9697,7 @@
           "Double Edge",
           "Ice Beam",
           "Blizzard",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -9713,13 +9713,13 @@
       {
         id: 125,
         name: "Electabuzz",
-        types: ["Electric"],
+        types: ["Elétrico"],
         abilities: ["Static"],
         hiddenAbility: "Vital Spirit",
         evolution: { chain: [125], methods: [] },
-        weaknesses: { "2x": ["Ground"], "4x": [] },
+        weaknesses: { "2x": ["Terra"], "4x": [] },
         resistances: {
-          "0.5x": ["Electric", "Flying", "Steel"],
+          "0.5x": ["Elétrico", "Voador", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9759,13 +9759,13 @@
       {
         id: 126,
         name: "Magmar",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Flame Body"],
         hiddenAbility: "Vital Spirit",
         evolution: { chain: [126], methods: [] },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -9803,13 +9803,13 @@
       {
         id: 127,
         name: "Pinsir",
-        types: ["Bug"],
+        types: ["Inseto"],
         abilities: ["Hyper Cutter", "Mold Breaker"],
         hiddenAbility: "Moxie",
         evolution: { chain: [127], methods: [] },
-        weaknesses: { "2x": ["Fire", "Flying", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Voador", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Fighting", "Ground"],
+          "0.5x": ["Grama", "Lutador", "Terra"],
           "0.25x": [],
           immune: [],
         },
@@ -9847,8 +9847,8 @@
         abilities: ["Intimidate", "Anger Point"],
         hiddenAbility: "Sheer Force",
         evolution: { chain: [128], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Tackle" },
           { lv: 21, move: "Stomp" },
@@ -9888,13 +9888,13 @@
       {
         id: 129,
         name: "Magikarp",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Swift Swim"],
         hiddenAbility: "Rattled",
         evolution: { chain: [129, 130], methods: ["Lv.20"] },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -9908,15 +9908,15 @@
       {
         id: 130,
         name: "Gyarados",
-        types: ["Water", "Flying"],
+        types: ["Água", "Voador"],
         abilities: ["Intimidate"],
         hiddenAbility: "Moxie",
         evolution: { chain: [129, 130], methods: ["Lv.20"] },
-        weaknesses: { "2x": ["Electric", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Grass", "Bug", "Fighting", "Ground"],
+          "0.5x": ["Fogo", "Água", "Grama", "Inseto", "Lutador", "Terra"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Bite" },
@@ -9949,15 +9949,15 @@
       {
         id: 131,
         name: "Lapras",
-        types: ["Water", "Ice"],
+        types: ["Água", "Gelo"],
         abilities: ["Water Absorb", "Shell Armor"],
         hiddenAbility: "Hydration",
         evolution: { chain: [131], methods: [] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Rock"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Pedra"],
           "4x": [],
         },
-        resistances: { "0.5x": ["Water", "Ice"], "0.25x": [], immune: [] },
+        resistances: { "0.5x": ["Água", "Gelo"], "0.25x": [], immune: [] },
         levelMoves: [
           { lv: 1, move: "Water Gun" },
           { lv: 1, move: "Growl" },
@@ -9974,7 +9974,7 @@
           "Surf",
           "Blizzard",
           "Ice Beam",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -9995,8 +9995,8 @@
         abilities: ["Limber"],
         hiddenAbility: "Imposter",
         evolution: { chain: [132], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [{ lv: 1, move: "Transform" }],
         tmMoves: [],
       },
@@ -10010,8 +10010,8 @@
           chain: [133, 134, 135, 136],
           methods: ["Water Stone", "Thunder Stone", "Fire Stone"],
         },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Tackle" },
           { lv: 1, move: "Tail Whip" },
@@ -10038,16 +10038,16 @@
       {
         id: 134,
         name: "Vaporeon",
-        types: ["Water"],
+        types: ["Água"],
         abilities: ["Water Absorb"],
         hiddenAbility: "Hydration",
         evolution: {
           chain: [133, 134, 135, 136],
           methods: ["Water Stone", "Thunder Stone", "Fire Stone"],
         },
-        weaknesses: { "2x": ["Electric", "Grass"], "4x": [] },
+        weaknesses: { "2x": ["Elétrico", "Grama"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Ice", "Steel"],
+          "0.5x": ["Fogo", "Água", "Gelo", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -10085,16 +10085,16 @@
       {
         id: 135,
         name: "Jolteon",
-        types: ["Electric"],
+        types: ["Elétrico"],
         abilities: ["Volt Absorb"],
         hiddenAbility: "Quick Feet",
         evolution: {
           chain: [133, 134, 135, 136],
           methods: ["Water Stone", "Thunder Stone", "Fire Stone"],
         },
-        weaknesses: { "2x": ["Ground"], "4x": [] },
+        weaknesses: { "2x": ["Terra"], "4x": [] },
         resistances: {
-          "0.5x": ["Electric", "Flying", "Steel"],
+          "0.5x": ["Elétrico", "Voador", "Metal"],
           "0.25x": [],
           immune: [],
         },
@@ -10130,16 +10130,16 @@
       {
         id: 136,
         name: "Flareon",
-        types: ["Fire"],
+        types: ["Fogo"],
         abilities: ["Flash Fire"],
         hiddenAbility: "Guts",
         evolution: {
           chain: [133, 134, 135, 136],
           methods: ["Water Stone", "Thunder Stone", "Fire Stone"],
         },
-        weaknesses: { "2x": ["Water", "Ground", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Terra", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+          "0.5x": ["Fogo", "Grama", "Gelo", "Inseto", "Metal", "Fada"],
           "0.25x": [],
           immune: [],
         },
@@ -10177,8 +10177,8 @@
         abilities: ["Trace", "Download"],
         hiddenAbility: "Analytic",
         evolution: { chain: [137], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Conversion" },
           { lv: 1, move: "Tackle" },
@@ -10195,7 +10195,7 @@
           "Thunder",
           "Ice Beam",
           "Blizzard",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -10210,16 +10210,16 @@
       {
         id: 138,
         name: "Omanyte",
-        types: ["Rock", "Water"],
+        types: ["Pedra", "Água"],
         abilities: ["Swift Swim", "Shell Armor"],
         hiddenAbility: "Weak Armor",
         evolution: { chain: [138, 139], methods: ["Lv.40"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Ground"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Terra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Fire", "Water", "Ice", "Flying", "Poison"],
+          "0.5x": ["Normal", "Fogo", "Água", "Gelo", "Voador", "Veneno"],
           "0.25x": [],
           immune: [],
         },
@@ -10250,16 +10250,16 @@
       {
         id: 139,
         name: "Omastar",
-        types: ["Rock", "Water"],
+        types: ["Pedra", "Água"],
         abilities: ["Swift Swim", "Shell Armor"],
         hiddenAbility: "Weak Armor",
         evolution: { chain: [138, 139], methods: ["Lv.40"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Ground"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Terra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Fire", "Water", "Ice", "Flying", "Poison"],
+          "0.5x": ["Normal", "Fogo", "Água", "Gelo", "Voador", "Veneno"],
           "0.25x": [],
           immune: [],
         },
@@ -10291,16 +10291,16 @@
       {
         id: 140,
         name: "Kabuto",
-        types: ["Rock", "Water"],
+        types: ["Pedra", "Água"],
         abilities: ["Swift Swim", "Battle Armor"],
         hiddenAbility: "Weak Armor",
         evolution: { chain: [140, 141], methods: ["Lv.40"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Ground"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Terra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Fire", "Water", "Ice", "Flying", "Poison"],
+          "0.5x": ["Normal", "Fogo", "Água", "Gelo", "Voador", "Veneno"],
           "0.25x": [],
           immune: [],
         },
@@ -10332,16 +10332,16 @@
       {
         id: 141,
         name: "Kabutops",
-        types: ["Rock", "Water"],
+        types: ["Pedra", "Água"],
         abilities: ["Swift Swim", "Battle Armor"],
         hiddenAbility: "Weak Armor",
         evolution: { chain: [140, 141], methods: ["Lv.40"] },
         weaknesses: {
-          "2x": ["Electric", "Grass", "Fighting", "Ground"],
+          "2x": ["Elétrico", "Grama", "Lutador", "Terra"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Fire", "Water", "Ice", "Flying", "Poison"],
+          "0.5x": ["Normal", "Fogo", "Água", "Gelo", "Voador", "Veneno"],
           "0.25x": [],
           immune: [],
         },
@@ -10374,18 +10374,18 @@
       {
         id: 142,
         name: "Aerodactyl",
-        types: ["Rock", "Flying"],
+        types: ["Pedra", "Voador"],
         abilities: ["Rock Head", "Pressure"],
         hiddenAbility: "Unnerve",
         evolution: { chain: [142], methods: [] },
         weaknesses: {
-          "2x": ["Water", "Electric", "Ice", "Rock", "Steel"],
+          "2x": ["Água", "Elétrico", "Gelo", "Pedra", "Metal"],
           "4x": [],
         },
         resistances: {
-          "0.5x": ["Normal", "Flying", "Fire", "Poison", "Bug"],
+          "0.5x": ["Normal", "Voador", "Fogo", "Veneno", "Inseto"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Wing Attack" },
@@ -10421,8 +10421,8 @@
         abilities: ["Immunity", "Thick Fat"],
         hiddenAbility: "Gluttony",
         evolution: { chain: [143], methods: [] },
-        weaknesses: { "2x": ["Fighting"], "4x": [] },
-        resistances: { "0.5x": [], "0.25x": [], immune: ["Ghost"] },
+        weaknesses: { "2x": ["Lutador"], "4x": [] },
+        resistances: { "0.5x": [], "0.25x": [], immune: ["Fantasma"] },
         levelMoves: [
           { lv: 1, move: "Headbutt" },
           { lv: 1, move: "Amnesia" },
@@ -10448,7 +10448,7 @@
           "Ice Beam",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Mimic",
           "Double Team",
           "Reflect",
@@ -10472,15 +10472,15 @@
       {
         id: 144,
         name: "Articuno",
-        types: ["Ice", "Flying"],
+        types: ["Gelo", "Voador"],
         abilities: ["Pressure"],
         hiddenAbility: "Snow Cloak",
         evolution: { chain: [144], methods: [] },
-        weaknesses: { "2x": ["Fire", "Electric", "Rock", "Steel"], "4x": [] },
+        weaknesses: { "2x": ["Fogo", "Elétrico", "Pedra", "Metal"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Ground", "Ice"],
+          "0.5x": ["Grama", "Inseto", "Terra", "Gelo"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Gust" },
@@ -10516,15 +10516,15 @@
       {
         id: 145,
         name: "Zapdos",
-        types: ["Electric", "Flying"],
+        types: ["Elétrico", "Voador"],
         abilities: ["Pressure"],
         hiddenAbility: "Static",
         evolution: { chain: [145], methods: [] },
-        weaknesses: { "2x": ["Ice", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Gelo", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Flying", "Steel", "Fighting", "Electric"],
+          "0.5x": ["Grama", "Inseto", "Voador", "Metal", "Lutador", "Elétrico"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Peck" },
@@ -10560,15 +10560,15 @@
       {
         id: 146,
         name: "Moltres",
-        types: ["Fire", "Flying"],
+        types: ["Fogo", "Voador"],
         abilities: ["Pressure"],
         hiddenAbility: "Flame Body",
         evolution: { chain: [146], methods: [] },
-        weaknesses: { "2x": ["Water", "Electric", "Rock"], "4x": [] },
+        weaknesses: { "2x": ["Água", "Elétrico", "Pedra"], "4x": [] },
         resistances: {
-          "0.5x": ["Grass", "Bug", "Fighting", "Fire", "Steel", "Fairy"],
+          "0.5x": ["Grama", "Inseto", "Lutador", "Fogo", "Metal", "Fada"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Wing Attack" },
@@ -10603,13 +10603,13 @@
       {
         id: 147,
         name: "Dratini",
-        types: ["Dragon"],
+        types: ["Dragão"],
         abilities: ["Shed Skin"],
         hiddenAbility: "Marvel Scale",
         evolution: { chain: [147, 148, 149], methods: ["Lv.30", "Lv.55"] },
-        weaknesses: { "2x": ["Ice", "Dragon", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Gelo", "Dragão", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Electric", "Grass"],
+          "0.5x": ["Fogo", "Água", "Elétrico", "Grama"],
           "0.25x": [],
           immune: [],
         },
@@ -10646,13 +10646,13 @@
       {
         id: 148,
         name: "Dragonair",
-        types: ["Dragon"],
+        types: ["Dragão"],
         abilities: ["Shed Skin"],
         hiddenAbility: "Marvel Scale",
         evolution: { chain: [147, 148, 149], methods: ["Lv.30", "Lv.55"] },
-        weaknesses: { "2x": ["Ice", "Dragon", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Gelo", "Dragão", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Electric", "Grass"],
+          "0.5x": ["Fogo", "Água", "Elétrico", "Grama"],
           "0.25x": [],
           immune: [],
         },
@@ -10691,15 +10691,15 @@
       {
         id: 149,
         name: "Dragonite",
-        types: ["Dragon", "Flying"],
+        types: ["Dragão", "Voador"],
         abilities: ["Inner Focus"],
         hiddenAbility: "Multiscale",
         evolution: { chain: [147, 148, 149], methods: ["Lv.30", "Lv.55"] },
-        weaknesses: { "2x": ["Ice", "Rock", "Dragon", "Fairy"], "4x": [] },
+        weaknesses: { "2x": ["Gelo", "Pedra", "Dragão", "Fada"], "4x": [] },
         resistances: {
-          "0.5x": ["Fire", "Water", "Electric", "Grass", "Bug", "Fighting"],
+          "0.5x": ["Fogo", "Água", "Elétrico", "Grama", "Inseto", "Lutador"],
           "0.25x": [],
-          immune: ["Ground"],
+          immune: ["Terra"],
         },
         levelMoves: [
           { lv: 1, move: "Wrap" },
@@ -10740,13 +10740,13 @@
       {
         id: 150,
         name: "Mewtwo",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Pressure"],
         hiddenAbility: "Unnerve",
         evolution: { chain: [150], methods: [] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -10756,7 +10756,7 @@
           { lv: 63, move: "Psywave" },
           { lv: 66, move: "Barrier" },
           { lv: 70, move: "Swift" },
-          { lv: 75, move: "Psychic" },
+          { lv: 75, move: "Psíquico" },
           { lv: 81, move: "Recover" },
           { lv: 88, move: "Mist" },
           { lv: 90, move: "Amnesia" },
@@ -10777,7 +10777,7 @@
           "Ice Beam",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -10803,13 +10803,13 @@
       {
         id: 151,
         name: "Mew",
-        types: ["Psychic"],
+        types: ["Psíquico"],
         abilities: ["Synchronize"],
         hiddenAbility: null,
         evolution: { chain: [151], methods: [] },
-        weaknesses: { "2x": ["Bug", "Ghost", "Dark"], "4x": [] },
+        weaknesses: { "2x": ["Inseto", "Fantasma", "Dark"], "4x": [] },
         resistances: {
-          "0.5x": ["Fighting", "Psychic"],
+          "0.5x": ["Lutador", "Psíquico"],
           "0.25x": [],
           immune: [],
         },
@@ -10818,7 +10818,7 @@
           { lv: 10, move: "Transform" },
           { lv: 20, move: "Mega Punch" },
           { lv: 30, move: "Metronome" },
-          { lv: 40, move: "Psychic" },
+          { lv: 40, move: "Psíquico" },
         ],
         tmMoves: [
           "Mega Punch",
@@ -10837,7 +10837,7 @@
           "Ice Beam",
           "Thunderbolt",
           "Thunder",
-          "Psychic",
+          "Psíquico",
           "Teleport",
           "Mimic",
           "Double Team",
@@ -10882,21 +10882,21 @@
     // =====================================================
     const TYPE_COLORS = {
       Normal: "#a8a878",
-      Fire: "#f08030",
-      Water: "#6890f0",
-      Electric: "#f8d030",
-      Grass: "#78c850",
-      Ice: "#98d8d8",
-      Fighting: "#c03028",
-      Poison: "#a040a0",
-      Ground: "#e0c068",
-      Flying: "#a890f0",
-      Psychic: "#f85888",
-      Bug: "#a8b820",
-      Rock: "#b8a038",
-      Ghost: "#705898",
-      Dragon: "#7038f8",
-      Steel: "#b8b8d0",
+      Fogo: "#f08030",
+      Água: "#6890f0",
+      Elétrico: "#f8d030",
+      Grama: "#78c850",
+      Gelo: "#98d8d8",
+      Lutador: "#c03028",
+      Veneno: "#a040a0",
+      Terra: "#e0c068",
+      Voador: "#a890f0",
+      Psíquico: "#f85888",
+      Inseto: "#a8b820",
+      Pedra: "#b8a038",
+      Fantasma: "#705898",
+      Dragão: "#7038f8",
+      Metal: "#b8b8d0",
     };
 
     // =====================================================
@@ -10921,6 +10921,15 @@
       "Moon Stone":
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moon-stone.png",
     };
+
+    const STONE_NAMES_PT = {
+      "Fire Stone": "Pedra do Fogo",
+      "Water Stone": "Pedra da Água",
+      "Thunder Stone": "Pedra do Trovão",
+      "Leaf Stone": "Pedra da Folha",
+      "Moon Stone": "Pedra Lunar"
+    };
+
 
     const STONE_COLORS = {
       "Fire Stone": "#e63946",
@@ -11105,21 +11114,21 @@
       stopTypeEffect();
 
       const effects = {
-        Steel: { emoji: null, color: "#b8b8d0", type: "metal" },
-        Ice: { emoji: null, color: "#98d8d8", type: "snow" },
-        Water: { emoji: null, color: "#6890f0", type: "rain" },
-        Fire: { emoji: null, color: "#f08030", type: "ember" },
-        Electric: { emoji: null, color: "#f8d030", type: "spark" },
-        Grass: { emoji: null, color: "#78c850", type: "leaf" },
-        Psychic: { emoji: null, color: "#f85888", type: "orb" },
-        Ghost: { emoji: null, color: "#705898", type: "ghost" },
-        Dragon: { emoji: null, color: "#7038f8", type: "scale" },
-        Poison: { emoji: null, color: "#a040a0", type: "bubble" },
-        Ground: { emoji: null, color: "#e0c068", type: "sand" },
-        Rock: { emoji: null, color: "#b8a038", type: "rock" },
-        Bug: { emoji: null, color: "#a8b820", type: "bug" },
-        Flying: { emoji: null, color: "#a890f0", type: "wind" },
-        Fighting: { emoji: null, color: "#c03028", type: "fist" },
+        Metal: { emoji: null, color: "#b8b8d0", type: "metal" },
+        Gelo: { emoji: null, color: "#98d8d8", type: "snow" },
+        Água: { emoji: null, color: "#6890f0", type: "rain" },
+        Fogo: { emoji: null, color: "#f08030", type: "ember" },
+        Elétrico: { emoji: null, color: "#f8d030", type: "spark" },
+        Grama: { emoji: null, color: "#78c850", type: "leaf" },
+        Psíquico: { emoji: null, color: "#f85888", type: "orb" },
+        Fantasma: { emoji: null, color: "#705898", type: "Fantasma" },
+        Dragão: { emoji: null, color: "#7038f8", type: "scale" },
+        Veneno: { emoji: null, color: "#a040a0", type: "bubble" },
+        Terra: { emoji: null, color: "#e0c068", type: "sand" },
+        Pedra: { emoji: null, color: "#b8a038", type: "Pedra" },
+        Inseto: { emoji: null, color: "#a8b820", type: "Inseto" },
+        Voador: { emoji: null, color: "#a890f0", type: "wind" },
+        Lutador: { emoji: null, color: "#c03028", type: "fist" },
         Normal: { emoji: null, color: "#a8a878", type: "star" },
       };
 
@@ -11219,7 +11228,7 @@
             color, type: "orb",
             pulse: Math.random() * Math.PI * 2
           };
-          case "ghost": return {
+          case "Fantasma": return {
             x: Math.random() * vw, y: vh + 20,
             size: 8 + Math.random() * 16,
             speedX: (Math.random() - 0.5) * 1,
@@ -11227,7 +11236,7 @@
             opacity: 0,
             maxOpacity: 0.1 + Math.random() * 0.15,
             fadeIn: true,
-            color, type: "ghost",
+            color, type: "Fantasma",
             wobble: Math.random() * Math.PI * 2
           };
           case "bubble": return {
@@ -11274,7 +11283,7 @@
         const p = createParticle();
         // Distribui verticalmente no spawn inicial
         if (["snow", "leaf", "star"].includes(effect.type)) p.y = Math.random() * canvas.height;
-        if (["ember", "bubble", "ghost"].includes(effect.type)) p.y = Math.random() * canvas.height;
+        if (["ember", "bubble", "Fantasma"].includes(effect.type)) p.y = Math.random() * canvas.height;
         typeEffectParticles.push(p);
       }
 
@@ -11378,7 +11387,7 @@
             ctx.fill();
             break;
 
-          case "ghost":
+          case "Fantasma":
             ctx.translate(p.x + Math.sin(p.wobble) * 5, p.y);
             ctx.fillStyle = p.color;
             ctx.beginPath();
@@ -11460,7 +11469,7 @@
             if (p.opacity >= p.maxOpacity) p.fadeIn = false;
           }
         }
-        if (p.type === "ghost") {
+        if (p.type === "Fantasma") {
           p.wobble += 0.05;
           if (p.fadeIn) {
             p.opacity = Math.min(p.opacity + 0.003, p.maxOpacity);
@@ -11695,6 +11704,8 @@
     }
 
     function renderStoneFilters() {
+
+
       const container = document.getElementById("stone-filter-buttons");
 
       // Guarda posições antigas antes de recriar os botões
@@ -11720,7 +11731,7 @@
         btn.dataset.stone = stone;
         const stoneColor = STONE_COLORS[stone] || "#a855f7";
         btn.className = `filter-btn stone-filter-btn ${stoneFilter === stone ? "active" : ""}`;
-        btn.innerHTML = `<img src="${STONE_SPRITES[stone]}" alt="${stone}" class="stone-icon" loading="lazy"/> ${stone}`;
+        btn.innerHTML = `<img src="${STONE_SPRITES[stone]}" alt="${stone}" class="stone-icon" loading="lazy"/> ${STONE_NAMES_PT[stone] || stone}`;
         btn.style.background = stoneFilter === stone ? stoneColor : "var(--surface2)";
         btn.style.color = stoneFilter === stone ? "white" : "var(--text-muted)";
         btn.style.border = "none";
@@ -11749,6 +11760,7 @@
         }
         container.appendChild(btn);
       });
+
 
       // ===== ANIMAÇÃO (FLIP) =====
       container
@@ -11816,16 +11828,16 @@
           evoNames.length > 1 ? evoNames.join(" → ") : "Sem evolução";
 
         const weaknesses = [
-          ...(p.weaknesses["4x"] || []).filter(t => t !== "Electric").map(
+          ...(p.weaknesses["4x"] || []).filter(t => t !== "Elétrico").map(
             (t) => `<span class="weakness-chip weakness-4x" style="background:${TYPE_COLORS[t] || "#888"}">${t} 4×</span>`
           ),
-          ...(p.weaknesses["2x"] || []).filter(t => t !== "Electric").map(
+          ...(p.weaknesses["2x"] || []).filter(t => t !== "Elétrico").map(
             (t) => `<span class="weakness-chip" style="background:${TYPE_COLORS[t] || "#888"}">${t} 2×</span>`
           ),
-          ...(p.weaknesses["4x"] || []).filter(t => t === "Electric").map(
+          ...(p.weaknesses["4x"] || []).filter(t => t === "Elétrico").map(
             (t) => `<span class="weakness-chip weakness-4x" style="background:${TYPE_COLORS[t] || "#888"}">${t} 4×</span>`
           ),
-          ...(p.weaknesses["2x"] || []).filter(t => t === "Electric").map(
+          ...(p.weaknesses["2x"] || []).filter(t => t === "Elétrico").map(
             (t) => `<span class="weakness-chip" style="background:${TYPE_COLORS[t] || "#888"}">${t} 2×</span>`
           ),
         ].join("") || "<span style='color:var(--text-dim);font-size:11px'>Nenhuma</span>";
@@ -12300,16 +12312,16 @@
     const ABILITY_DESCRIPTIONS = {
       // Starters
       Overgrow:
-        "Aumenta o poder dos golpes do tipo Grass em 1.5× quando o HP está abaixo de 1/3.",
+        "Aumenta o poder dos golpes do tipo Grama em 1.5× quando o HP está abaixo de 1/3.",
       Chlorophyll: "Dobra a velocidade do Pokémon durante sol intenso.",
       Blaze:
-        "Aumenta o poder dos golpes do tipo Fire em 1.5× quando o HP está abaixo de 1/3.",
+        "Aumenta o poder dos golpes do tipo Fogo em 1.5× quando o HP está abaixo de 1/3.",
       "Solar Power":
         "Aumenta o Ataque Especial em 1.5× sob sol intenso, mas perde HP a cada turno.",
       Torrent:
-        "Aumenta o poder dos golpes do tipo Water em 1.5× quando o HP está abaixo de 1/3.",
+        "Aumenta o poder dos golpes do tipo Água em 1.5× quando o HP está abaixo de 1/3.",
       "Rain Dish": "Recupera 1/16 do HP máximo a cada turno durante chuva.",
-      // Bug
+      // Inseto
       "Shield Dust": "Bloqueia efeitos secundários de golpes do oponente.",
       "Run Away":
         "Garante fuga bem-sucedida de batalhas contra Pokémon selvagens.",
@@ -12319,16 +12331,16 @@
       "Tinted Lens":
         "Dobra o poder de golpes que seriam 'não muito eficazes'.",
       Swarm:
-        "Aumenta o poder dos golpes do tipo Bug em 1.5× quando o HP está abaixo de 1/3.",
+        "Aumenta o poder dos golpes do tipo Inseto em 1.5× quando o HP está abaixo de 1/3.",
       Sniper: "Golpes críticos causam 2.25× de dano em vez de 1.5×.",
-      // Birds / Normal-Flying
+      // Birds / Normal-Voador
       "Keen Eye": "Impede que a precisão seja reduzida pelo oponente.",
       "Tangled Feet": "Dobra a evasão quando está confuso.",
       "Big Pecks": "Impede que a defesa seja reduzida pelo oponente.",
       Guts: "Aumenta o Ataque em 1.5× quando afetado por um status (queimadura não reduz Ataque).",
       Hustle:
         "Aumenta o Ataque em 1.5×, mas reduz a precisão de golpes físicos em 20%.",
-      // Poison
+      // Veneno
       Intimidate:
         "Reduz o Ataque do oponente em 1 estágio ao entrar em campo.",
       Unnerve: "Impede que o oponente use suas Berries durante a batalha.",
@@ -12338,20 +12350,20 @@
         "Aumenta o poder em 25% contra Pokémon do mesmo gênero; reduz 25% contra gênero oposto.",
       "Sheer Force":
         "Remove os efeitos secundários dos golpes, mas aumenta seu poder em 30%.",
-      // Electric
+      // Elétrico
       Static:
         "30% de chance de paralisar o oponente ao ser atingido por golpe de contato.",
       "Lightning Rod":
         "Atrai todos os golpes elétricos, absorvendo-os e aumentando Ataque Especial em 1 estágio.",
       "Volt Absorb":
-        "Absorve golpes do tipo Electric e recupera 1/4 do HP máximo.",
+        "Absorve golpes do tipo Elétrico e recupera 1/4 do HP máximo.",
       "Quick Feet":
         "Aumenta a velocidade em 1.5× quando afetado por um status.",
-      // Ground
+      // Terra
       "Sand Veil": "Aumenta a evasão em 1.25× durante tempestade de areia.",
       "Sand Rush": "Dobra a velocidade durante tempestade de areia.",
       "Sand Force":
-        "Aumenta o poder de golpes Rock, Ground e Steel em 30% durante tempestade de areia.",
+        "Aumenta o poder de golpes Pedra, Terra e Metal em 30% durante tempestade de areia.",
       "Arena Trap": "Impede que Pokémon terrestres fujam ou sejam trocados.",
       // Normal
       "Cute Charm":
@@ -12367,18 +12379,18 @@
         "Pode pegar itens deixados pelo oponente ou encontrar itens aleatórios após a batalha.",
       Technician:
         "Aumenta o poder de golpes com potência base 60 ou menos em 50%.",
-      // Fire
+      // Fogo
       "Flash Fire":
-        "Absorve golpes do tipo Fire, tornando-se imune e aumentando o poder de seus golpes Fire.",
+        "Absorve golpes do tipo Fogo, tornando-se imune e aumentando o poder de seus golpes do tipo Fogo.",
       Drought: "Invoca sol intenso ao entrar em campo.",
       "Flame Body":
         "30% de chance de queimar o oponente ao ser atingido por golpe de contato.",
       "Vital Spirit": "Impede que o Pokémon adormeça.",
       Justified:
         "Aumenta o Ataque em 1 estágio ao ser atingido por um golpe do tipo Dark.",
-      // Water
+      // Água
       "Water Absorb":
-        "Absorve golpes do tipo Water e recupera 1/4 do HP máximo.",
+        "Absorve golpes do tipo Água e recupera 1/4 do HP máximo.",
       Damp: "Impede o uso de Self-Destruct e Explosion em batalha.",
       "Swift Swim": "Dobra a velocidade durante chuva.",
       "Cloud Nine": "Elimina os efeitos de clima enquanto estiver em campo.",
@@ -12386,8 +12398,8 @@
       Hydration: "Cura condições de status a cada turno durante chuva.",
       "Ice Body": "Recupera 1/16 do HP a cada turno durante granizo.",
       Torrent:
-        "Aumenta o poder dos golpes Water em 1.5× quando o HP está abaixo de 1/3.",
-      // Psychic
+        "Aumenta o poder dos golpes do tipo Água em 1.5× quando o HP está abaixo de 1/3.",
+      // Psíquico
       Synchronize:
         "Transmite queimadura, paralisia ou envenenamento ao oponente.",
       "Inner Focus": "Impede que o Pokémon recue (flinch).",
@@ -12407,13 +12419,13 @@
       Filter: "Reduz o dano de golpes super-eficazes em 25%.",
       Soundproof: "Torna o Pokémon imune a golpes sonoros.",
       "Wonder Skin": "Reduz a precisão de golpes de status para 50%.",
-      // Ghost/Poison
-      Levitate: "Torna o Pokémon imune a golpes do tipo Ground.",
+      // Fantasma/Veneno
+      Levitate: "Torna o Pokémon imune a golpes do tipo Terra.",
       "Cursed Body":
         "30% de chance de desativar o golpe do oponente após ser atingido.",
       "Neutralizing Gas":
         "Desativa as abilities de todos os Pokémon em campo enquanto estiver ativo.",
-      // Rock/Ground
+      // Pedra/Terra
       "Rock Head":
         "Impede que o Pokémon sofra dano de recuo de golpes de recuo.",
       Sturdy:
@@ -12422,7 +12434,7 @@
         "Ao ser atingido por golpe físico, reduz Defesa mas aumenta Velocidade em 1 estágio.",
       Pressure: "Faz o oponente gastar 1 PP extra a cada golpe usado.",
       Reckless: "Aumenta o poder de golpes que causam dano de recuo em 20%.",
-      // Fighting
+      // Lutador
       "No Guard": "Todos os golpes do e para o Pokémon sempre acertam.",
       Steadfast: "Aumenta a Velocidade em 1 estágio ao recuar (flinch).",
       Defiant:
@@ -12432,7 +12444,7 @@
         "Aumenta o poder de golpes de soco em 20%, incluindo Fire Punch, Ice Punch e Thunder Punch.",
       // Others
       "Early Bird": "Acorda do sono no dobro da velocidade normal.",
-      "Thick Fat": "Reduz o dano de golpes Fire e Ice em 50%.",
+      "Thick Fat": "Reduz o dano de golpes Fogo e Gelo em 50%.",
       "Natural Cure": "Cura condições de status ao ser retirado de campo.",
       "Serene Grace": "Dobra a chance de efeitos secundários dos golpes.",
       Healer:
@@ -12442,7 +12454,7 @@
       Illuminate:
         "Não tem efeito em batalha. Aumenta a taxa de encontros com Pokémon selvagens.",
       "Magnet Pull":
-        "Impede que Pokémon do tipo Steel fujam ou sejam trocados.",
+        "Impede que Pokémon do tipo Metal fujam ou sejam trocados.",
       Aftermath:
         "Causa dano igual a 1/4 do HP do oponente ao ser derrotado por golpe de contato.",
       Limber: "Impede paralisia.",
@@ -12474,7 +12486,7 @@
       "Effect Spore":
         "30% de chance de infligir paralisia, sono ou envenenamento ao ser atingido por contato.",
       "Dry Skin":
-        "Recupera HP durante chuva, perde HP sob sol. Absorve Water, mas é mais fraco contra Fire.",
+        "Recupera HP durante chuva, perde HP sob sol. Absorve Água, mas é mais fraco contra Fogo.",
       "Water Veil": "Impede queimadura.",
       "Skill Link":
         "Golpes de múltiplos hits sempre acertam o número máximo de vezes.",
@@ -12482,7 +12494,7 @@
       Unburden:
         "Dobra a Velocidade após o item segurado ser consumido ou removido.",
       Scrappy:
-        "Permite acertar Pokémon do tipo Ghost com golpes Normal e Fighting.",
+        "Permite acertar Pokémon do tipo Fantasma com golpes Normal e Lutador.",
       "Rock Head":
         "Impede dano de recuo de golpes como Double-Edge e Take Down.",
       Illuminate: "Sem efeito em batalha.",
@@ -12527,7 +12539,7 @@
       19: "Morde qualquer coisa com seus dentes afiados que nunca param de crescer. Constrói ninhos escondidos em locais difíceis de encontrar e acessar. Muito esperto — aprende rapidamente onde encontrar comida.",
       20: "Seus dentes nunca param de crescer, por isso rói objetos duros constantemente. Suas garras traseiras longas e curvadas facilitam escalar superfícies. Pode roer através de paredes de concreto com facilidade.",
       21: "Apesar de ser pequeno, é extremamente valente e corajoso em batalha. Briga contra Pokémon muito maiores sem hesitar nem um pouco. Seu bico afiado e garras são suas principais armas ofensivas.",
-      22: "Com suas asas poderosas, voa a velocidades impressionantes sobre os campos. Usa seu bico longo como uma lança perfurante em combate direto. Tem a visão mais aguçada de todos os Pokémon do tipo Flying.",
+      22: "Com suas asas poderosas, voa a velocidades impressionantes sobre os campos. Usa seu bico longo como uma lança perfurante em combate direto. Tem a visão mais aguçada de todos os Pokémon do tipo Voador.",
       23: "Enrola-se ao redor de sua presa e aperta até ela perder os sentidos. Seus padrões corporais únicos intimidam oponentes antes do ataque. Pode imobilizar presas muito maiores com sua força de compressão.",
       24: "Os padrões em sua barriga variam por região, como dialetos regionais. Paralisa presas com seu olhar fixo e aterrorizante de cobra. Seu veneno é poderoso o suficiente para derrubar grandes Pokémon.",
       25: "Quando vários se reúnem, sua eletricidade combinada causa tempestades. Os sacos nas bochechas armazenam eletricidade que libera ao se defender. Guarda-se em florestas densas onde recarrega sua energia.",
@@ -12586,7 +12598,7 @@
       78: "Corre a incríveis 240 km/h sem demonstrar absolutamente nenhum cansaço. Sua juba fica totalmente em chamas quando galopa em velocidade máxima. Não sente absolutamente nenhuma dor em batalha pela sua resistência.",
       79: "Extremamente lento e preguiçoso em absolutamente tudo que faz. Só reage a estímulos externos após 5 segundos de atraso perceptível. Gosta de ficar parado em água morna tomando sol o dia todo.",
       80: "Tem um Shellder preso em sua cauda que libera veneno continuamente. O veneno do Shellder aumenta seus poderes psíquicos significativamente. Apesar de lento, seus poderes psíquicos são excepcionalmente poderosos.",
-      81: "Criado espontaneamente por campos magnéticos intensos presentes na Terra. Vive perto de usinas de energia onde absorve eletricidade livremente. Flutua no ar usando magnetismo, nunca precisando tocar o chão.",
+      81: "Criado espontaneamente por campos magnéticos intensos presentes na terra. Vive perto de usinas de energia onde absorve eletricidade livremente. Flutua no ar usando magnetismo, nunca precisando tocar o chão.",
       82: "Três Magnemite unidos por força magnética intensa formam este Pokémon. A força magnética triplica ao anoitecer quando ficam mais ativos. Podem causar apagões em cidades inteiras quando estão com fome.",
       83: "Sempre carrega um talo fresco de cebolinha para onde quer que vá. Se o talo for roubado, fica tão triste que se recusa completamente a batalhar. Usa o talo como arma e instrumento musical ocasionalmente.",
       84: "Um Pokémon de duas cabeças que pensa com ambas simultaneamente e bem. Corre a impressionantes 150 km/h com suas duas pernas muito poderosas. As duas cabeças raramente concordam, mas lutam perfeitamente juntas.",
@@ -12711,7 +12723,7 @@
       "Dream Eater":
         "Consome os sonhos do alvo adormecido. Recupera metade do dano.",
       "Drill Peck":
-        "Bica giratória de alta rotação. Golpe poderoso do tipo Flying.",
+        "Bica giratória de alta rotação. Golpe poderoso do tipo Voador.",
       "Egg Bomb": "Arremessa um ovo enorme com força bruta.",
       Ember: "Lança pequenas chamas. 10% de chance de queimar o alvo.",
       Explosion:
@@ -12736,7 +12748,7 @@
         "Estimula o crescimento do corpo, elevando Ataque e Ataque Especial em 1 estágio.",
       Guillotine:
         "Corta o alvo com uma pinça gigante. Derrota instantaneamente se acertar.",
-      Gust: "Cria uma ventania que causa dano do tipo Flying.",
+      Gust: "Cria uma ventania que causa dano do tipo Voador.",
       Harden: "Endurece o corpo, elevando a Defesa em 1 estágio.",
       Haze: "Cria névoa que zera todos os boosts e debuffs de ambos os lados.",
       Headbutt:
@@ -12782,7 +12794,7 @@
         "Causa dano igual ao nível do usuário, independente dos stats.",
       "Pay Day":
         "Arremessa moedas no alvo. Ganha dinheiro extra após a batalha.",
-      Peck: "Bicada simples. Golpe físico básico do tipo Flying.",
+      Peck: "Bicada simples. Golpe físico básico do tipo Voador.",
       "Petal Dance":
         "Ataca furiosamente por 2–3 turnos, depois fica confuso.",
       "Pin Missile": "Dispara pinos afiados 2–5 vezes seguidas.",
@@ -12792,14 +12804,14 @@
       Pound: "Golpe simples com as patas ou cauda.",
       "Powder Snow": "Sopra névoa gelada. 10% de chance de congelar o alvo.",
       Psybeam: "Dispara raio psíquico estranho. 10% de chance de confundir.",
-      Psychic:
+      Psíquico:
         "Ataque psíquico poderoso. 10% de chance de reduzir Defesa Especial.",
       Psywave: "Emite onda de energia aleatória que causa dano variável.",
       "Quick Attack":
         "Ataca com velocidade extrema. Tem prioridade aumentada.",
       Rage: "Fica furioso. Cada vez que sofre dano, o Ataque sobe 1 estágio.",
       "Rain Dance":
-        "Invoca chuva intensa por 5 turnos, fortalecendo golpes Water.",
+        "Invoca chuva intensa por 5 turnos, fortalecendo golpes de Água.",
       "Rapid Spin":
         "Gira rapidamente para causar dano e remover armadilhas de campo.",
       "Razor Leaf": "Dispara folhas afiadas com alta taxa de acerto crítico.",
@@ -12876,12 +12888,12 @@
         "Pica com dois ferrões venenosos. 20% de chance de envenenar.",
       "Vice Grip": "Aperta o alvo com garras ou pinças poderosas.",
       "Vine Whip": "Açoita o alvo com cipós flexíveis.",
-      "Water Gun": "Dispara jato d'água. Golpe Water básico e confiável.",
+      "Water Gun": "Dispara jato d'água. Golpe de Água básico e confiável.",
       Waterfall:
         "Sobe cachoeira e atinge o alvo. 20% de chance de fazer recuar.",
       Whirlwind:
         "Sopra vento forte que força o alvo a recuar. Encerra batalhas selvagens.",
-      "Wing Attack": "Golpeia com asas abertas. Golpe Flying confiável.",
+      "Wing Attack": "Golpeia com asas abertas. Golpe voador confiável.",
       Withdraw: "Recolhe-se na concha, elevando a Defesa em 1 estágio.",
       Wrap: "Enrola o alvo por 4–5 turnos causando dano a cada turno.",
       Cut: "Corta o alvo com garras ou uma lâmina afiada. Pode ser usado fora de batalha para cortar arbustos.",
@@ -12965,7 +12977,7 @@
       "Horn Drill":
         "Gira o chifre como uma broca. Derrota instantaneamente se acertar. Falha em alvos de nível mais alto.",
       "Hydro Pump":
-        "Lança um jato d'água de altíssima pressão. Um dos golpes Water mais poderosos.",
+        "Lança um jato d'água de altíssima pressão. Um dos golpes de Água mais poderosos.",
       "Hyper Fang":
         "Morde furiosamente com dentes enormes e afiados. 10% de chance de fazer recuar.",
       "Jump Kick":
@@ -13004,7 +13016,7 @@
         "Ataca com velocidade extrema antes do oponente. Tem prioridade +1.",
       Rage: "Ataca com fúria crescente. Cada golpe recebido aumenta o Ataque em 1 estágio.",
       "Rain Dance":
-        "Invoca chuva torrencial por 5 turnos, fortalecendo golpes Water e enfraquecendo Fire.",
+        "Invoca chuva torrencial por 5 turnos, fortalecendo golpes de Água e enfraquecendo Fogo.",
       "Rapid Spin":
         "Gira rapidamente para golpear e remover armadilhas de campo como espinhos.",
       Roar: "Berra aterrorizando o alvo, forçando-o a recuar. Em batalha selvagem, encerra o combate.",
@@ -13017,7 +13029,7 @@
       Sharpen:
         "Aguça o contorno do corpo em ângulos retos, elevando o Ataque em 1 estágio.",
       "Sky Attack":
-        "O golpe mais poderoso do tipo Flying. Carrega no 1º turno, ataca no 2º. 30% de recuo.",
+        "O golpe mais poderoso do tipo Voador. Carrega no 1º turno, ataca no 2º. 30% de recuo.",
       Slam: "Golpeia violentamente o alvo com uma cauda longa ou tentáculo.",
       Smog: "Expele uma fumaça repugnante e tóxica. 40% de chance de envenenar o alvo.",
       Softboiled:
@@ -13083,7 +13095,7 @@
         "Usa técnica hipnótica para adormecer o alvo. Precisão moderada.",
       "Light Screen":
         "Barreira de luz que reduz dano de golpes especiais à metade por 5 turnos.",
-      Psychic:
+      Psíquico:
         "Golpe psíquico de alta potência. 10% de chance de reduzir Defesa Especial do alvo.",
       Recover:
         "Canaliza energia vital para recuperar exatamente metade do HP máximo.",
@@ -13124,7 +13136,7 @@
       Bubblebeam:
         "Dispara rajada de bolhas pressurizada. 10% de chance de reduzir Velocidade.",
       "Water Gun":
-        "Dispara um jato d'água direto. Golpe Water básico e confiável.",
+        "Dispara um jato d'água direto. Golpe de Água básico e confiável.",
       Waterfall:
         "Sobe uma correnteza e mergulha sobre o alvo. 20% de chance de fazer recuar.",
       Surf: "Invoca uma onda gigante que atinge todos. Pode ser usado para nadar fora de batalha.",
@@ -13176,7 +13188,7 @@
         "Abre uma fenda abissal sob o alvo. Derrota instantaneamente se acertar.",
       "Horn Attack":
         "Perfura o alvo com um chifre afiado. Golpe físico direto sem efeitos extras.",
-      Peck: "Bicada rápida e direta. Golpe físico básico do tipo Flying.",
+      Peck: "Bicada rápida e direta. Golpe físico básico do tipo Voador.",
       Gust: "Cria uma rajada de vento cortante. Atinge Pokémon que estão voando.",
       Pound:
         "Golpeia com as patas traseiras ou cauda. O golpe mais primário de todos.",
@@ -13537,20 +13549,20 @@
     function getHint(p) {
       const tipoEmoji = (t) =>
         ({
-          Fire: "",
-          Water: "",
-          Grass: "",
-          Electric: "",
-          Psychic: "",
-          Ice: "",
-          Fighting: "",
-          Poison: "",
-          Ground: "",
-          Flying: "",
-          Rock: "",
-          Bug: "",
-          Ghost: "",
-          Dragon: "",
+          Fogo: "",
+          Água: "",
+          Grama: "",
+          Elétrico: "",
+          Psíquico: "",
+          Gelo: "",
+          Lutador: "",
+          Veneno: "",
+          Terra: "",
+          Voador: "",
+          Pedra: "",
+          Inseto: "",
+          Fantasma: "",
+          Dragão: "",
           Normal: "",
         })[t] || "";
       const tipos = p.types.map((t) => `${tipoEmoji(t)} ${t}`).join(" / ");
@@ -14550,30 +14562,30 @@
       const moves = allMoves(p);
 
       const STAB_MOVES = {
-        Fire: [
+        Fogo: [
           "Flamethrower",
           "Fire Blast",
           "Fire Punch",
           "Ember",
           "Fire Spin",
         ],
-        Water: ["Surf", "Hydro Pump", "Bubblebeam", "Water Gun", "Bubble"],
-        Grass: [
+        Água: ["Surf", "Hydro Pump", "Bubblebeam", "Water Gun", "Bubble"],
+        Grama: [
           "Solar Beam",
           "Razor Leaf",
           "Mega Drain",
           "Vine Whip",
           "Petal Dance",
         ],
-        Electric: [
+        Elétrico: [
           "Thunderbolt",
           "Thunder",
           "Thunder Punch",
           "Thunder Shock",
         ],
-        Psychic: ["Psychic", "Psybeam"],
+        Psíquico: ["Psíquico", "Psybeam"],
         Ice: ["Blizzard", "Ice Beam", "Ice Punch", "Powder Snow"],
-        Fighting: [
+        Lutador: [
           "Submission",
           "Hi Jump Kick",
           "Jump Kick",
@@ -14581,13 +14593,13 @@
           "Low Kick",
           "Seismic Toss",
         ],
-        Ground: ["Earthquake", "Dig", "Fissure"],
-        Rock: ["Rock Slide", "Rock Throw"],
-        Ghost: ["Night Shade", "Lick"],
-        Poison: ["Sludge", "Toxic", "Poison Sting"],
-        Bug: ["Pin Missile", "Twineedle", "Leech Life"],
-        Flying: ["Wing Attack", "Drill Peck", "Sky Attack", "Gust"],
-        Dragon: ["Dragon Rage"],
+        Terra: ["Earthquake", "Dig", "Fissure"],
+        Pedra: ["Rock Slide", "Rock Throw"],
+        Fantasma: ["Night Shade", "Lick"],
+        Veneno: ["Sludge", "Toxic", "Poison Sting"],
+        Inseto: ["Pin Missile", "Twineedle", "Leech Life"],
+        voador: ["Wing Attack", "Drill Peck", "Sky Attack", "Gust"],
+        Dragão: ["Dragon Rage"],
         Normal: ["Body Slam", "Double Edge", "Hyper Beam", "Slam"],
       };
 
@@ -14633,7 +14645,7 @@
         "Ice Beam",
         "Thunderbolt",
         "Thunder",
-        "Psychic",
+        "Psíquico",
         "Surf",
         "Flamethrower",
         "Fire Blast",
@@ -14658,20 +14670,20 @@
 
       const tipoEmoji = (t) =>
         ({
-          Fire: "",
-          Water: "",
-          Grass: "",
-          Electric: "",
-          Psychic: "",
-          Ice: "",
-          Fighting: "",
-          Poison: "",
-          Ground: "",
-          Flying: "",
-          Rock: "",
-          Bug: "",
-          Ghost: "",
-          Dragon: "",
+          Fogo: "",
+          Água: "",
+          Grama: "",
+          Elétrico: "",
+          Psíquico: "",
+          Gelo: "",
+          Lutador: "",
+          Veneno: "",
+          Terra: "",
+          Voador: "",
+          Pedra: "",
+          Inseto: "",
+          Fantasma: "",
+          Dragão: "",
           Normal: "",
         })[t] || "";
       const tipoCor = (t) => TYPE_COLORS[t] || "#888";
@@ -14701,7 +14713,7 @@
         if (["Blizzard", "Ice Beam", "Ice Punch"].includes(mv)) return "❄️";
         if (
           [
-            "Psychic",
+            "Psíquico",
             "Psybeam",
             "Recover",
             "Amnesia",
@@ -14761,12 +14773,12 @@
         if (HIGH_CRIT.includes(mv)) return "Alto crit rate Gen 1";
         if (mv === "Earthquake") return "Cobertura universal";
         if (["Blizzard", "Ice Beam"].includes(mv))
-          return "Cobre Dragon/Flying/Grass";
+          return "Cobre Dragão/Voador/Grama";
         if (["Thunderbolt", "Thunder"].includes(mv))
-          return "Cobre Water/Flying";
+          return "Cobre Água/Voador";
         if (mv === "Seismic Toss") return "Dano fixo confiável";
-        if (mv === "Rock Slide") return "Cobre Fire/Flying/Bug";
-        if (mv === "Psychic") return "Meta dominante Gen 1";
+        if (mv === "Rock Slide") return "Cobre Fogo/Voador/Inseto";
+        if (mv === "Psíquico") return "Meta dominante Gen 1";
         return "Cobertura complementar";
       };
 
@@ -14838,475 +14850,475 @@
           id: 3,
           papel: "Special Attacker",
           motivo: "Sleep Powder + Solar Beam + Razor Leaf dominam",
-          cobre: ["Water", "Ground", "Rock"],
+          cobre: ["Água", "Terra", "Pedra"],
         },
         {
           id: 6,
           papel: "Mixed Sweeper",
-          motivo: "Fire + Earthquake + Swords Dance — pressão total",
-          cobre: ["Grass", "Bug", "Fighting", "Ice"],
+          motivo: "Fogo + Earthquake + Swords Dance — pressão total",
+          cobre: ["Grama", "Inseto", "Lutador", "Gelo"],
         },
         {
           id: 9,
           papel: "Special Attacker",
           motivo: "Surf + Ice Beam + Blizzard cobre quase tudo",
-          cobre: ["Fire", "Rock", "Ground"],
+          cobre: ["Fogo", "Pedra", "Terra"],
         },
         {
           id: 12,
           papel: "Status Lead",
           motivo: "Sleep Powder + Stun Spore com Compound Eyes perfeito",
-          cobre: ["Fighting", "Ground"],
+          cobre: ["Lutador", "Terra"],
         },
         {
           id: 15,
           papel: "Physical Attacker",
           motivo: "Twineedle + Pin Missile + Agility surpreende",
-          cobre: ["Grass", "Fighting", "Ground"],
+          cobre: ["Grama", "Lutador", "Terra"],
         },
         {
           id: 18,
           papel: "Physical Sweeper",
           motivo: "Agility + Wing Attack + Mirror Move + Sky Attack",
-          cobre: ["Grass", "Bug", "Fighting"],
+          cobre: ["Grama", "Inseto", "Lutador"],
         },
         {
           id: 20,
           papel: "Disruptor",
           motivo: "Super Fang corta HP pela metade + Hyper Fang forte",
-          cobre: ["Normal", "Ghost"],
+          cobre: ["Normal", "Fantasma"],
         },
         {
           id: 22,
           papel: "Physical Sweeper",
           motivo: "Drill Peck + Agility + alta velocidade natural",
-          cobre: ["Grass", "Bug", "Fighting"],
+          cobre: ["Grama", "Inseto", "Lutador"],
         },
         {
           id: 24,
           papel: "Status / Tank",
           motivo: "Glare paralisa + Wrap prende + Intimidate",
-          cobre: ["Grass", "Fighting", "Poison"],
+          cobre: ["Grama", "Lutador", "Veneno"],
         },
         {
           id: 26,
-          papel: "Electric Sweeper",
-          motivo: "Thunderbolt + Surf surpreende Grounds",
-          cobre: ["Water", "Flying", "Ice"],
+          papel: "Eletric Sweeper",
+          motivo: "Thunderbolt + Surf surpreende Terras",
+          cobre: ["Água", "Voador", "Gelo"],
         },
         {
           id: 28,
           papel: "Physical Sweeper",
           motivo: "Slash com alto crit + Earthquake + Swords Dance",
-          cobre: ["Electric", "Poison", "Rock"],
+          cobre: ["Elétrico", "Veneno", "Pedra"],
         },
         {
           id: 31,
           papel: "Mixed Tank",
           motivo: "Body Slam + Earthquake + Surf — cobertura enorme",
-          cobre: ["Electric", "Rock", "Ground"],
+          cobre: ["Elétrico", "Pedra", "Terra"],
         },
         {
           id: 34,
           papel: "Mixed Attacker",
           motivo: "Earthquake + Megahorn + Thunderbolt — cobertura total",
-          cobre: ["Electric", "Poison", "Rock"],
+          cobre: ["Elétrico", "Veneno", "Pedra"],
         },
         {
           id: 36,
           papel: "Special Attacker",
           motivo: "Metronome + cobertura ampla via TMs — imprevisível",
-          cobre: ["Fighting", "Ghost"],
+          cobre: ["Lutador", "Fantasma"],
         },
         {
           id: 38,
           papel: "Special Attacker",
           motivo: "Flamethrower + Fire Spin + alta velocidade",
-          cobre: ["Grass", "Bug", "Ice", "Steel"],
+          cobre: ["Grama", "Inseto", "Gelo", "Metal"],
         },
         {
           id: 40,
           papel: "Bulky Support",
           motivo: "Sing + Double Edge + Metronome — bulk imenso",
-          cobre: ["Fighting", "Ghost"],
+          cobre: ["Lutador", "Fantasma"],
         },
         {
           id: 42,
           papel: "Status / Disruptor",
           motivo: "Confuse Ray + Leech Life + Wing Attack + Haze",
-          cobre: ["Grass", "Fighting", "Ground"],
+          cobre: ["Grama", "Lutador", "Terra"],
         },
         {
           id: 45,
           papel: "Status Attacker",
           motivo: "Sleep Powder + Solar Beam + Stun Spore",
-          cobre: ["Water", "Ground", "Fighting"],
+          cobre: ["Água", "Terra", "Lutador"],
         },
         {
           id: 47,
           papel: "Status Lead",
           motivo: "Spore 100% precisão + Slash + Swords Dance",
-          cobre: ["Water", "Ground", "Electric"],
+          cobre: ["Água", "Terra", "Elétrico"],
         },
         {
           id: 49,
           papel: "Status Lead",
-          motivo: "Sleep Powder + Psychic + cobertura de status variado",
-          cobre: ["Grass", "Fighting", "Ground"],
+          motivo: "Sleep Powder + Psíquico + cobertura de status variado",
+          cobre: ["Grama", "Lutador", "Terra"],
         },
         {
           id: 51,
           papel: "Speed Trap",
           motivo: "Arena Trap + Earthquake — força switches ruins",
-          cobre: ["Electric", "Poison", "Rock"],
+          cobre: ["Elétrico", "Veneno", "Pedra"],
         },
         {
           id: 53,
           papel: "Physical Sweeper",
           motivo: "Slash crit + Pay Day + Thunderbolt via TM",
-          cobre: ["Normal", "Ghost"],
+          cobre: ["Normal", "Fantasma"],
         },
         {
           id: 55,
           papel: "Special Attacker",
-          motivo: "Amnesia + Surf + Psychic + Ice Beam = combo top",
-          cobre: ["Fire", "Ground", "Rock"],
+          motivo: "Amnesia + Surf + Psíquico + Ice Beam = combo top",
+          cobre: ["Fogo", "Terra", "Pedra"],
         },
         {
           id: 57,
           papel: "Physical Sweeper",
           motivo: "Submission + Counter + alta velocidade",
-          cobre: ["Normal", "Ice", "Rock"],
+          cobre: ["Normal", "Gelo", "Pedra"],
         },
         {
           id: 59,
           papel: "Physical Attacker",
           motivo: "Intimidate + Flash Fire + velocidade alta",
-          cobre: ["Grass", "Bug", "Ice", "Poison"],
+          cobre: ["Grama", "Inseto", "Gelo", "Veneno"],
         },
         {
           id: 62,
           papel: "Mixed Attacker",
-          motivo: "Surf + Submission + Amnesia — Water/Fighting único",
-          cobre: ["Fire", "Rock", "Normal", "Ice"],
+          motivo: "Surf + Submission + Amnesia — Água/Lutador único",
+          cobre: ["Fogo", "Pedra", "Normal", "Gelo"],
         },
         {
           id: 65,
           papel: "Special Sweeper",
-          motivo: "Meta dominante — Psychic é o tipo mais forte da Gen 1",
-          cobre: ["Fighting", "Poison"],
+          motivo: "Meta dominante — Psíquico é o tipo mais forte da Gen 1",
+          cobre: ["Lutador", "Veneno"],
         },
         {
           id: 68,
           papel: "Physical Sweeper",
           motivo: "1000 socos em 2s — Submission + Earthquake + Counter",
-          cobre: ["Normal", "Ice", "Rock"],
+          cobre: ["Normal", "Gelo", "Pedra"],
         },
         {
           id: 71,
           papel: "Status Attacker",
           motivo: "Sleep Powder + Razor Leaf + Slam — imprevisível",
-          cobre: ["Water", "Ground", "Electric"],
+          cobre: ["Água", "Terra", "Elétrico"],
         },
         {
           id: 73,
           papel: "Defensive Tank",
           motivo: "Barrier + muitas resistências + Hydro Pump",
-          cobre: ["Fire", "Ground", "Rock"],
+          cobre: ["Fogo", "Terra", "Pedra"],
         },
         {
           id: 76,
           papel: "Wallbreaker",
           motivo: "Explosion garante KO garantido quando necessário",
-          cobre: ["Electric", "Normal", "Flying", "Poison"],
+          cobre: ["Elétrico", "Normal", "Voador", "Veneno"],
         },
         {
           id: 78,
           papel: "Physical Sweeper",
           motivo: "Agility + Fire Spin + alta velocidade natural",
-          cobre: ["Grass", "Bug", "Ice"],
+          cobre: ["Grama", "Inseto", "Gelo"],
         },
         {
           id: 80,
           papel: "Bulky Psychic",
-          motivo: "Amnesia + Surf + Psychic = combo devastador",
-          cobre: ["Fire", "Water", "Fighting", "Poison"],
+          motivo: "Amnesia + Surf + Psíquico = combo devastador",
+          cobre: ["Fogo", "Água", "Lutador", "Veneno"],
         },
         {
           id: 82,
           papel: "Special Wall",
-          motivo: "Imune a Poison + Thunder Wave + muitas resistências",
-          cobre: ["Normal", "Flying", "Ice", "Rock", "Dragon"],
+          motivo: "Imune a Veneno + Thunder Wave + muitas resistências",
+          cobre: ["Normal", "Voador", "Gelo", "Pedra", "Dragão"],
         },
         {
           id: 83,
           papel: "Physical Sweeper",
           motivo: "Swords Dance + Slash + alta crit rate",
-          cobre: ["Grass", "Bug", "Fighting"],
+          cobre: ["Grama", "Inseto", "Lutador"],
         },
         {
           id: 85,
           papel: "Physical Sweeper",
           motivo: "Drill Peck + Tri Attack + Agility — velocidade alta",
-          cobre: ["Grass", "Bug", "Fighting"],
+          cobre: ["Grama", "Inseto", "Lutador"],
         },
         {
           id: 87,
           papel: "Bulky Special",
           motivo: "Thick Fat + Ice Beam + Surf — muito resistente",
-          cobre: ["Fire", "Rock", "Dragon"],
+          cobre: ["Fogo", "Pedra", "Dragão"],
         },
         {
           id: 89,
           papel: "Tank / Disruptor",
           motivo: "Minimize + Explosion + muita bulk",
-          cobre: ["Grass", "Fighting", "Poison"],
+          cobre: ["Grama", "Lutador", "Veneno"],
         },
         {
           id: 91,
           papel: "Defensive Wall",
           motivo: "Shell Armor + resistências enormes + Blizzard",
-          cobre: ["Normal", "Flying", "Ice", "Bug"],
+          cobre: ["Normal", "Voador", "Gelo", "Inseto"],
         },
         {
           id: 94,
           papel: "Disruptor",
-          motivo: "Hypnosis + Thunderbolt — único Ghost jogável",
-          cobre: ["Normal", "Fighting", "Poison"],
+          motivo: "Hypnosis + Thunderbolt — único Fantasma jogável",
+          cobre: ["Normal", "Lutador", "Veneno"],
         },
         {
           id: 97,
           papel: "Psychic Support",
-          motivo: "Hypnosis + Psychic + Meditate — combo de controle",
-          cobre: ["Fighting", "Poison", "Ghost"],
+          motivo: "Hypnosis + Psíquico + Meditate — combo de controle",
+          cobre: ["Lutador", "Veneno", "Fantasma"],
         },
         {
           id: 99,
           papel: "Physical Attacker",
           motivo: "Crabhammer crit + Guillotine OHKO + Swords Dance",
-          cobre: ["Fire", "Ground", "Rock"],
+          cobre: ["Fogo", "Terra", "Pedra"],
         },
         {
           id: 101,
-          papel: "Electric Attacker",
+          papel: "Eletrick Attacker",
           motivo: "Explosion surpresa + Thunderbolt + alta velocidade",
-          cobre: ["Water", "Flying", "Ice"],
+          cobre: ["Água", "Voador", "Gelo"],
         },
         {
           id: 103,
           papel: "Special Attacker",
-          motivo: "Psychic + Sleep Powder = combo letal",
-          cobre: ["Water", "Ground", "Fighting"],
+          motivo: "Psíquico + Sleep Powder = combo letal",
+          cobre: ["Água", "Terra", "Lutador"],
         },
         {
           id: 105,
           papel: "Physical Tank",
           motivo: "Thick Fat + Bone Rush + Swords Dance",
-          cobre: ["Electric", "Poison"],
+          cobre: ["Elétrico", "Veneno"],
         },
         {
           id: 106,
           papel: "Physical Sweeper",
           motivo: "Hi Jump Kick + Mega Kick + Reckless = dano enorme",
-          cobre: ["Normal", "Ice", "Rock"],
+          cobre: ["Normal", "Gelo", "Pedra"],
         },
         {
           id: 107,
           papel: "Physical Fighter",
-          motivo: "Fire/Ice/Thunder Punch — cobertura física única",
-          cobre: ["Normal", "Ice", "Rock"],
+          motivo: "Fogo/Gelo/Thunder Punch — cobertura física única",
+          cobre: ["Normal", "Gelo", "Pedra"],
         },
         {
           id: 108,
           papel: "Utility Tank",
           motivo: "Wrap + Disable + Slam + Supersonic — disruptor único",
-          cobre: ["Normal", "Ghost"],
+          cobre: ["Normal", "Fantasma"],
         },
         {
           id: 110,
           papel: "Status / Tank",
           motivo: "Levitate + Explosion + Haze + Sludge",
-          cobre: ["Grass", "Fighting", "Poison"],
+          cobre: ["Grama", "Lutador", "Veneno"],
         },
         {
           id: 112,
           papel: "Physical Tank",
-          motivo: "Imune a Electric + Earthquake devastador",
-          cobre: ["Electric", "Normal", "Flying"],
+          motivo: "Imune a Elétrico + Earthquake devastador",
+          cobre: ["Elétrico", "Normal", "Voador"],
         },
         {
           id: 113,
           papel: "Suporte Puro",
           motivo: "Softboiled + Sing + Seismic Toss — melhor suporte",
-          cobre: ["Fighting", "Ghost"],
+          cobre: ["Lutador", "Fantasma"],
         },
         {
           id: 114,
           papel: "Status Attacker",
           motivo: "Sleep Powder + Bind + Slam + Growth",
-          cobre: ["Water", "Ground", "Electric"],
+          cobre: ["Água", "Terra", "Elétrico"],
         },
         {
           id: 115,
           papel: "Physical Attacker",
           motivo: "Mega Punch + Body Slam + Earthquake — muito versátil",
-          cobre: ["Normal", "Ghost"],
+          cobre: ["Normal", "Fantasma"],
         },
         {
           id: 117,
           papel: "Special Attacker",
           motivo: "Agility + Hydro Pump + Sniper ability",
-          cobre: ["Fire", "Ground", "Rock"],
+          cobre: ["Fogo", "Terra", "Pedra"],
         },
         {
           id: 119,
           papel: "Physical Attacker",
           motivo: "Horn Drill OHKO + Waterfall + Agility",
-          cobre: ["Fire", "Ground", "Rock"],
+          cobre: ["Fogo", "Terra", "Pedra"],
         },
         {
           id: 121,
           papel: "Utility / Tank",
           motivo: "Cobertura absurda + Recover. Um dos melhores",
-          cobre: ["Fire", "Rock", "Ground"],
+          cobre: ["Fogo", "Pedra", "Terra"],
         },
         {
           id: 122,
           papel: "Support / Wall",
-          motivo: "Barrier + Light Screen + Psychic — support top",
-          cobre: ["Fighting", "Poison"],
+          motivo: "Barrier + Light Screen + Psíquico — support top",
+          cobre: ["Lutador", "Veneno"],
         },
         {
           id: 123,
           papel: "Physical Sweeper",
           motivo: "Swords Dance + Slash + Agility — muito rápido",
-          cobre: ["Grass", "Bug", "Fighting"],
+          cobre: ["Grama", "Inseto", "Lutador"],
         },
         {
           id: 124,
           papel: "Status Lead",
-          motivo: "Lovely Kiss + Ice Punch + Psychic — combo único",
-          cobre: ["Dragon", "Flying", "Grass"],
+          motivo: "Lovely Kiss + Ice Punch + Psíquico — combo único",
+          cobre: ["Dragão", "Voador", "Grama"],
         },
         {
           id: 125,
           papel: "Electric Sweeper",
           motivo: "Thunder Punch + Ice Punch + Fire Punch = cobertura",
-          cobre: ["Water", "Flying", "Ice"],
+          cobre: ["Água", "Voador", "Gelo"],
         },
         {
           id: 126,
           papel: "Special Attacker",
           motivo: "Flamethrower + Confuse Ray + Fire Punch",
-          cobre: ["Grass", "Bug", "Ice"],
+          cobre: ["Grama", "Inseto", "Gelo"],
         },
         {
           id: 127,
           papel: "Physical Sweeper",
           motivo: "Swords Dance + Slash + alta crit rate",
-          cobre: ["Grass", "Fighting", "Ground"],
+          cobre: ["Grama", "Lutador", "Terra"],
         },
         {
           id: 128,
           papel: "Physical Attacker",
           motivo: "Body Slam paralisia + Hyper Beam + Sheer Force",
-          cobre: ["Normal", "Ghost"],
+          cobre: ["Normal", "Fantasma"],
         },
         {
           id: 130,
           papel: "Physical Sweeper",
           motivo: "Intimidate + dano físico enorme + Hyper Beam",
-          cobre: ["Fire", "Ground"],
+          cobre: ["Fogo", "Terra"],
         },
         {
           id: 131,
           papel: "Bulky Special",
-          motivo: "Bulk imenso + Water/Ice/Thunder + Sing",
-          cobre: ["Fire", "Rock", "Dragon", "Fighting"],
+          motivo: "Bulk imenso + Água/Gelo/Thunder + Sing",
+          cobre: ["Fogo", "Pedra", "Dragão", "Lutador"],
         },
         {
           id: 134,
           papel: "Bulky Attacker",
           motivo: "Water Absorb + Acid Armor + Hydro Pump",
-          cobre: ["Fire", "Ground", "Rock"],
+          cobre: ["Fogo", "Terra", "Pedra"],
         },
         {
           id: 135,
           papel: "Speed Control",
           motivo: "Velocidade alta + Thunder Wave + Thunderbolt",
-          cobre: ["Water", "Flying"],
+          cobre: ["Água", "Voador"],
         },
         {
           id: 136,
           papel: "Special Attacker",
           motivo: "Flash Fire + Flamethrower + alta velocidade",
-          cobre: ["Grass", "Bug", "Ice"],
+          cobre: ["Grama", "Inseto", "Gelo"],
         },
         {
           id: 137,
           papel: "Special Attacker",
           motivo: "Tri Attack + Thunderbolt + Ice Beam + Recover",
-          cobre: ["Normal", "Ghost"],
+          cobre: ["Normal", "Fantasma"],
         },
         {
           id: 139,
           papel: "Special Attacker",
           motivo: "Swift Swim + Shell Armor + Hydro Pump + Blizzard",
-          cobre: ["Fire", "Ground", "Flying"],
+          cobre: ["Fogo", "Terra", "Voador"],
         },
         {
           id: 141,
           papel: "Physical Sweeper",
           motivo: "Swords Dance + Slash + velocidade alta na água",
-          cobre: ["Fire", "Normal", "Flying", "Poison"],
+          cobre: ["Fogo", "Normal", "Voador", "Veneno"],
         },
         {
           id: 142,
           papel: "Physical Sweeper",
           motivo: "Agility + Wing Attack + Hyper Beam — muito rápido",
-          cobre: ["Grass", "Bug", "Fighting"],
+          cobre: ["Grama", "Inseto", "Lutador"],
         },
         {
           id: 143,
           papel: "Bulky Attacker",
           motivo: "Amnesia + Body Slam + Bulk imenso + Rest",
-          cobre: ["Fighting", "Ghost"],
+          cobre: ["Lutador", "Fantasma"],
         },
         {
           id: 144,
           papel: "Legendary Wall",
           motivo: "Bulk lendário + Blizzard + Agility",
-          cobre: ["Ground", "Grass", "Fighting", "Bug"],
+          cobre: ["Terra", "Grama", "Lutador", "Inseto"],
         },
         {
           id: 145,
           papel: "Special Sweeper",
           motivo: "Thunderbolt + Drill Peck + velocidade excepcional",
-          cobre: ["Water", "Flying", "Fighting"],
+          cobre: ["Água", "Voador", "Lutador"],
         },
         {
           id: 146,
           papel: "Special Attacker",
           motivo: "Fire Blast + Agility + Pressure — difícil de parar",
-          cobre: ["Grass", "Bug", "Ice", "Fighting"],
+          cobre: ["Grama", "Inseto", "Gelo", "Lutador"],
         },
         {
           id: 149,
           papel: "Mixed Sweeper",
           motivo: "Melhor da Gen 1 — cobertura e stats incomparáveis",
-          cobre: ["Fighting", "Bug", "Ground", "Electric"],
+          cobre: ["Lutador", "Inseto", "Terra", "Elétrico"],
         },
         {
           id: 150,
           papel: "Legendary Sweeper",
-          motivo: "O mais poderoso — Psychic + Amnesia + Recover",
-          cobre: ["Fighting", "Poison", "Ghost"],
+          motivo: "O mais poderoso — Psíquico + Amnesia + Recover",
+          cobre: ["Lutador", "Veneno", "Fantasma"],
         },
         {
           id: 151,
           papel: "Utility Total",
           motivo: "Aprende TODOS os TMs — versatilidade incomparável",
-          cobre: ["Fighting", "Poison", "Ghost"],
+          cobre: ["Lutador", "Veneno", "Fantasma"],
         },
       ];
 
@@ -15386,12 +15398,12 @@
           ].includes(m),
         );
         const isSpecial = p.types.some((t) =>
-          ["Psychic", "Water", "Ice", "Electric", "Fire", "Grass"].includes(
+          ["Psíquico", "Água", "Gelo", "Elétrico", "Fogo", "Grama"].includes(
             t,
           ),
         );
         const isPhysical = p.types.some((t) =>
-          ["Fighting", "Ground", "Rock", "Normal", "Flying"].includes(t),
+          ["Lutador", "Terra", "Pedra", "Normal", "Voador"].includes(t),
         );
 
         let papel, funcao, abilityName, natureName, evs;
@@ -15895,7 +15907,7 @@
     // =====================================================
 
     // =====================================================
-    // EASTER EGG: LENDÁRIOS VOADORES AUTOMÁTICOS
+    // EASTER EGG: LENDÁRIOS VOADOREES AUTOMÁTICOS
     // =====================================================
     const LEGENDARIES = [
       { id: 150, name: "Mewtwo", color: "168, 85, 247" },
@@ -15992,7 +16004,7 @@
       // Dispara a transição de movimento (precisa de 2 frames pro navegador registrar a posição inicial)
       // Torna visível
       requestAnimationFrame(() => {
-        img.classList.add("flying");
+        img.classList.add("voador");
       });
 
       // Animação de voo em zigue-zague (onda senoidal perpendicular à direção principal)
